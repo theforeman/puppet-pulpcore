@@ -1,0 +1,21 @@
+CONTENT_HOST = "<%= @fqdn %>"
+ANSIBLE_API_HOSTNAME = "<%= @fqdn %>"
+ANSIBLE_CONTENT_HOSTNAME = "https://<%= @fqdn %>/pulp_ansible/content/"
+PULP2_MONGODB = {"name": "pulp_database", "seeds": "localhost:27017"}
+SECRET_KEY = "TODO"
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '<%= scope['pulpcore::database_name'] %>',
+        'USER': '<%= scope['pulpcore::pulp_user'] %>',
+        'PASSWORD': 'secret',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+MEDIA_ROOT = "<%= scope['pulpcore::pulp_webserver_static_dir'] %>"
+REDIS_HOST = "localhost"
+REDIS_PORT = "<%= scope['redis::port'] %>"
+REDIS_DB = 3
+WORKING_DIRECTORY = "<%= scope['pulpcore::pulp_cache_dir'] %>"
+CONTENT_ORIGIN = "http://<%= scope['pulpcore::servername'] %>"

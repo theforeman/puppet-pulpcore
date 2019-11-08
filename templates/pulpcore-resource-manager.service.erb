@@ -1,0 +1,27 @@
+[Unit]
+Description=Pulp Resource Manager
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
+Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
+User=<%= scope['pulpcore::pulp_user'] %>
+WorkingDirectory=/var/run/pulpcore-resource-manager/
+RuntimeDirectory=pulpcore-resource-manager
+ExecStart=/usr/local/bin/rq worker \
+          -w pulpcore.tasking.worker.PulpWorker -n resource-manager@%%h \
+          --pid=/var/run/pulpcore-resource-manager/resource-manager.pid \
+          -c 'pulpcore.rqconfig' \
+          --disable-job-desc-logging
+
+SyslogIdentifier=pulpcore-resource-manager
+
+# This provides reconnect support for PostgreSQL and Redis. Without reconnect support, if either
+# is not available at startup or becomes disconnected, this process will die and not respawn.
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+
