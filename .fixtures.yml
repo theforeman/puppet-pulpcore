@@ -1,0 +1,11 @@
+fixtures:
+  repositories:
+    apache:           'https://github.com/puppetlabs/puppetlabs-apache'
+    augeas_core:
+      repo: 'https://github.com/puppetlabs/puppetlabs-augeas_core'
+      puppet_version: '>= 6.0.0'    
+    concat:           'https://github.com/puppetlabs/puppetlabs-concat'
+    postgresql:       'https://github.com/puppetlabs/puppetlabs-postgresql'
+    redis:            'https://github.com/voxpupuli/puppet-redis'
+    stdlib:           'https://github.com/puppetlabs/puppetlabs-stdlib'
+    systemd:          'https://github.com/camptocamp/puppet-systemd'
