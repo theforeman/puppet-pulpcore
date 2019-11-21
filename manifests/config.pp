@@ -1,22 +1,22 @@
 # Configures pulp3
 # @api private
 class pulpcore::config {
-  file { $pulpcore::pulp_config_dir:
+  file { $pulpcore::config_dir:
     ensure => directory,
   }
 
   file { $pulpcore::settings_file:
     ensure  => file,
     owner   => 'root',
-    group   => $pulpcore::pulp_group,
+    group   => $pulpcore::group,
     mode    => '0640',
     content => template('pulpcore/settings.py.erb'),
   }
 
-  file { [$pulpcore::pulp_user_home, $pulpcore::pulp_webserver_static_dir, $pulpcore::pulp_cache_dir]:
+  file { [$pulpcore::user_home, $pulpcore::webserver_static_dir, $pulpcore::cache_dir]:
     ensure => directory,
-    owner  => $pulpcore::pulp_user,
-    group  => $pulpcore::pulp_group,
+    owner  => $pulpcore::user,
+    group  => $pulpcore::group,
     mode   => '0755',
   }
 

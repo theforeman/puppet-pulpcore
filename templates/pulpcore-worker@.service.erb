@@ -8,8 +8,8 @@ EnvironmentFile=-/etc/default/pulp-workers
 EnvironmentFile=-/etc/default/pulp-workers-%i
 Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
-User=<%= scope['pulpcore::pulp_user'] %>
-Group=<%= scope['pulpcore::pulp_group'] %>
+User=<%= scope['pulpcore::user'] %>
+Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=/var/run/pulpcore-worker-%i/
 RuntimeDirectory=pulpcore-worker-%i
 ExecStart=/usr/local/bin/rq worker \

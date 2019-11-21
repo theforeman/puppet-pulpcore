@@ -1,27 +1,27 @@
 # Configure an Apache vhost
 # @api private
 class pulpcore::apache {
-  $pulp_api_path = '/pulp/api'
-  $pulp_api_url = "http://${pulpcore::pulp_api_host}:${pulpcore::pulp_api_port}/pulp/api"
-  $pulp_content_path = '/pulp/content'
-  $pulp_content_url = "http://${pulpcore::pulp_content_host}:${pulpcore::pulp_content_port}/pulp/content"
+  $api_path = '/pulp/api'
+  $api_url = "http://${pulpcore::api_host}:${pulpcore::api_port}/pulp/api"
+  $content_path = '/pulp/content'
+  $content_url = "http://${pulpcore::content_host}:${pulpcore::content_port}/pulp/content"
 
   include apache
   apache::vhost { 'pulp':
     servername => $pulpcore::servername,
     port       => 80,
     priority   => '10',
-    docroot    => $pulpcore::pulp_webserver_static_dir,
+    docroot    => $pulpcore::webserver_static_dir,
     proxy_pass => [
       {
-        'path'         => $pulp_api_path,
-        'url'          => $pulp_api_url,
-        'reverse_urls' => [$pulp_api_path, $pulp_api_url],
+        'path'         => $api_path,
+        'url'          => $api_url,
+        'reverse_urls' => [$api_path, $api_url],
       },
       {
-        'path'         => $pulp_content_path,
-        'url'          => $pulp_content_url,
-        'reverse_urls' => [$pulp_content_path, $pulp_content_url],
+        'path'         => $content_path,
+        'url'          => $content_url,
+        'reverse_urls' => [$content_path, $content_url],
       },
     ],
   }

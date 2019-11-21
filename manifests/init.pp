@@ -1,24 +1,59 @@
-# @summary A short summary of the purpose of this class
+# Manage your next generation Pulp server
 #
-# A description of what this class does
+# @param cache_dir
+#   Pulp cache directory
+#
+# @param config_dir
+#   Pulp configuration directory
+#
+# @param user
+#   Pulp user
+#
+# @param group
+#   Pulp user group
+#
+# @param user_home
+#   Pulp user home directory
+#
+# @param api_host
+#   API service host
+#
+# @param api_port
+#   API service port
+#
+# @param content_host
+#   Content service host
+#
+# @param content_port
+#   Content service port
+#
+# @param webserver_static_dir
+#   Directory for Pulp webserver static content
+#
+# @param postgresql_db_name
+#   Name of Pulp database
+#
+# @param postgresql_db_password
+#   Password of Pulp database
 #
 # @example
 #   include pulpcore
 class pulpcore (
-  Stdlib::Absolutepath $pulp_cache_dir = '/var/lib/pulpcore/tmp',
-  Stdlib::Absolutepath $pulp_config_dir = '/etc/pulpcore',
-  String $pulp_user = 'pulpcore',
-  String $pulp_group = 'pulpcore',
-  Stdlib::Absolutepath $pulp_user_home = '/var/lib/pulpcore',
-  Stdlib::Host $pulp_api_host = '127.0.0.1',
-  Stdlib::Port $pulp_api_port = 24817,
-  Stdlib::Host $pulp_content_host = '127.0.0.1',
-  Stdlib::Port $pulp_content_port = 24816,
-  Stdlib::Absolutepath $pulp_webserver_static_dir = '/var/lib/pulpcore/docroot',
-  String $database_name = 'pulpcore',
+  Stdlib::Absolutepath $cache_dir = '/var/lib/pulp/tmp',
+  Stdlib::Absolutepath $config_dir = '/etc/pulp',
+  String $user = 'pulp',
+  String $group = 'pulp',
+  Stdlib::Absolutepath $user_home = '/var/lib/pulp',
+  Stdlib::Host $api_host = '127.0.0.1',
+  Stdlib::Port $api_port = 24817,
+  Stdlib::Host $content_host = '127.0.0.1',
+  Stdlib::Port $content_port = 24816,
+  Stdlib::Absolutepath $webserver_static_dir = '/var/lib/pulp/docroot',
+  String $postgresql_db_name = 'pulpcore',
+  String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),
 ) {
 
-  $settings_file = "${pulp_config_dir}/settings.py"
+  $settings_file = "${config_dir}/settings.py"
   $servername = $facts['fqdn']
 
   include pulpcore::install

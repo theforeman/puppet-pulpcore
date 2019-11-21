@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
-User=<%= scope['pulpcore::pulp_user'] %>
+User=<%= scope['pulpcore::user'] %>
 WorkingDirectory=/var/run/pulpcore-resource-manager/
 RuntimeDirectory=pulpcore-resource-manager
 ExecStart=/usr/local/bin/rq worker \
