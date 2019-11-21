@@ -14,9 +14,9 @@ class pulpcore::database {
   }
 
   include postgresql::server
-  postgresql::server::db { $pulpcore::database_name:
-    user     => $pulpcore::pulp_user,
-    password => postgresql_password($pulpcore::pulp_user, 'secret'),
+  postgresql::server::db { $pulpcore::postgresql_db_name:
+    user     => $pulpcore::user,
+    password => postgresql_password($pulpcore::user, $pulpcore::postgresql_db_password),
   }
 
   exec { 'django-admin migrate --noinput':
@@ -26,7 +26,7 @@ class pulpcore::database {
       "PULP_SETTINGS=${pulpcore::settings_file}",
     ],
     refreshonly => true,
-    require     => Postgresql::Server::Db[$pulpcore::database_name],
+    require     => Postgresql::Server::Db[$pulpcore::postgresql_db_name],
   }
 
   include redis

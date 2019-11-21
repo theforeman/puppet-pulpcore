@@ -6,11 +6,11 @@ Wants=network-online.target
 [Service]
 Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
-User=<%= scope['pulpcore::pulp_user'] %>
+User=<%= scope['pulpcore::user'] %>
 PIDFile=/run/pulpcore-api.pid
 RuntimeDirectory=pulpcore-api
 ExecStart=/usr/local/bin/gunicorn pulpcore.app.wsgi:application \
-          --bind '<%= scope['pulpcore::pulp_api_host'] %>:<%= scope['pulpcore::pulp_api_port'] %>' \
+          --bind '<%= scope['pulpcore::api_host'] %>:<%= scope['pulpcore::api_port'] %>' \
           --access-logfile -
 ProtectSystem=full
 PrivateTmp=yes

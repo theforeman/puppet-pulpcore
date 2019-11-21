@@ -13,14 +13,14 @@ class pulpcore::install {
     require  => Package[$system_packages],
   }
 
-  user { $pulpcore::pulp_user:
+  user { $pulpcore::user:
     ensure     => present,
-    gid        => $pulpcore::pulp_group,
-    home       => $pulpcore::pulp_user_home,
+    gid        => $pulpcore::group,
+    home       => $pulpcore::user_home,
     managehome => false,
   }
 
-  group { $pulpcore::pulp_group:
+  group { $pulpcore::group:
     ensure => present,
   }
 

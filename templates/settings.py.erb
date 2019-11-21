@@ -6,16 +6,16 @@ SECRET_KEY = "TODO"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '<%= scope['pulpcore::database_name'] %>',
-        'USER': '<%= scope['pulpcore::pulp_user'] %>',
-        'PASSWORD': 'secret',
+        'NAME': '<%= scope['pulpcore::postgresql_db_name'] %>',
+        'USER': '<%= scope['pulpcore::user'] %>',
+        'PASSWORD': '<%= scope['pulpcore::postgresql_db_password'] %>',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
-MEDIA_ROOT = "<%= scope['pulpcore::pulp_webserver_static_dir'] %>"
+MEDIA_ROOT = "<%= scope['pulpcore::webserver_static_dir'] %>"
 REDIS_HOST = "localhost"
 REDIS_PORT = "<%= scope['redis::port'] %>"
 REDIS_DB = 3
-WORKING_DIRECTORY = "<%= scope['pulpcore::pulp_cache_dir'] %>"
+WORKING_DIRECTORY = "<%= scope['pulpcore::cache_dir'] %>"
 CONTENT_ORIGIN = "http://<%= scope['pulpcore::servername'] %>"
