@@ -6,23 +6,25 @@ class pulpcore::apache {
   $content_path = '/pulp/content'
   $content_url = "http://${pulpcore::content_host}:${pulpcore::content_port}/pulp/content"
 
-  include apache
-  apache::vhost { 'pulp':
-    servername => $pulpcore::servername,
-    port       => 80,
-    priority   => '10',
-    docroot    => $pulpcore::webserver_static_dir,
-    proxy_pass => [
-      {
-        'path'         => $api_path,
-        'url'          => $api_url,
-        'reverse_urls' => [$api_path, $api_url],
-      },
-      {
-        'path'         => $content_path,
-        'url'          => $content_url,
-        'reverse_urls' => [$content_path, $content_url],
-      },
-    ],
+  if $pulpcore::manage_apache {
+    include apache
+    apache::vhost { 'pulp':
+      servername => $pulpcore::servername,
+      port       => 80,
+      priority   => '10',
+      docroot    => $pulpcore::webserver_static_dir,
+      proxy_pass => [
+        {
+          'path'         => $api_path,
+          'url'          => $api_url,
+          'reverse_urls' => [$api_path, $api_url],
+        },
+        {
+          'path'         => $content_path,
+          'url'          => $content_url,
+          'reverse_urls' => [$content_path, $content_url],
+        },
+      ],
+    }
   }
 }

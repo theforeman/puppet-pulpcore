@@ -15,6 +15,9 @@
 # @param user_home
 #   Pulp user home directory
 #
+# @param manage_apache
+#   Deploy a separate apache vhost for pulp3
+#
 # @param api_host
 #   API service host
 #
@@ -44,6 +47,7 @@ class pulpcore (
   String $user = 'pulp',
   String $group = 'pulp',
   Stdlib::Absolutepath $user_home = '/var/lib/pulp',
+  Boolean $manage_apache = true,
   Stdlib::Host $api_host = '127.0.0.1',
   Stdlib::Port $api_port = 24817,
   Stdlib::Host $content_host = '127.0.0.1',
