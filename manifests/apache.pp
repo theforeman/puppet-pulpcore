@@ -2,9 +2,9 @@
 # @api private
 class pulpcore::apache {
   $api_path = '/pulp/api'
-  $api_url = "http://${pulpcore::api_host}:${pulpcore::api_port}/pulp/api"
+  $api_url = "http://${pulpcore::api_host}:${pulpcore::api_port}${api_path}"
   $content_path = '/pulp/content'
-  $content_url = "http://${pulpcore::content_host}:${pulpcore::content_port}/pulp/content"
+  $content_url = "http://${pulpcore::content_host}:${pulpcore::content_port}${content_path}"
 
   if $pulpcore::manage_apache {
     include apache
