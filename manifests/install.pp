@@ -3,7 +3,7 @@
 # @api private
 class pulpcore::install {
 
-  $system_packages = ['gcc', 'postgresql-devel', 'python3-pip', 'python3-devel', 'centos-release-scl-rh']
+  $system_packages = ['gcc', 'postgresql-devel', 'python3-pip', 'python3-devel']
 
   ensure_packages($system_packages)
 
