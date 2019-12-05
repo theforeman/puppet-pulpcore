@@ -17,12 +17,12 @@ class pulpcore::apache {
         {
           'path'         => $api_path,
           'url'          => $api_url,
-          'reverse_urls' => [$api_path, $api_url],
+          'reverse_urls' => [$api_url],
         },
         {
           'path'         => $content_path,
           'url'          => $content_url,
-          'reverse_urls' => [$content_path, $content_url],
+          'reverse_urls' => [$content_url],
         },
       ],
     }
