@@ -13,6 +13,7 @@ class pulpcore::database {
     bindir               => '/usr/bin',
   }
 
+  include postgresql::client
   include postgresql::server
   postgresql::server::db { $pulpcore::postgresql_db_name:
     user     => $pulpcore::user,
