@@ -9,7 +9,7 @@ Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
 User=<%= scope['pulpcore::user'] %>
 PIDFile=/run/pulpcore-api.pid
 RuntimeDirectory=pulpcore-api
-ExecStart=/usr/local/bin/gunicorn pulpcore.app.wsgi:application \
+ExecStart=/usr/bin/gunicorn pulpcore.app.wsgi:application \
           --bind '<%= scope['pulpcore::api_host'] %>:<%= scope['pulpcore::api_port'] %>' \
           --access-logfile -
 ProtectSystem=full

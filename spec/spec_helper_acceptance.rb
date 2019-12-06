@@ -32,6 +32,8 @@ RSpec.configure do |c|
           host.install_package('epel-release')
           host.install_package('centos-release-scl-rh')
         end
+
+        on host, puppet_resource('yumrepo', 'pulpcore', 'baseurl=https://fedorapeople.org/groups/katello/releases/yum/nightly/pulpcore/el7/x86_64/', 'gpgcheck=0')
       end
     end
   end

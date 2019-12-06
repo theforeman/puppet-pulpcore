@@ -12,7 +12,7 @@ User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=/var/run/pulpcore-worker-%i/
 RuntimeDirectory=pulpcore-worker-%i
-ExecStart=/usr/local/bin/rq worker \
+ExecStart=/usr/bin/rq worker \
           -w pulpcore.tasking.worker.PulpWorker \
           -n reserved-resource-worker-%i@%%h \
           --pid=/var/run/pulpcore-worker-%i/reserved-resource-worker-%i.pid \
