@@ -25,8 +25,8 @@ class pulpcore::database {
       'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
       "PULP_SETTINGS=${pulpcore::settings_file}",
     ],
-    refreshonly => true,
     require     => Postgresql::Server::Db[$pulpcore::postgresql_db_name],
+    unless      => 'django-admin migrate --plan | grep "No planned migration operations"',
   }
 
   include redis
