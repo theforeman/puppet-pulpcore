@@ -60,13 +60,13 @@ class pulpcore (
   $settings_file = "${config_dir}/settings.py"
   $servername = $facts['fqdn']
 
-  include pulpcore::install
-  include pulpcore::database
-  include pulpcore::config
+  contain pulpcore::install
+  contain pulpcore::database
+  contain pulpcore::config
   contain pulpcore::service
-  include pulpcore::apache
+  contain pulpcore::apache
 
-  Class['pulpcore::install'] ~> Class['pulpcore::config', 'pulpcore::service']
+  Class['pulpcore::install'] ~> Class['pulpcore::config', 'pulpcore::database', 'pulpcore::service']
   Class['pulpcore::config'] ~> Class['pulpcore::database', 'pulpcore::service']
   Class['pulpcore::database'] -> Class['pulpcore::service'] -> Class['pulpcore::apache']
 
