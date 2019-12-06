@@ -3,14 +3,8 @@
 # @api private
 class pulpcore::install {
 
-  $system_packages = ['gcc', 'postgresql-devel', 'python3-pip', 'python3-devel']
-
-  ensure_packages($system_packages)
-
-  package { 'pulpcore':
-    ensure   => present,
-    provider => 'pip3',
-    require  => Package[$system_packages],
+  package { 'python3-pulpcore':
+    ensure => present,
   }
 
   user { $pulpcore::user:
