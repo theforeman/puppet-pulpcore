@@ -5,12 +5,19 @@ class pulpcore::config {
     ensure => directory,
   }
 
-  file { $pulpcore::settings_file:
-    ensure  => file,
-    owner   => 'root',
-    group   => $pulpcore::group,
-    mode    => '0640',
+  concat { 'pulpcore settings':
+    ensure         => present,
+    path           => $pulpcore::settings_file,
+    owner          => 'root',
+    group          => $pulpcore::group,
+    mode           => '0640',
+    ensure_newline => true,
+  }
+
+  concat::fragment { 'base':
+    target  => 'pulpcore settings',
     content => template('pulpcore/settings.py.erb'),
+    order   => '01',
   }
 
   file { [$pulpcore::user_home, $pulpcore::webserver_static_dir, $pulpcore::cache_dir]:
@@ -22,7 +29,7 @@ class pulpcore::config {
 
   pulpcore::admin { 'collectstatic --noinput':
     refreshonly => true,
-    subscribe   => File[$pulpcore::settings_file],
+    subscribe   => Concat['pulpcore settings'],
   }
 
 }

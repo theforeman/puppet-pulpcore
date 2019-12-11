@@ -25,7 +25,7 @@ define pulpcore::admin(
   Array[Stdlib::Absolutepath] $path = ['/usr/bin'],
   Stdlib::Absolutepath $pulp_settings = $pulpcore::settings_file,
 ) {
-  File <| title == $pulp_settings |>
+  Concat <| title == 'pulpcore settings' |>
   -> exec { "django-admin ${title}":
     path        => $path,
     environment => [

@@ -45,12 +45,12 @@ describe 'pulpcore::admin' do
           it do
             is_expected.to compile.with_all_deps
             is_expected.to contain_pulpcore__admin('help').with_pulp_settings('/etc/pulp/settings.py')
-            is_expected.to contain_file('/etc/pulp/settings.py')
+            is_expected.to contain_concat('pulpcore settings')
             is_expected.to contain_exec('django-admin help')
               .with_environment(['DJANGO_SETTINGS_MODULE=pulpcore.app.settings', 'PULP_SETTINGS=/etc/pulp/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
-              .that_requires('File[/etc/pulp/settings.py]')
+              .that_requires('Concat[pulpcore settings]')
           end
         end
       end
