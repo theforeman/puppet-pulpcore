@@ -8,14 +8,10 @@ class pulpcore::database {
     password => postgresql_password($pulpcore::user, $pulpcore::postgresql_db_password),
   }
 
-  exec { 'django-admin migrate --noinput':
-    path        => ['/usr/local/bin', '/usr/bin'],
-    environment => [
-      'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
-      "PULP_SETTINGS=${pulpcore::settings_file}",
-    ],
-    require     => Postgresql::Server::Db[$pulpcore::postgresql_db_name],
+  pulpcore::admin { 'migrate --noinput':
     unless      => 'django-admin migrate --plan | grep "No planned migration operations"',
+    refreshonly => false,
+    require     => Postgresql::Server::Db[$pulpcore::postgresql_db_name],
   }
 
   include redis
