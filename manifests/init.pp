@@ -70,4 +70,9 @@ class pulpcore (
   Class['pulpcore::config'] ~> Class['pulpcore::database', 'pulpcore::service']
   Class['pulpcore::database'] -> Class['pulpcore::service'] -> Class['pulpcore::apache']
 
+  # lint:ignore:spaceship_operator_without_tag
+  Class['pulpcore::install']
+  ~> Pulpcore::Plugin <| |>
+  ~> Class['pulpcore::database', 'pulpcore::service']
+  # lint:endignore
 }
