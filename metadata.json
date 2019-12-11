@@ -7,6 +7,10 @@
   "source": "https://github.com/theforeman/puppet-pulpcore",
   "dependencies": [
     {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 4.0.0 < 7.0.0"
+    },
+    {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.25.0 < 7.0.0"
     },
