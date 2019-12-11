@@ -20,7 +20,7 @@ class pulpcore::config {
     mode   => '0755',
   }
 
-  exec { 'django-admin collectstatic':
+  exec { 'django-admin collectstatic --noinput':
     path        => ['/usr/local/bin', '/usr/bin'],
     environment => [
       'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
