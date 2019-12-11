@@ -27,6 +27,7 @@ class pulpcore::config {
       "PULP_SETTINGS=${pulpcore::settings_file}",
     ],
     refreshonly => true,
+    subscribe   => File[$pulpcore::settings_file],
   }
 
 }
