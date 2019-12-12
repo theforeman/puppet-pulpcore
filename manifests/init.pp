@@ -45,6 +45,9 @@
 # @param redis_db
 #   Redis DB number to use. By default, Redis supports a DB number of 0 through 15.
 #
+# @param servername
+#   Server name of the VirtualHost in the webserver
+#
 # @example
 #   include pulpcore
 class pulpcore (
@@ -63,10 +66,10 @@ class pulpcore (
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(32)),
   Integer[0] $redis_db = 8,
+  Stdlib::Fqdn $servername = $facts['fqdn']
 ) {
 
   $settings_file = "${config_dir}/settings.py"
-  $servername = $facts['fqdn']
 
   contain pulpcore::install
   contain pulpcore::database
