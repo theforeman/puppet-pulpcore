@@ -9,7 +9,7 @@ class pulpcore::database {
   }
 
   pulpcore::admin { 'migrate --noinput':
-    unless      => 'django-admin migrate --plan | grep "No planned migration operations"',
+    unless      => 'python3-django-admin migrate --plan | grep "No planned migration operations"',
     refreshonly => false,
     require     => Postgresql::Server::Db[$pulpcore::postgresql_db_name],
   }

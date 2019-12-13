@@ -1,4 +1,4 @@
-# @summary Run a django-admin command
+# @summary Run a python3-django-admin command
 #
 # @param command
 #   The command to run
@@ -26,7 +26,7 @@ define pulpcore::admin(
   Stdlib::Absolutepath $pulp_settings = $pulpcore::settings_file,
 ) {
   Concat <| title == 'pulpcore settings' |>
-  -> exec { "django-admin ${title}":
+  -> exec { "python3-django-admin ${title}":
     path        => $path,
     environment => [
       'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
