@@ -33,7 +33,13 @@ RSpec.configure do |c|
           host.install_package('centos-release-scl-rh')
         end
 
-        on host, puppet_resource('yumrepo', 'pulpcore', 'baseurl=https://fedorapeople.org/groups/katello/releases/yum/nightly/pulpcore/el7/x86_64/', 'gpgcheck=0')
+        baseurl = if ENV['PULPCORE_REPO_RELEASE']
+                    'https://fedorapeople.org/groups/katello/releases/yum/nightly/pulpcore/el7/x86_64/'
+                  else
+                    'http://koji.katello.org/releases/yum/katello-nightly/pulpcore/el7/x86_64/'
+                  end
+
+        on host, puppet_resource('yumrepo', 'pulpcore', "baseurl=#{baseurl}", 'gpgcheck=0')
       end
     end
   end
