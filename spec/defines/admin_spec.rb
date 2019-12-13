@@ -12,7 +12,7 @@ describe 'pulpcore::admin' do
         context 'default parameters' do
           it do
             is_expected.to compile.with_all_deps
-            is_expected.to contain_exec('django-admin help')
+            is_expected.to contain_exec('python3-django-admin help')
               .with_environment(['DJANGO_SETTINGS_MODULE=pulpcore.app.settings', 'PULP_SETTINGS=/etc/pulpcore/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
@@ -30,7 +30,7 @@ describe 'pulpcore::admin' do
 
           it do
             is_expected.to compile.with_all_deps
-            is_expected.to contain_exec('django-admin help')
+            is_expected.to contain_exec('python3-django-admin help')
               .with_environment(['DJANGO_SETTINGS_MODULE=pulpcore.app.settings', 'PULP_SETTINGS=/etc/pulpcore/settings.py'])
               .with_refreshonly(true)
               .with_unless('/usr/bin/false')
@@ -46,7 +46,7 @@ describe 'pulpcore::admin' do
             is_expected.to compile.with_all_deps
             is_expected.to contain_pulpcore__admin('help').with_pulp_settings('/etc/pulp/settings.py')
             is_expected.to contain_concat('pulpcore settings')
-            is_expected.to contain_exec('django-admin help')
+            is_expected.to contain_exec('python3-django-admin help')
               .with_environment(['DJANGO_SETTINGS_MODULE=pulpcore.app.settings', 'PULP_SETTINGS=/etc/pulp/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
