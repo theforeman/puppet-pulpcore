@@ -13,6 +13,9 @@ describe 'basic installation' do
       confdir              => '/var/lib/pgsql/data',
       bindir               => '/usr/bin',
     }
+    class { 'redis::globals':
+      scl => 'rh-redis5',
+    }
     include pulpcore
     include pulpcore::plugin::file
     include pulpcore::plugin::container
