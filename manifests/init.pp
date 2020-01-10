@@ -57,6 +57,7 @@ class pulpcore (
   String $group = 'pulp',
   Stdlib::Absolutepath $user_home = '/var/lib/pulp',
   Boolean $manage_apache = true,
+  Boolean $enable_pulpcore_file = false,
   Stdlib::Host $api_host = '127.0.0.1',
   Stdlib::Port $api_port = 24817,
   Stdlib::Host $content_host = '127.0.0.1',
