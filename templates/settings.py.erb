@@ -17,3 +17,4 @@ REDIS_HOST = "localhost"
 REDIS_PORT = "<%= scope['redis::port'] %>"
 REDIS_DB = <%= scope['pulpcore::redis_db'] %>
 WORKING_DIRECTORY = "<%= scope['pulpcore::cache_dir'] %>"
+REMOTE_USER_ENVIRON_NAME = 'HTTP_REMOTE_USER'
