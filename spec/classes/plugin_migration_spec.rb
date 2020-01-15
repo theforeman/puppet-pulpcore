@@ -1,0 +1,40 @@
+require 'spec_helper'
+
+migration_config = <<-EOL
+PULP2_MONGODB = {
+    "name": "pulp_database",
+    "seeds": "localhost:27017",
+    "username": "",
+    "password": "",
+    "replica_set": "",
+    "ssl": "False",
+    "ssl_keyfile": "",
+    "ssl_certfile": "",
+    "verify_ssl": "True",
+    "ca_path": "/etc/pki/tls/certs/ca-bundle.crt",
+}
+EOL
+
+describe 'pulpcore::plugin::migration' do
+  on_supported_os.each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts }
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_pulpcore__plugin('migration') }
+
+      context 'with pulpcore' do
+        let(:pre_condition) { 'include pulpcore' }
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_pulpcore__plugin('migration')
+            .with_package_name('python3-pulp-2to3-migration')
+            .with_config(migration_config)
+            .that_subscribes_to('Class[Pulpcore::Install]')
+            .that_notifies(['Class[Pulpcore::Database]', 'Class[Pulpcore::Service]'])
+        end
+      end
+    end
+  end
+end

@@ -1,6 +1,5 @@
 CONTENT_HOST = "<%= scope['pulpcore::servername'] %>"
 CONTENT_ORIGIN = "http://<%= scope['pulpcore::servername'] %>"
-PULP2_MONGODB = {"name": "pulp_database", "seeds": "localhost:27017"}
 SECRET_KEY = "<%= scope['pulpcore::django_secret_key'] %>"
 DATABASES = {
     'default': {
