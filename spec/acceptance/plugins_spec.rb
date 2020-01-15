@@ -19,6 +19,7 @@ describe 'basic installation' do
     include pulpcore
     include pulpcore::plugin::file
     include pulpcore::plugin::container
+    include pulpcore::plugin::migration
     PUPPET
   }
 
