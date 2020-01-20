@@ -24,7 +24,7 @@ class pulpcore::config {
     ensure => directory,
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
-    mode   => '0755',
+    mode   => '0775',
   }
 
   pulpcore::admin { 'collectstatic --noinput':
