@@ -7,6 +7,7 @@ describe 'pulpcore' do
 
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_package('python3-pulpcore') }
+      it { is_expected.to contain_concat__fragment('base').without_content(/REMOTE_USER_ENVIRON_NAME/) }
 
       context 'with a plugin' do
         let(:pre_condition) { "pulpcore::plugin { 'myplugin': }" }
