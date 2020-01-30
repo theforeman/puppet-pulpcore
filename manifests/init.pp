@@ -48,6 +48,9 @@
 # @param servername
 #   Server name of the VirtualHost in the webserver
 #
+# @param remote_user_environ_name
+#   Django remote user environment variable
+#
 # @example
 #   include pulpcore
 class pulpcore (
@@ -66,7 +69,8 @@ class pulpcore (
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(32)),
   Integer[0] $redis_db = 8,
-  Stdlib::Fqdn $servername = $facts['fqdn']
+  Stdlib::Fqdn $servername = $facts['fqdn'],
+  Optional[String] $remote_user_environ_name = undef,
 ) {
 
   $settings_file = "${config_dir}/settings.py"
