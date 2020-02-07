@@ -7,8 +7,8 @@ DATABASES = {
         'NAME': '<%= scope['pulpcore::postgresql_db_name'] %>',
         'USER': '<%= scope['pulpcore::user'] %>',
         'PASSWORD': '<%= scope['pulpcore::postgresql_db_password'] %>',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST': '<%= scope['pulpcore::postgresql_db_host'] %>',
+        'PORT': '<%= scope['pulpcore::postgresql_db_port'] %>',
     }
 }
 MEDIA_ROOT = "<%= scope['pulpcore::webserver_static_dir'] %>"
