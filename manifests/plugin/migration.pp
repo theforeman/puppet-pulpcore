@@ -35,11 +35,11 @@ class pulpcore::plugin::migration (
   String $mongo_db_seeds = 'localhost:27017',
   Optional[String] $mongo_db_username = undef,
   Optional[String] $mongo_db_password = undef,
-  Optional[String] $mongo_replica_set = undef,
-  String $mongo_db_ssl = 'False',
+  Optional[String] $mongo_db_replica_set = undef,
+  Boolean $mongo_db_ssl = false,
   Optional[Stdlib::Absolutepath] $mongo_db_ssl_keyfile = undef,
   Optional[Stdlib::Absolutepath] $mongo_db_ssl_certfile = undef,
-  String $mongo_db_verify_ssl = 'True',
+  Boolean $mongo_db_verify_ssl = true,
   Stdlib::Absolutepath $mongo_db_ca_path = '/etc/pki/tls/certs/ca-bundle.crt',
 ) {
   pulpcore::plugin { 'migration':
