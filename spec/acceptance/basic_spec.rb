@@ -16,7 +16,9 @@ describe 'basic installation' do
     class { 'redis::globals':
       scl => 'rh-redis5',
     }
-    include pulpcore
+    class { 'pulpcore':
+      postgresql_db_user => 'pulp',
+    }
     PUPPET
   }
 
