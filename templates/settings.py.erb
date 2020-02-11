@@ -5,7 +5,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': '<%= scope['pulpcore::postgresql_db_name'] %>',
-        'USER': '<%= scope['pulpcore::user'] %>',
+        'USER': '<%= scope['pulpcore::postgresql_db_user'] %>',
         'PASSWORD': '<%= scope['pulpcore::postgresql_db_password'] %>',
         'HOST': '<%= scope['pulpcore::postgresql_db_host'] %>',
         'PORT': '<%= scope['pulpcore::postgresql_db_port'] %>',

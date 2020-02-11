@@ -36,6 +36,9 @@
 # @param postgresql_db_name
 #   Name of Pulp database
 #
+# @param postgresql_db_user
+#   Pulp database user
+#
 # @param postgresql_db_password
 #   Password of Pulp database
 #
@@ -75,6 +78,7 @@ class pulpcore (
   Stdlib::Port $content_port = 24816,
   Stdlib::Absolutepath $webserver_static_dir = '/var/lib/pulp/docroot',
   String $postgresql_db_name = 'pulpcore',
+  String $postgresql_db_user = 'pulp',
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),
   Stdlib::Host $postgresql_db_host = 'localhost',
   Stdlib::Port $postgresql_db_port = 5432,
