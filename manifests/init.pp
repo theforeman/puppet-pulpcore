@@ -33,6 +33,9 @@
 # @param webserver_static_dir
 #   Directory for Pulp webserver static content
 #
+# @param pulp_static_root
+#   Root directory for collected static content
+#
 # @param postgresql_db_name
 #   Name of Pulp database
 #
@@ -77,6 +80,7 @@ class pulpcore (
   Stdlib::Host $content_host = '127.0.0.1',
   Stdlib::Port $content_port = 24816,
   Stdlib::Absolutepath $webserver_static_dir = '/var/lib/pulp/docroot',
+  Stdlib::Absolutepath $pulp_static_root = '/var/lib/pulp/assets',
   String $postgresql_db_name = 'pulpcore',
   String $postgresql_db_user = 'pulp',
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),

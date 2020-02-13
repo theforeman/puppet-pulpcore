@@ -5,6 +5,11 @@ describe 'pulpcore::admin' do
     context "on #{os}" do
       let(:facts) { os_facts }
       let(:title) { 'help' }
+      let(:pre_condition) do
+        <<-PUPPET
+          include pulpcore
+        PUPPET
+      end
 
       context 'with a fixed pulp_settings' do
         let(:params) { { pulp_settings: '/etc/pulpcore/settings.py' } }
@@ -13,7 +18,11 @@ describe 'pulpcore::admin' do
           it do
             is_expected.to compile.with_all_deps
             is_expected.to contain_exec('python3-django-admin help')
-              .with_environment(['DJANGO_SETTINGS_MODULE=pulpcore.app.settings', 'PULP_SETTINGS=/etc/pulpcore/settings.py'])
+              .with_environment([
+                'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
+                'PULP_SETTINGS=/etc/pulpcore/settings.py',
+                'PULP_STATIC_ROOT=/var/lib/pulp/assets'
+              ])
               .with_refreshonly(false)
               .with_unless(nil)
           end
@@ -31,7 +40,11 @@ describe 'pulpcore::admin' do
           it do
             is_expected.to compile.with_all_deps
             is_expected.to contain_exec('python3-django-admin help')
-              .with_environment(['DJANGO_SETTINGS_MODULE=pulpcore.app.settings', 'PULP_SETTINGS=/etc/pulpcore/settings.py'])
+              .with_environment([
+                'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
+                'PULP_SETTINGS=/etc/pulpcore/settings.py',
+                'PULP_STATIC_ROOT=/var/lib/pulp/assets'
+              ])
               .with_refreshonly(true)
               .with_unless('/usr/bin/false')
           end
@@ -47,7 +60,11 @@ describe 'pulpcore::admin' do
             is_expected.to contain_pulpcore__admin('help').with_pulp_settings('/etc/pulp/settings.py')
             is_expected.to contain_concat('pulpcore settings')
             is_expected.to contain_exec('python3-django-admin help')
-              .with_environment(['DJANGO_SETTINGS_MODULE=pulpcore.app.settings', 'PULP_SETTINGS=/etc/pulp/settings.py'])
+              .with_environment([
+                'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
+                'PULP_SETTINGS=/etc/pulp/settings.py',
+                'PULP_STATIC_ROOT=/var/lib/pulp/assets'
+              ])
               .with_refreshonly(false)
               .with_unless(nil)
               .that_requires('Concat[pulpcore settings]')
