@@ -38,6 +38,32 @@ describe 'pulpcore' do
             .with_content(%r{'HOST': '192.0.2.222'})
         end
       end
+
+      context 'with custom static dirs' do
+        let :params do
+          {
+            webserver_static_dir: '/my/custom/directory',
+            pulp_static_root: '/my/other/custom/directory',
+          }
+        end
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_file('/my/custom/directory')
+          is_expected.to contain_exec('python3-django-admin collectstatic --noinput')
+            .with_environment([
+              "DJANGO_SETTINGS_MODULE=pulpcore.app.settings",
+              "PULP_SETTINGS=/etc/pulp/settings.py",
+              "PULP_STATIC_ROOT=/my/other/custom/directory"
+            ])
+          is_expected.to contain_systemd__unit_file('pulpcore-api.service')
+            .with_content(%r{Environment="PULP_STATIC_ROOT=/my/other/custom/directory"})
+          is_expected.to contain_apache__vhost('pulp')
+            .with_docroot('/my/custom/directory')
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{MEDIA_ROOT = "/my/custom/directory"})
+        end
+      end
     end
   end
 end
