@@ -5,14 +5,14 @@ describe 'pulpcore::admin' do
     context "on #{os}" do
       let(:facts) { os_facts }
       let(:title) { 'help' }
-      let(:pre_condition) do
-        <<-PUPPET
-          include pulpcore
-        PUPPET
-      end
 
-      context 'with a fixed pulp_settings' do
-        let(:params) { { pulp_settings: '/etc/pulpcore/settings.py' } }
+      context 'with a fixed pulp_settings and static_root' do
+        let(:params) do
+          {
+            pulp_settings: '/etc/pulpcore/settings.py',
+            static_root: '/var/lib/pulp/assets',
+          }
+        end
 
         context 'default parameters' do
           it do
@@ -21,7 +21,7 @@ describe 'pulpcore::admin' do
               .with_environment([
                 'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
                 'PULP_SETTINGS=/etc/pulpcore/settings.py',
-                'PULP_STATIC_ROOT=/var/lib/pulp/assets'
+                'PULP_STATIC_ROOT=/var/lib/pulp/assets',
               ])
               .with_refreshonly(false)
               .with_unless(nil)
@@ -34,6 +34,7 @@ describe 'pulpcore::admin' do
               command: 'migrate --noinput',
               refreshonly: true,
               unless: '/usr/bin/false',
+              static_root: '/var/lib/pulp/assets',
             )
           end
 
@@ -43,7 +44,7 @@ describe 'pulpcore::admin' do
               .with_environment([
                 'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
                 'PULP_SETTINGS=/etc/pulpcore/settings.py',
-                'PULP_STATIC_ROOT=/var/lib/pulp/assets'
+                'PULP_STATIC_ROOT=/var/lib/pulp/assets',
               ])
               .with_refreshonly(true)
               .with_unless('/usr/bin/false')
@@ -63,7 +64,7 @@ describe 'pulpcore::admin' do
               .with_environment([
                 'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
                 'PULP_SETTINGS=/etc/pulp/settings.py',
-                'PULP_STATIC_ROOT=/var/lib/pulp/assets'
+                'PULP_STATIC_ROOT=/var/lib/pulp/assets',
               ])
               .with_refreshonly(false)
               .with_unless(nil)
