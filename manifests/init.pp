@@ -37,22 +37,37 @@
 #   Root directory for collected static content
 #
 # @param postgresql_db_name
-#   Name of Pulp database
+#   Name of Pulp PostgreSQL database
 #
 # @param postgresql_db_user
-#   Pulp database user
+#   Pulp PostgreSQL database user
 #
 # @param postgresql_db_password
-#   Password of Pulp database
+#   Password of Pulp PostgreSQL database
 #
 # @param postgresql_db_host
-#   Host to connect to Pulp database
+#   Host to connect to Pulp PostgreSQL database
 #
 # @param postgresql_db_port
-#   Port to connect to Pulp database
+#   Port to connect to Pulp PostgreSQL database
 #
 # @param postgresql_manage_db
 #   Whether or not to manage the PostgreSQL installation. If false, a database at the specified host and port is expected to exist and the user should have sufficient permissions.
+#
+# @param postgresql_db_ssl
+#   Whether to configure SSL connection for PostgresQL database. The configuration is only applied if the PostgresQL database is unmanaged.
+#
+# @param postgresql_db_ssl_require
+#   Specifies whether pulpcore is configured to require an encrypted connection to the unmanaged PostgreSQL database server.
+#
+# @param postgresql_db_ssl_cert
+#   Path to the SSL certificate to be used for the SSL connection to PostgreSQL.
+#
+# @param postgresql_db_ssl_key
+#   Path to the key to be used for the SSL connection to PostgreSQL.
+#
+# @param postgresql_db_ssl_root_ca
+#   Path to the root certificate authority to validate the certificate supplied by the PostgreSQL database server.
 #
 # @param django_secret_key
 #   SECRET_KEY for Django
@@ -87,6 +102,11 @@ class pulpcore (
   Stdlib::Host $postgresql_db_host = 'localhost',
   Stdlib::Port $postgresql_db_port = 5432,
   Boolean $postgresql_manage_db = true,
+  Boolean $postgresql_db_ssl = false,
+  Optional[Boolean] $postgresql_db_ssl_require = undef,
+  Optional[Stdlib::Absolutepath] $postgresql_db_ssl_cert = undef,
+  Optional[Stdlib::Absolutepath] $postgresql_db_ssl_key = undef,
+  Optional[Stdlib::Absolutepath] $postgresql_db_ssl_root_ca = undef,
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(32)),
   Integer[0] $redis_db = 8,
   Stdlib::Fqdn $servername = $facts['fqdn'],

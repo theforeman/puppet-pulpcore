@@ -9,7 +9,15 @@ DATABASES = {
         'PASSWORD': '<%= scope['pulpcore::postgresql_db_password'] %>',
         'HOST': '<%= scope['pulpcore::postgresql_db_host'] %>',
         'PORT': '<%= scope['pulpcore::postgresql_db_port'] %>',
-    }
+<% if scope['pulpcore::postgresql_db_ssl'] && !scope['pulpcore::postgresql_db_manage'] -%>
+        'OPTIONS': {
+            'sslmode': '<%= scope['pulpcore::postgresql_db_ssl_require'] ? 'require' : 'disable' %>',
+            'sslcert': '<%= scope['pulpcore::postgresql_db_ssl_cert'] %>',
+            'sslkey': '<%= scope['pulpcore::postgresql_db_ssl_key'] %>',
+            'sslrootcert': '<%= scope['pulpcore::postgresql_db_ssl_root_ca'] %>',
+        },
+<% end -%>
+    },
 }
 MEDIA_ROOT = "<%= scope['pulpcore::webserver_static_dir'] %>"
 REDIS_HOST = "localhost"
