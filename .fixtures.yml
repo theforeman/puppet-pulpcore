@@ -8,5 +8,6 @@ fixtures:
     extlib:           'https://github.com/voxpupuli/puppet-extlib'
     postgresql:       'https://github.com/puppetlabs/puppetlabs-postgresql'
     redis:            'https://github.com/voxpupuli/puppet-redis'
+    selinux:          'https://github.com/voxpupuli/puppet-selinux'
     stdlib:           'https://github.com/puppetlabs/puppetlabs-stdlib'
     systemd:          'https://github.com/camptocamp/puppet-systemd'

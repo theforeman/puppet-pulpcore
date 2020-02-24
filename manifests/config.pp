@@ -32,4 +32,17 @@ class pulpcore::config {
     subscribe   => Concat['pulpcore settings'],
   }
 
+  selinux::port { 'pulpcore-api-port':
+    ensure   => 'present',
+    seltype  => 'pulpcore_port_t',
+    protocol => 'tcp',
+    port     => $pulpcore::api_port,
+  }
+
+  selinux::port { 'pulpcore-content-port':
+    ensure   => 'present',
+    seltype  => 'pulpcore_port_t',
+    protocol => 'tcp',
+    port     => $pulpcore::content_port,
+  }
 }
