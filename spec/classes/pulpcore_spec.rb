@@ -23,6 +23,40 @@ describe 'pulpcore' do
         end
       end
 
+      context 'with custom ports' do
+        let :params do
+          {
+            api_port: 24819,
+            content_port: 24818,
+          }
+        end
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_selinux__port('pulpcore-api-port')
+            .with_port(24819)
+          is_expected.to contain_selinux__port('pulpcore-content-port')
+            .with_port(24818)
+          is_expected.to contain_systemd__unit_file('pulpcore-api.service')
+            .with_content(%r{--bind '127.0.0.1:24819'})
+          is_expected.to contain_systemd__unit_file('pulpcore-content.service')
+            .with_content(%r{--bind '127.0.0.1:24818'})
+          is_expected.to contain_apache__vhost('pulp')
+            .with_proxy_pass([
+              {
+                'path'         => '/pulp/api/v3',
+                'url'          => "http://127.0.0.1:24819/pulp/api/v3",
+                'reverse_urls' => ["http://127.0.0.1:24819/pulp/api/v3"],
+              },
+              {
+                'path'         => '/pulp/content',
+                'url'          => "http://127.0.0.1:24818/pulp/content",
+                'reverse_urls' => ["http://127.0.0.1:24818/pulp/content"],
+              },
+            ])
+        end
+      end
+
       context 'with external postgresql' do
         let :params do
           {

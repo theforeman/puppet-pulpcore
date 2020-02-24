@@ -1,10 +1,16 @@
-# @summary Install pulpcore packages
-# Currently this is done with pip3. This should have the option to also install via RPMs.
+# @summary Install pulpcore packages, configure user and group
+#
 # @api private
 class pulpcore::install {
 
   package { 'python3-pulpcore':
     ensure => present,
+  }
+
+  if $facts['os']['selinux']['enabled'] {
+    package { 'pulpcore-selinux':
+      ensure => present,
+    }
   }
 
   user { $pulpcore::user:
@@ -17,5 +23,4 @@ class pulpcore::install {
   group { $pulpcore::group:
     ensure => present,
   }
-
 }
