@@ -9,7 +9,7 @@ DATABASES = {
         'PASSWORD': '<%= scope['pulpcore::postgresql_db_password'] %>',
         'HOST': '<%= scope['pulpcore::postgresql_db_host'] %>',
         'PORT': '<%= scope['pulpcore::postgresql_db_port'] %>',
-<% if scope['pulpcore::postgresql_db_ssl'] && !scope['pulpcore::postgresql_db_manage'] -%>
+<% if scope['pulpcore::postgresql_db_ssl'] && !scope['pulpcore::postgresql_manage_db'] -%>
         'OPTIONS': {
             'sslmode': '<%= scope['pulpcore::postgresql_db_ssl_require'] ? 'require' : 'disable' %>',
             'sslcert': '<%= scope['pulpcore::postgresql_db_ssl_cert'] %>',
