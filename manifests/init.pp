@@ -1,5 +1,46 @@
 # Manage your next generation Pulp server
 #
+# @example Basic Standalone Deployment
+# include pulpcore
+#
+# @example Without Deploying Apache httpd
+# class { 'pulpcore':
+#   manage_apache => false,
+# }
+#
+# @example With an Externally Managed Database
+# class { 'pulpcore':
+#   postgresql_manage_db   => false,
+#   postgresql_db_host     => '192.0.2.222',
+#   postgresql_db_port     => 5432,
+#   postgresql_db_password => 'verysecurepassword',
+# }
+#
+# @example With an Externally Managed Database with an Encrypted Connection
+# class { 'pulpcore':
+#   postgresql_manage_db      => false,
+#   postgresql_db_host        => '192.0.2.222',
+#   postgresql_db_port        => 5432,
+#   postgresql_db_password    => 'verysecurepassword',
+#   postgresql_db_ssl         => true,
+#   postgresql_db_ssl_require => true,
+#   postgresql_db_ssl_cert    => '/etc/pki/katello/certs/pulpcore-database.crt',
+#   postgresql_db_ssl_key     => '/etc/pki/katello/private/pulpcore-database.key',
+#   postgresql_db_ssl_root_ca => '/etc/pki/tls/certs/ca-bundle.crt',
+# }
+#
+# @example With Custom Ports
+# class { 'pulpcore':
+#   api_port     => 24819,
+#   content_port => 24818,
+# }
+#
+# @example With Custom Static Directories
+# class { 'pulpcore':
+#   webserver_static_dir => '/my/custom/directory',
+#   pulp_static_root     => '/my/other/custom/directory',
+# }
+#
 # @param cache_dir
 #   Pulp cache directory
 #
@@ -80,9 +121,7 @@
 #
 # @param remote_user_environ_name
 #   Django remote user environment variable
-#
-# @example
-#   include pulpcore
+
 class pulpcore (
   Stdlib::Absolutepath $cache_dir = '/var/lib/pulp/tmp',
   Stdlib::Absolutepath $config_dir = '/etc/pulp',
