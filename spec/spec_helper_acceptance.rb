@@ -22,20 +22,23 @@ RSpec.configure do |c|
   c.before :suite do
     # Install module and dependencies
     hosts.each do |host|
-      if fact_on(host, 'osfamily') == 'RedHat'
+      if fact_on(host, 'os.family') == 'RedHat'
         # don't delete downloaded rpm for use with BEAKER_provision=no +
         # BEAKER_destroy=no
         on host, 'sed -i "s/keepcache=.*/keepcache=1/" /etc/yum.conf'
         # refresh check if cache needs refresh on next yum command
         on host, 'yum clean expire-cache'
-        if fact_on(host, 'operatingsystem') == 'CentOS'
+
+        major = fact_on(host, 'os.release.major')
+
+        if major == '7' && fact_on(host, 'os.name') == 'CentOS'
           host.install_package('centos-release-scl-rh')
         end
 
         baseurl = if ENV['PULPCORE_REPO_RELEASE']
-                    'https://fedorapeople.org/groups/katello/releases/yum/nightly/pulpcore/el7/x86_64/'
+                    "https://fedorapeople.org/groups/katello/releases/yum/nightly/pulpcore/el#{major}/x86_64/"
                   else
-                    'http://koji.katello.org/releases/yum/katello-nightly/pulpcore/el7/x86_64/'
+                    "http://koji.katello.org/releases/yum/katello-nightly/pulpcore/el#{major}/x86_64/"
                   end
 
         on host, puppet_resource('yumrepo', 'pulpcore', "baseurl=#{baseurl}", 'gpgcheck=0')
