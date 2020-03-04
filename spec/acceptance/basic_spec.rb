@@ -3,22 +3,23 @@ require 'spec_helper_acceptance'
 describe 'basic installation' do
   let(:pp) {
     <<-PUPPET
-    class { 'postgresql::globals':
-      version              => '10',
-      client_package_name  => 'rh-postgresql10-postgresql-syspaths',
-      server_package_name  => 'rh-postgresql10-postgresql-server-syspaths',
-      contrib_package_name => 'rh-postgresql10-postgresql-contrib-syspaths',
-      service_name         => 'postgresql',
-      datadir              => '/var/lib/pgsql/data',
-      confdir              => '/var/lib/pgsql/data',
-      bindir               => '/usr/bin',
+    if $facts['os']['release']['major'] == '7' {
+      class { 'postgresql::globals':
+        version              => '12',
+        client_package_name  => 'rh-postgresql12-postgresql-syspaths',
+        server_package_name  => 'rh-postgresql12-postgresql-server-syspaths',
+        contrib_package_name => 'rh-postgresql12-postgresql-contrib-syspaths',
+        service_name         => 'postgresql',
+        datadir              => '/var/lib/pgsql/data',
+        confdir              => '/var/lib/pgsql/data',
+        bindir               => '/usr/bin',
+      }
+      class { 'redis::globals':
+        scl => 'rh-redis5',
+      }
     }
-    class { 'redis::globals':
-      scl => 'rh-redis5',
-    }
-    class { 'pulpcore':
-      postgresql_db_user => 'pulp',
-    }
+
+    include pulpcore
     PUPPET
   }
 
