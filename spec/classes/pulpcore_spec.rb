@@ -5,12 +5,33 @@ describe 'pulpcore' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_package('python3-pulpcore') }
-      it { is_expected.to contain_concat__fragment('base').without_content(/REMOTE_USER_ENVIRON_NAME/) }
-      it { is_expected.to contain_class('postgresql::server') }
-      it { is_expected.to contain_postgresql__server__db('pulpcore') }
-      it { is_expected.to contain_concat__fragment('base').without_content(/sslmode/) }
+      context 'default params' do
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_package('python3-pulpcore')
+          is_expected.to contain_concat__fragment('base')
+            .without_content(/REMOTE_USER_ENVIRON_NAME/)
+            .without_content(/sslmode/)
+          is_expected.to contain_class('postgresql::server')
+          is_expected.to contain_postgresql__server__db('pulpcore')
+          is_expected.to contain_apache__vhost('pulp')
+          is_expected.to contain_selinux__boolean('httpd_can_network_connect')
+        end
+      end
+
+      context 'without apache httpd' do
+        let :params do
+          {
+            manage_apache: false,
+          }
+        end
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.not_to contain_apache__vhost('pulp')
+          is_expected.not_to contain_selinux__boolean('httpd_can_network_connect')
+        end
+      end
 
       context 'with a plugin' do
         let(:pre_condition) { "pulpcore::plugin { 'myplugin': }" }
