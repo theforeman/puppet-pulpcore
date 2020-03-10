@@ -23,22 +23,22 @@ case $major {
 # $baseurl = "https://fedorapeople.org/groups/katello/releases/yum/nightly/pulpcore/el${major}/x86_64/"
 $baseurl = "http://koji.katello.org/releases/yum/katello-nightly/pulpcore/el${major}/x86_64/"
 
-file { 'pulpcore-repo-extra-config':
-  path    => '/etc/yum/pulpcore.conf',
-  content => 'module_hotfixes=1',
-  before  => Yumrepo['pulpcore'],
-}
+$pulpcore_repo_conf = @("CONF")
+[pulpcore]
+baseurl=${baseurl}
+gpgcheck=0
+module_hotfixes=1
+CONF
 
-yumrepo { 'pulpcore':
-  baseurl  => $baseurl,
-  gpgcheck => 0,
-  include  => 'file:///etc/yum/pulpcore.conf',
+file { '/etc/yum.repos.d/pulpcore.repo':
+  ensure  => file,
+  content => $pulpcore_repo_conf,
 }
 
 # Needed as a workaround for idempotency
 if $facts['os']['selinux']['enabled'] {
   package { 'pulpcore-selinux':
     ensure  => installed,
-    require => Yumrepo['pulpcore'],
+    require => File['/etc/yum.repos.d/pulpcore.repo'],
   }
 }
