@@ -25,6 +25,10 @@ class pulpcore::config {
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
     mode   => '0775',
+  } ~> exec { "restorecon -RvF ${pulpcore::cache_dir}":
+    path        => '/usr/bin:/usr/sbin:/bin:/sbin',
+    command     => "restorecon -RvF ${pulpcore::cache_dir}",
+    refreshonly => true,
   }
 
   pulpcore::admin { 'collectstatic --noinput':
