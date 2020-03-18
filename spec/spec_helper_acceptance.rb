@@ -33,6 +33,7 @@ RSpec.configure do |c|
 
         if major == '7' && fact_on(host, 'os.name') == 'CentOS'
           host.install_package('centos-release-scl-rh')
+          host.install_package('rh-redis5-redis')
         end
 
         baseurl = if ENV['PULPCORE_REPO_RELEASE']
