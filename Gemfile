@@ -5,9 +5,6 @@ source 'https://rubygems.org'
 
 gem 'puppet', ENV.key?('PUPPET_VERSION') ? "~> #{ENV['PUPPET_VERSION']}" : '>= 5.5'
 
-# https://github.com/voxpupuli/puppet-selinux/issues/318
-gem 'facter', '< 4'
-
 gem 'rake'
 gem 'rspec', '~> 3.0'
 gem 'rspec-puppet', '~> 2.3'
