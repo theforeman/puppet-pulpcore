@@ -16,6 +16,12 @@ class pulpcore::database {
     refreshonly => false,
   }
 
+  pulpcore::admin { 'reset-admin-password --random':
+    unless      => 'python3-django-admin dumpdata auth.User | grep "auth.user"',
+    refreshonly => false,
+    require     => Pulpcore::Admin['migrate --noinput'],
+  }
+
   include redis
 
 }

@@ -16,6 +16,7 @@ describe 'pulpcore' do
           is_expected.to contain_postgresql__server__db('pulpcore')
           is_expected.to contain_apache__vhost('pulp')
           is_expected.to contain_selinux__boolean('httpd_can_network_connect')
+          is_expected.to contain_pulpcore__admin('reset-admin-password --random')
         end
       end
 
