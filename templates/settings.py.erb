@@ -29,10 +29,12 @@ REMOTE_USER_ENVIRON_NAME = '<%= scope['pulpcore::remote_user_environ_name'] %>'
 <% end -%>
 AUTHENTICATION_BACKENDS = ['pulpcore.app.authentication.PulpNoCreateRemoteUserBackend']
 
-REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES = (
-    'rest_framework.authentication.SessionAuthentication',
-    'pulpcore.app.authentication.PulpRemoteUserAuthentication'
-)
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'pulpcore.app.authentication.PulpRemoteUserAuthentication'
+    )
+}
 
 <%# This setting whitelists paths that can be used for repository sync with file protocol. Katello uses the path /var/lib/pulp/sync_imports/ to run tests -%>
 ALLOWED_IMPORT_PATHS = <%= scope['pulpcore::allowed_import_path'] %>
