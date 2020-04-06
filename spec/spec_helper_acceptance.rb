@@ -43,6 +43,10 @@ RSpec.configure do |c|
                   end
 
         on host, puppet_resource('yumrepo', 'pulpcore', "baseurl=#{baseurl}", 'gpgcheck=0')
+
+        if fact_on(host, 'os.selinux.enabled')
+          on host, puppet('resource', 'package', 'pulpcore-selinux', 'ensure=installed')
+        end
       end
     end
   end
