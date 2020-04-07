@@ -6,6 +6,10 @@ case $major {
       ensure => installed,
     }
 
+    package { 'epel-release':
+      ensure => installed,
+    }
+
     package { 'rh-redis5-redis':
       ensure  => installed,
       require => Package['centos-release-scl-rh'],
