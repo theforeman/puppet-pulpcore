@@ -40,7 +40,7 @@ describe 'pulpcore::admin' do
 
           it do
             is_expected.to compile.with_all_deps
-            is_expected.to contain_exec('python3-django-admin help')
+            is_expected.to contain_exec('python3-django-admin migrate --noinput')
               .with_environment([
                 'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
                 'PULP_SETTINGS=/etc/pulpcore/settings.py',
