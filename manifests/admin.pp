@@ -30,7 +30,7 @@ define pulpcore::admin(
   Stdlib::Absolutepath $static_root = $pulpcore::pulp_static_root,
 ) {
   Concat <| title == 'pulpcore settings' |>
-  -> exec { "python3-django-admin ${title}":
+  -> exec { "python3-django-admin ${command}":
     path        => $path,
     environment => [
       'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
