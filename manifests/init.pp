@@ -112,7 +112,7 @@ class pulpcore (
   Optional[Stdlib::Absolutepath] $postgresql_db_ssl_root_ca = undef,
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(32)),
   Integer[0] $redis_db = 8,
-  Stdlib::Fqdn $servername = $facts['fqdn'],
+  Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
   Optional[String] $remote_user_environ_name = undef,
 ) {
