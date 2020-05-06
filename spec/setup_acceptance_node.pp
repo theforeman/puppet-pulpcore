@@ -32,6 +32,6 @@ yumrepo { 'pulpcore':
 if $facts['os']['selinux']['enabled'] {
   package { 'pulpcore-selinux':
     ensure  => installed,
-    require => Yumrepo['candlepin'],
+    require => Yumrepo['pulpcore'],
   }
 }
