@@ -16,7 +16,7 @@
     },
     {
       "name": "puppet/redis",
-      "version_requirement": ">= 5.0.0 < 6.0.0"
+      "version_requirement": ">= 5.0.0 < 7.0.0"
     },
     {
       "name": "puppetlabs/apache",
@@ -36,7 +36,7 @@
     },
     {
       "name": "puppet/selinux",
-      "version_requirement": ">= 3.1.0 < 4.0.0" 
+      "version_requirement": ">= 3.1.0 < 4.0.0"
     }
   ],
   "operatingsystem_support": [
