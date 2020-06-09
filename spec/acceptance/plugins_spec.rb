@@ -24,6 +24,7 @@ describe 'basic installation' do
     include pulpcore::plugin::container
     include pulpcore::plugin::migration
     include pulpcore::plugin::rpm
+    include pulpcore::plugin::certguard
     PUPPET
   }
 
