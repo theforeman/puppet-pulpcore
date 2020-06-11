@@ -24,10 +24,24 @@ class pulpcore::service {
     content => template('pulpcore/pulpcore-worker@.service.erb'),
   }
 
-  service { ['pulpcore-worker@1', 'pulpcore-worker@2']:
-    ensure  => running,
-    enable  => true,
-    require => [Systemd::Unit_file['pulpcore-worker@.service'], Class['systemd::systemctl::daemon_reload']],
+  Integer[1, $pulpcore::worker_count].each |$n| {
+    service { "pulpcore-worker@${n}.service":
+      ensure  => running,
+      enable  => true,
+      require => [Systemd::Unit_file['pulpcore-worker@.service'], Class['systemd::systemctl::daemon_reload']],
+    }
   }
 
+  $existing_workers = fact('pulpcore_workers')
+  if $existing_workers {
+    $existing_workers.each |$worker| {
+      if $worker =~ /^pulpcore-worker@\d+\.service$/ and !defined(Service[$worker]) {
+        service { $worker:
+          ensure  => stopped,
+          enable  => false,
+          require => [Systemd::Unit_file['pulpcore-worker@.service'], Class['systemd::systemctl::daemon_reload']],
+        }
+      }
+    }
+  }
 }
