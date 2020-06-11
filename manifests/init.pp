@@ -84,6 +84,11 @@
 # @param allowed_import_path
 #   Allowed paths that pulp can sync from using file:// protocol
 #
+# @param worker_count
+#   Number of pulpcore workers. Defaults to 8 or the number of CPU cores, whichever is smaller. Enabling more than 8 workers, even with additional CPU cores
+#   available, likely results in performance degradation due to I/O blocking and is not recommended in most cases. Modifying this parameter should
+#   be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
+#
 # @example
 #   include pulpcore
 class pulpcore (
@@ -115,6 +120,7 @@ class pulpcore (
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
   Optional[String] $remote_user_environ_name = undef,
+  Integer[0] $worker_count = min(8, $facts['processors']['count']),
 ) {
 
   $settings_file = "${config_dir}/settings.py"

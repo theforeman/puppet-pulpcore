@@ -20,6 +20,66 @@ describe 'pulpcore' do
         end
       end
 
+      context 'with worker_count set to 5' do
+        let(:params) { { worker_count: 5 } }
+
+        context 'with 6 workers from fact' do
+          let(:facts) { super().merge(pulpcore_workers: (1..6).map { |n| "pulpcore-worker@#{n}.service" } ) }
+
+          it 'is expected to reduce the workers to 5' do
+            is_expected.to compile.with_all_deps
+            (1..5).each do |n|
+              is_expected.to contain_service("pulpcore-worker@#{n}.service")
+                .with_ensure('running')
+                .with_enable('true')
+            end
+            is_expected.to contain_service('pulpcore-worker@6.service')
+              .with_ensure('stopped')
+              .with_enable('false')
+          end
+        end
+
+        context 'with 4 workers from fact' do
+          let(:facts) { super().merge(pulpcore_workers: (1..4).map { |n| "pulpcore-worker@#{n}.service" } ) }
+
+          it 'is expected to increase the workers to 5' do
+            is_expected.to compile.with_all_deps
+            (1..5).each do |n|
+              is_expected.to contain_service("pulpcore-worker@#{n}.service")
+                .with_ensure('running')
+                .with_enable('true')
+            end
+            is_expected.not_to contain_service('pulpcore-worker@6.service')
+          end 
+        end
+
+        context 'with 0 workers from fact' do
+          let(:facts) { super().merge(pulpcore_workers: {} ) }
+
+          it 'is expected to enable 5 workers' do
+            is_expected.to compile.with_all_deps
+            (1..5).each do |n|
+              is_expected.to contain_service("pulpcore-worker@#{n}.service")
+                .with_ensure('running')
+                .with_enable('true')
+            end
+            is_expected.not_to contain_service('pulpcore-worker@6.service')
+          end 
+        end
+
+        context 'fact absent' do
+          it 'is expected to enable 5 workers' do
+            is_expected.to compile.with_all_deps
+            (1..5).each do |n|
+              is_expected.to contain_service("pulpcore-worker@#{n}.service")
+                .with_ensure('running')
+                .with_enable('true')
+            end
+            is_expected.not_to contain_service('pulpcore-worker@6.service')
+          end 
+        end
+      end
+
       context 'without apache httpd' do
         let :params do
           {
