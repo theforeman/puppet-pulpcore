@@ -6,7 +6,11 @@ describe 'pulpcore::plugin::certguard' do
       let(:facts) { os_facts }
 
       it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_pulpcore__plugin('certguard') }
+      case os
+      when /\-7-/
+         it { is_expected.to contain_package('python3-subscription-manager-rhsm').with(ensure: 'present') }
+      end
+      it { is_expected.to contain_pulpcore__plugin('certguard') } 
 
       context 'with pulpcore' do
         let(:pre_condition) { 'include pulpcore' }
