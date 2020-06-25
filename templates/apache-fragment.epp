@@ -1,0 +1,60 @@
+<%- |
+  Array[Struct[{
+    provider => Enum['directory', 'directorymatch', 'location', 'locationmatch', 'files', 'filesmatch', 'proxy', 'proxymatch'],
+    path => String[1],
+    Optional[options] => Array[String[1]],
+    Optional[allow_override] => Array[String[1]],
+    Optional[request_headers] => Array[String[1]],
+    Optional[proxy_pass] => Array[Struct[{
+      url => String[1],
+      Optional[params] => Hash[String, Variant[String, Integer]],
+      Optional[reverse_urls] => Array[String[1]],
+    }]],
+  }]] $directories,
+  Array[Hash[String, String]] $proxy_pass = [],
+| -%>
+<%- $directories.each |$directory| { -%>
+
+  <%-
+    if $directory['provider'] =~ /^(.*)match$/ {
+      $provider = $1.capitalize + 'Match'
+    } else {
+      $provider = $directory['provider'].capitalize
+    }
+  -%>
+  <<%= $provider %> "<%= $directory['path'] %>">
+    <%- if $directory['options'] { -%>
+    Options <%= $directory['options'].join(' ') %>
+    <%- } -%>
+    <%- if $directory['allow_override'] { -%>
+    AllowOverride <%= $directory['allow_override'].join(' ') %>
+    <%- } elsif $provider == 'Directory' { -%>
+    AllowOverride None
+    <%- } -%>
+    <%- if $directory['request_headers'] { -%>
+    <%-   $directory['request_headers'].each |$request_statement| { -%>
+    RequestHeader <%= $request_statement %>
+    <%-   } -%>
+    <%- } -%>
+    <%- if $directory['proxy_pass'] and $provider in ['Location', 'LocationMatch'] { -%>
+    <%-   $directory['proxy_pass'].each |$proxy| { -%>
+    ProxyPass <%= $proxy['url'] -%>
+    <%-     if $proxy['params'] { -%>
+    <%-       $proxy['params'].sort.each |$key, $value| { -%> <%= $key %>=<%= $value -%><%- } -%>
+    <%-     } %>
+    <%-     if $proxy['reverse_urls'] { -%>
+    <%-       $proxy['reverse_urls'].each |$reverse_url| { -%>
+    ProxyPassReverse <%= $reverse_url %>
+    <%-       } -%>
+    <%-     } else { -%>
+    ProxyPassReverse <%= $proxy['url'] %>
+    <%-     } -%>
+    <%-   } -%>
+    <%- } -%>
+  </<%= $provider %>>
+<% } -%>
+<% $proxy_pass.each |$proxy| { -%>
+
+  ProxyPass <%= $proxy['path'] %> <%= $proxy['url'] %>
+  ProxyPassReverse <%= $proxy['path'] %> <%= $proxy['url'] %>
+<% } -%>

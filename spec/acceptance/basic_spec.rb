@@ -1,6 +1,8 @@
 require 'spec_helper_acceptance'
 
 describe 'basic installation' do
+  certdir = '/etc/pulpcore-certs'
+
   let(:pp) {
     <<-PUPPET
     if $facts['os']['release']['major'] == '7' {
@@ -20,7 +22,10 @@ describe 'basic installation' do
     }
 
     class { 'pulpcore':
-      worker_count => 2,
+      worker_count      => 2,
+      apache_https_cert => '#{certdir}/ca-cert.pem',
+      apache_https_key  => '#{certdir}/ca-key.pem',
+      apache_https_ca   => '#{certdir}/ca-cert.pem',
     }
     PUPPET
   }
@@ -61,7 +66,11 @@ describe 'basic installation' do
     it { is_expected.to be_listening }
   end
 
-  describe curl_command("http://#{host_inventory['fqdn']}/pulp/api/v3/status/") do
+  describe port(443) do
+    it { is_expected.to be_listening }
+  end
+
+  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: "#{certdir}/ca-cert.pem") do
     its(:response_code) { is_expected.to eq(200) }
     its(:exit_status) { is_expected.to eq 0 }
   end
@@ -71,9 +80,23 @@ describe 'basic installation' do
     its(:exit_status) { is_expected.to eq 0 }
   end
 
+  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/", cacert: "#{certdir}/ca-cert.pem") do
+    its(:response_code) { is_expected.to eq(200) }
+    its(:body) { is_expected.not_to contain('artifacts_list') }
+    its(:exit_status) { is_expected.to eq 0 }
+  end
+
+  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/",
+                        cacert: "#{certdir}/ca-cert.pem", key: "#{certdir}/client-key.pem", cert: "#{certdir}/client-cert.pem") do
+    its(:response_code) { is_expected.to eq(200) }
+    its(:body) { is_expected.to contain('artifacts_list') }
+    its(:exit_status) { is_expected.to eq 0 }
+  end
 end
 
 describe 'reducing worker count' do
+  certdir = '/etc/pulpcore-certs'
+
   let(:pp) {
     <<-PUPPET
     if $facts['os']['release']['major'] == '7' {
@@ -93,7 +116,10 @@ describe 'reducing worker count' do
     }
 
     class { 'pulpcore':
-      worker_count => 1,
+      worker_count      => 1,
+      apache_https_cert => '#{certdir}/ca-cert.pem',
+      apache_https_key  => '#{certdir}/ca-key.pem',
+      apache_https_ca   => '#{certdir}/ca-cert.pem',
     }
     PUPPET
   }

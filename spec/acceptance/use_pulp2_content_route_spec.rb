@@ -25,13 +25,19 @@ describe 'basic installation' do
       apache_https_cert => '#{certdir}/ca-cert.pem',
       apache_https_key  => '#{certdir}/ca-key.pem',
       apache_https_ca   => '#{certdir}/ca-cert.pem',
+      static_url        => '/pulp/assets/',
     }
+
     include pulpcore::plugin::certguard
     include pulpcore::plugin::container
     include pulpcore::plugin::deb
-    include pulpcore::plugin::file
+    class { 'pulpcore::plugin::file':
+      use_pulp2_content_route => true,
+    }
     include pulpcore::plugin::migration
-    include pulpcore::plugin::rpm
+    class { 'pulpcore::plugin::rpm':
+      use_pulp2_content_route => true,
+    }
     PUPPET
   }
 
@@ -70,5 +76,4 @@ describe 'basic installation' do
     its(:response_code) { is_expected.to eq(200) }
     its(:exit_status) { is_expected.to eq 0 }
   end
-
 end
