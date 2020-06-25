@@ -9,8 +9,38 @@
 # @param user_home
 #   Pulp user home directory
 #
-# @param manage_apache
-#   Deploy a separate apache vhost for pulp3
+# @param apache_http_vhost
+#   When true, deploy a separate apache vhost for pulp3 listening on HTTP.
+#   When a name is given, fragments are attached to the specified vhost.
+#   When false, no Apache HTTP vhost is touched.
+#
+# @param apache_https_vhost
+#   When true, deploy a separate apache vhost for pulp3 listening on HTTPS.
+#   When a name is given, fragments are attached to the specified vhost.
+#   When false, no Apache HTTPS vhost is touched.
+#
+# @param apache_https_cert
+#   The certificate file to use in the HTTPS vhost. Only used when
+#   apache_https_vhost is true.
+#
+# @param apache_https_key
+#   The key file to use in the HTTPS vhost. Only used when apache_https_vhost
+#   is true.
+#
+# @param apache_https_ca
+#   The ca file to use in the HTTPS vhost. Only used when apache_https_vhost is
+#   true. The ca file should contain the certificates allowed to sign client
+#   certificates. This can be a different CA than the chain.
+#
+# @param apache_https_chain
+#   The chain file to use in the HTTPS vhost. Only used when apache_https_vhost
+#   is true. The chain file should contain the CA certificate an any
+#   intermediate certificates that signed the certificate.
+#
+# @param apache_vhost_priority
+#   The Apache vhost priority. When a name is passed to apache_http_vhost or
+#   apache_https_vhost, this will be used when attaching fragments to those
+#   vhosts. Note that this implies both vhosts need to have the same priority.
 #
 # @param api_host
 #   API service host
@@ -119,9 +149,15 @@ class pulpcore (
   Stdlib::Absolutepath $chunked_upload_dir = '/var/lib/pulp/upload',
   Stdlib::Absolutepath $media_root = '/var/lib/pulp/media',
   Stdlib::Absolutepath $static_root = '/var/lib/pulp/assets',
-  String[1] $static_url = '/assets/',
+  Pattern['^/.+/$'] $static_url = '/assets/',
   Stdlib::Absolutepath $apache_docroot = '/var/lib/pulp/docroot',
-  Boolean $manage_apache = true,
+  Variant[Boolean, String[1]] $apache_http_vhost = true,
+  Variant[Boolean, String[1]] $apache_https_vhost = true,
+  Optional[Stdlib::Absolutepath] $apache_https_cert = undef,
+  Optional[Stdlib::Absolutepath] $apache_https_key = undef,
+  Optional[Stdlib::Absolutepath] $apache_https_ca = undef,
+  Optional[Stdlib::Absolutepath] $apache_https_chain = undef,
+  String[1] $apache_vhost_priority = '10',
   Stdlib::Host $api_host = '127.0.0.1',
   Stdlib::Port $api_port = 24817,
   Stdlib::Host $content_host = '127.0.0.1',

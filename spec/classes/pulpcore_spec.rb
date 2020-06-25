@@ -50,7 +50,59 @@ describe 'pulpcore' do
         it 'configures apache' do
           is_expected.to contain_class('pulpcore::apache')
           is_expected.to contain_apache__vhost('pulpcore')
-          is_expected.to contain_selinux__boolean('httpd_can_network_connect')
+          is_expected.not_to contain_apache__vhost__fragment('pulpcore-http-pulpcore')
+            .with_directories([
+              {
+                'provider'       => 'Directory',
+                'path'           => '/var/lib/pulp/docroot',
+                'options'        => ['-Indexes', '-FollowSymLinks'],
+                'allow_override' => ['None'],
+              },
+              {
+                'path'            => '/pulp/content',
+                'provider'        => 'location',
+                'proxy_pass'      => [{'url'  => 'http://127.0.0.1:24816/pulp/content'}],
+                'request_headers' => [
+                  'unset X-CLIENT-CERT',
+                  'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
+                ],
+              },
+            ])
+          is_expected.to contain_apache__vhost('pulpcore-https')
+            .with_directories([
+              {
+                'path'           => '/var/lib/pulp/docroot',
+                'provider'       => 'Directory',
+                'options'        => ['-Indexes', '-FollowSymLinks'],
+                'allow_override' => ['None'],
+              },
+              {
+                'path'            => '/pulp/content',
+                'provider'        => 'location',
+                'proxy_pass'      => [{'url'  => 'http://127.0.0.1:24816/pulp/content'}],
+                'request_headers' => [
+                  'unset X-CLIENT-CERT',
+                  'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
+                ],
+              },
+              {
+                'path'            => '/pulp/api/v3',
+                'provider'        => 'location',
+                'proxy_pass'      => [{'url'=>'http://127.0.0.1:24817/pulp/api/v3'}],
+                'request_headers' => [
+                  'unset REMOTE_USER',
+                  'set REMOTE_USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN',
+                ],
+              }
+            ])
+            .with_proxy_pass([
+              {
+                'path' => '/assets/',
+                'url'  => 'http://127.0.0.1:24817/assets/',
+              },
+            ])
+          is_expected.not_to contain_apache__vhost__fragment('pulpcore-https-pulpcore')
+          is_expected.to contain_selboolean('httpd_can_network_connect')
         end
 
         it 'configures services' do
@@ -125,15 +177,89 @@ describe 'pulpcore' do
       context 'without apache httpd' do
         let :params do
           {
-            manage_apache: false,
+            apache_http_vhost: false,
+            apache_https_vhost: false,
           }
         end
 
         it do
           is_expected.to compile.with_all_deps
           is_expected.not_to contain_file('/var/lib/pulp/docroot')
+          is_expected.not_to contain_class('apache')
           is_expected.not_to contain_apache__vhost('pulpcore')
+          is_expected.not_to contain_apache__vhost('pulpcore-https')
           is_expected.not_to contain_selinux__boolean('httpd_can_network_connect')
+        end
+      end
+
+      context 'with external vhosts' do
+        let :params do
+          {
+            apache_http_vhost: 'foreman',
+            apache_https_vhost: 'foreman-ssl',
+          }
+        end
+
+        let :pre_condition do
+          <<~PUPPET
+          include apache
+          apache::vhost { 'foreman':
+            docroot => '/usr/share/foreman/public',
+            port    => 80,
+          }
+
+          apache::vhost { 'foreman-ssl':
+            docroot => '/usr/share/foreman/public',
+            port    => 443,
+            ssl     => true,
+          }
+          PUPPET
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it do
+          is_expected.to contain_pulpcore__apache__fragment('pulpcore')
+          is_expected.to contain_apache__vhost__fragment('pulpcore-http-pulpcore')
+            .with_vhost('foreman')
+            .with_priority('10')
+            .with_content(
+<<CONTENT
+
+  <Location "/pulp/content">
+    RequestHeader unset X-CLIENT-CERT
+    RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
+    ProxyPass http://127.0.0.1:24816/pulp/content
+    ProxyPassReverse http://127.0.0.1:24816/pulp/content
+  </Location>
+CONTENT
+            )
+        end
+        it do
+          is_expected.to contain_pulpcore__apache__fragment('pulpcore')
+          is_expected.to contain_apache__vhost__fragment('pulpcore-https-pulpcore')
+            .with_vhost('foreman-ssl')
+            .with_priority('10')
+            .with_content(
+<<CONTENT
+
+  <Location "/pulp/content">
+    RequestHeader unset X-CLIENT-CERT
+    RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
+    ProxyPass http://127.0.0.1:24816/pulp/content
+    ProxyPassReverse http://127.0.0.1:24816/pulp/content
+  </Location>
+
+  <Location "/pulp/api/v3">
+    RequestHeader unset REMOTE_USER
+    RequestHeader set REMOTE_USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN
+    ProxyPass http://127.0.0.1:24817/pulp/api/v3
+    ProxyPassReverse http://127.0.0.1:24817/pulp/api/v3
+  </Location>
+
+  ProxyPass /assets/ http://127.0.0.1:24817/assets/
+  ProxyPassReverse /assets/ http://127.0.0.1:24817/assets/
+CONTENT
+            )
         end
       end
 
@@ -178,16 +304,28 @@ describe 'pulpcore' do
           is_expected.to contain_systemd__unit_file('pulpcore-content.service')
             .with_content(%r{--bind '127.0.0.1:24818'})
           is_expected.to contain_apache__vhost('pulpcore')
-            .with_proxy_pass([
+            .with_directories([
               {
-                'path'         => '/pulp/api/v3',
-                'url'          => "http://127.0.0.1:24819/pulp/api/v3",
-                'reverse_urls' => ["http://127.0.0.1:24819/pulp/api/v3"],
+                'provider'       => 'Directory',
+                'path'           => '/var/lib/pulp/docroot',
+                'options'        => ['-Indexes', '-FollowSymLinks'],
+                'allow_override' => ['None'],
               },
               {
-                'path'         => '/pulp/content',
-                'url'          => "http://127.0.0.1:24818/pulp/content",
-                'reverse_urls' => ["http://127.0.0.1:24818/pulp/content"],
+                'path'            => '/pulp/content',
+                'provider'        => 'location',
+                'proxy_pass'      => [{'url'  => 'http://127.0.0.1:24818/pulp/content'}],
+                'request_headers' => [
+                  'unset X-CLIENT-CERT',
+                  'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
+                ],
+              },
+            ])
+          is_expected.to contain_apache__vhost('pulpcore-https')
+            .with_proxy_pass([
+              {
+                'path' => '/assets/',
+                'url'  => 'http://127.0.0.1:24819/assets/',
               },
             ])
         end
