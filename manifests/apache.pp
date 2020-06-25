@@ -8,7 +8,7 @@ class pulpcore::apache {
 
   if $pulpcore::manage_apache {
     include apache
-    apache::vhost { 'pulp':
+    apache::vhost { 'pulpcore':
       servername => $pulpcore::servername,
       port       => 80,
       priority   => '10',
