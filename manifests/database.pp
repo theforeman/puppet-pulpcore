@@ -6,7 +6,7 @@ class pulpcore::database {
     include postgresql::server
     postgresql::server::db { $pulpcore::postgresql_db_name:
       user     => $pulpcore::postgresql_db_user,
-      password => postgresql_password($pulpcore::user, $pulpcore::postgresql_db_password),
+      password => postgresql::postgresql_password($pulpcore::user, $pulpcore::postgresql_db_password),
       before   => Pulpcore::Admin['migrate --noinput'],
     }
   }
