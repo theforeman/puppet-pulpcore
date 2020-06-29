@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.0](https://github.com/theforeman/puppet-pulpcore/tree/1.1.0) (2020-06-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.0.0...1.1.0)
+
+**Implemented enhancements:**
+
+- Use the non-deprecated namedspaced pg function [\#106](https://github.com/theforeman/puppet-pulpcore/pull/106) ([ekohl](https://github.com/ekohl))
+- Fixes [\#30059](https://projects.theforeman.org/issues/30059) - Add certguard plugin [\#99](https://github.com/theforeman/puppet-pulpcore/pull/99) ([sjha4](https://github.com/sjha4))
+- Fixes [\#29075](https://projects.theforeman.org/issues/29075) - add pulp\_rpm plugin [\#89](https://github.com/theforeman/puppet-pulpcore/pull/89) ([wbclark](https://github.com/wbclark))
+
+**Fixed bugs:**
+
+- Refs [\#30133](https://projects.theforeman.org/issues/30133) - Unconditionally install RHSM for certguard [\#103](https://github.com/theforeman/puppet-pulpcore/pull/103) ([ekohl](https://github.com/ekohl))
+- Fixes [\#30133](https://projects.theforeman.org/issues/30133) - Install python3-subscription-manager-rhsm [\#101](https://github.com/theforeman/puppet-pulpcore/pull/101) ([sjha4](https://github.com/sjha4))
+
+**Merged pull requests:**
+
+- Rename the apache vhost to match the project name [\#104](https://github.com/theforeman/puppet-pulpcore/pull/104) ([ekohl](https://github.com/ekohl))
+
 ## [1.0.0](https://github.com/theforeman/puppet-pulpcore/tree/1.0.0) (2020-05-14)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/0.2.0...1.0.0)
