@@ -17,6 +17,8 @@ describe 'pulpcore::plugin::migration' do
 
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_pulpcore__plugin('migration') }
+      it { is_expected.to contain_package('python3-pulp-2to3-migration') }
+      it { is_expected.to contain_concat__fragment('plugin-migration').with_content("\n# migration plugin settings\n#{migration_config}") }
 
       context 'with pulpcore' do
         let(:pre_condition) { 'include pulpcore' }
