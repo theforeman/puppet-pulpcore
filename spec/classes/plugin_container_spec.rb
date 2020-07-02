@@ -7,6 +7,8 @@ describe 'pulpcore::plugin::container' do
 
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_pulpcore__plugin('container') }
+      it { is_expected.to contain_package('python3-pulp-container') }
+      it { is_expected.to contain_concat__fragment('plugin-container').with_content("\n# container plugin settings\nTOKEN_AUTH_DISABLED=True") }
 
       context 'with pulpcore' do
         let(:pre_condition) { 'include pulpcore' }

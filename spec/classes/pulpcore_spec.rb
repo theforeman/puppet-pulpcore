@@ -3,20 +3,55 @@ require 'spec_helper'
 describe 'pulpcore' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { os_facts }
+      let(:facts) { override_facts(os_facts, processors: {count: 1}, os: {selinux: {enabled: true}}) }
 
       context 'default params' do
-        it do
-          is_expected.to compile.with_all_deps
+        it { is_expected.to compile.with_all_deps }
+
+        it 'installs' do
+          is_expected.to contain_class('pulpcore::install')
           is_expected.to contain_package('python3-pulpcore')
+          is_expected.to contain_package('pulpcore-selinux')
+          is_expected.to contain_user('pulp').with_gid('pulp').with_home('/var/lib/pulp')
+          is_expected.to contain_group('pulp')
+        end
+
+        it 'configures pulpcore' do
+          is_expected.to contain_class('pulpcore::config')
+          is_expected.to contain_concat('pulpcore settings').with_path('/etc/pulp/settings.py')
           is_expected.to contain_concat__fragment('base')
             .without_content(/REMOTE_USER_ENVIRON_NAME/)
             .without_content(/sslmode/)
+          is_expected.to contain_file('/etc/pulp')
+          is_expected.to contain_file('/var/lib/pulp')
+          is_expected.to contain_file('/var/lib/pulp/docroot')
+          is_expected.to contain_file('/var/lib/pulp/tmp')
+          is_expected.to contain_pulpcore__admin('collectstatic --noinput')
+        end
+
+
+        it 'configures the database' do
+          is_expected.to contain_class('pulpcore::database')
           is_expected.to contain_class('postgresql::server')
           is_expected.to contain_postgresql__server__db('pulpcore')
+          is_expected.to contain_pulpcore__admin('migrate --noinput')
+          is_expected.to contain_exec('python3-django-admin migrate --noinput')
+          is_expected.to contain_pulpcore__admin('reset-admin-password --random')
+          is_expected.to contain_exec('python3-django-admin reset-admin-password --random')
+        end
+
+        it 'configures apache' do
+          is_expected.to contain_class('pulpcore::apache')
           is_expected.to contain_apache__vhost('pulpcore')
           is_expected.to contain_selinux__boolean('httpd_can_network_connect')
-          is_expected.to contain_pulpcore__admin('reset-admin-password --random')
+        end
+
+        it 'configures services' do
+          is_expected.to contain_class('pulpcore::service')
+          is_expected.to contain_systemd__unit_file('pulpcore-resource-manager.service')
+          is_expected.to contain_systemd__unit_file('pulpcore-worker@.service')
+          is_expected.to contain_service("pulpcore-worker@1.service").with_ensure('running')
+          is_expected.not_to contain_service("pulpcore-worker@2.service")
         end
       end
 
@@ -102,6 +137,7 @@ describe 'pulpcore' do
           is_expected.to contain_pulpcore__plugin('myplugin')
             .that_subscribes_to('Class[Pulpcore::Install]')
             .that_notifies(['Class[Pulpcore::Database]', 'Class[Pulpcore::Service]'])
+          is_expected.to contain_package('python3-pulp-myplugin')
         end
       end
 
