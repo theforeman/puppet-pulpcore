@@ -50,7 +50,7 @@ describe 'pulpcore' do
                 .with_enable('true')
             end
             is_expected.not_to contain_service('pulpcore-worker@6.service')
-          end 
+          end
         end
 
         context 'with 0 workers from fact' do
@@ -64,7 +64,7 @@ describe 'pulpcore' do
                 .with_enable('true')
             end
             is_expected.not_to contain_service('pulpcore-worker@6.service')
-          end 
+          end
         end
 
         context 'fact absent' do
@@ -76,7 +76,7 @@ describe 'pulpcore' do
                 .with_enable('true')
             end
             is_expected.not_to contain_service('pulpcore-worker@6.service')
-          end 
+          end
         end
       end
 
