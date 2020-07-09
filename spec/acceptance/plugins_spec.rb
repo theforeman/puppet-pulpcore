@@ -60,8 +60,8 @@ describe 'basic installation' do
     it { is_expected.to be_listening }
   end
 
-  describe command("curl -s http://#{host_inventory['fqdn']}/pulp/api/v3/status/ -w '%{response_code}' -o /dev/null") do
-    its(:stdout) { is_expected.to eq("200") }
+  describe curl_command("http://#{host_inventory['fqdn']}/pulp/api/v3/status/") do
+    its(:response_code) { is_expected.to eq(200) }
     its(:exit_status) { is_expected.to eq 0 }
   end
 
