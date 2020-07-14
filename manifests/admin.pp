@@ -1,4 +1,4 @@
-# @summary Run a python3-django-admin command
+# @summary Run a pulpcore-manager command
 #
 # @param command
 #   The command to run
@@ -15,9 +15,6 @@
 #   The path to look for commands.
 #
 # @param pulp_settings
-#   The pulp settings file to use
-#
-# @param static_root
 #   Root directory for static content
 #
 # @see exec
@@ -27,16 +24,11 @@ define pulpcore::admin(
   Optional[String] $unless = undef,
   Array[Stdlib::Absolutepath] $path = ['/usr/bin'],
   Stdlib::Absolutepath $pulp_settings = $pulpcore::settings_file,
-  Stdlib::Absolutepath $static_root = $pulpcore::pulp_static_root,
 ) {
   Concat <| title == 'pulpcore settings' |>
-  -> exec { "python3-django-admin ${command}":
+  -> exec { "pulpcore-manager ${command}":
     path        => $path,
-    environment => [
-      'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
-      "PULP_SETTINGS=${pulp_settings}",
-      "PULP_STATIC_ROOT=${static_root}",
-    ],
+    environment => ["PULP_SETTINGS=${pulp_settings}"],
     refreshonly => $refreshonly,
     unless      => $unless,
   }

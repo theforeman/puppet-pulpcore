@@ -12,12 +12,12 @@ class pulpcore::database {
   }
 
   pulpcore::admin { 'migrate --noinput':
-    unless      => 'python3-django-admin migrate --plan | grep "No planned migration operations"',
+    unless      => 'pulpcore-manager migrate --plan | grep "No planned migration operations"',
     refreshonly => false,
   }
 
   pulpcore::admin { 'reset-admin-password --random':
-    unless      => 'python3-django-admin dumpdata auth.User | grep "auth.user"',
+    unless      => 'pulpcore-manager dumpdata auth.User | grep "auth.user"',
     refreshonly => false,
     require     => Pulpcore::Admin['migrate --noinput'],
   }

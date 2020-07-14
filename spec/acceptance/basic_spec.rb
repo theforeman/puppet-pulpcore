@@ -66,7 +66,7 @@ describe 'basic installation' do
     its(:exit_status) { is_expected.to eq 0 }
   end
 
-  describe command("DJANGO_SETTINGS_MODULE=pulpcore.app.settings PULP_SETTINGS=/etc/pulp/settings.py python3-django-admin dumpdata auth.User") do
+  describe command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager dumpdata auth.User") do
     its(:stdout) { is_expected.to match(/auth\.user/) }
     its(:exit_status) { is_expected.to eq 0 }
   end

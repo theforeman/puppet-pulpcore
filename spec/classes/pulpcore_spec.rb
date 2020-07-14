@@ -35,9 +35,9 @@ describe 'pulpcore' do
           is_expected.to contain_class('postgresql::server')
           is_expected.to contain_postgresql__server__db('pulpcore')
           is_expected.to contain_pulpcore__admin('migrate --noinput')
-          is_expected.to contain_exec('python3-django-admin migrate --noinput')
+          is_expected.to contain_exec('pulpcore-manager migrate --noinput')
           is_expected.to contain_pulpcore__admin('reset-admin-password --random')
-          is_expected.to contain_exec('python3-django-admin reset-admin-password --random')
+          is_expected.to contain_exec('pulpcore-manager reset-admin-password --random')
         end
 
         it 'configures apache' do
@@ -249,12 +249,6 @@ describe 'pulpcore' do
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_file('/my/custom/directory')
-          is_expected.to contain_exec('python3-django-admin collectstatic --noinput')
-            .with_environment([
-              "DJANGO_SETTINGS_MODULE=pulpcore.app.settings",
-              "PULP_SETTINGS=/etc/pulp/settings.py",
-              "PULP_STATIC_ROOT=/my/other/custom/directory"
-            ])
           is_expected.to contain_systemd__unit_file('pulpcore-api.service')
             .with_content(%r{Environment="PULP_STATIC_ROOT=/my/other/custom/directory"})
           is_expected.to contain_apache__vhost('pulpcore')

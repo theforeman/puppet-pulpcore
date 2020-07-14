@@ -6,23 +6,18 @@ describe 'pulpcore::admin' do
       let(:facts) { os_facts }
       let(:title) { 'help' }
 
-      context 'with a fixed pulp_settings and static_root' do
+      context 'with a fixed pulp_settings' do
         let(:params) do
           {
             pulp_settings: '/etc/pulpcore/settings.py',
-            static_root: '/var/lib/pulp/assets',
           }
         end
 
         context 'default parameters' do
           it do
             is_expected.to compile.with_all_deps
-            is_expected.to contain_exec('python3-django-admin help')
-              .with_environment([
-                'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
-                'PULP_SETTINGS=/etc/pulpcore/settings.py',
-                'PULP_STATIC_ROOT=/var/lib/pulp/assets',
-              ])
+            is_expected.to contain_exec('pulpcore-manager help')
+              .with_environment(['PULP_SETTINGS=/etc/pulpcore/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
           end
@@ -34,18 +29,13 @@ describe 'pulpcore::admin' do
               command: 'migrate --noinput',
               refreshonly: true,
               unless: '/usr/bin/false',
-              static_root: '/var/lib/pulp/assets',
             )
           end
 
           it do
             is_expected.to compile.with_all_deps
-            is_expected.to contain_exec('python3-django-admin migrate --noinput')
-              .with_environment([
-                'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
-                'PULP_SETTINGS=/etc/pulpcore/settings.py',
-                'PULP_STATIC_ROOT=/var/lib/pulp/assets',
-              ])
+            is_expected.to contain_exec('pulpcore-manager migrate --noinput')
+              .with_environment(['PULP_SETTINGS=/etc/pulpcore/settings.py'])
               .with_refreshonly(true)
               .with_unless('/usr/bin/false')
           end
@@ -60,12 +50,8 @@ describe 'pulpcore::admin' do
             is_expected.to compile.with_all_deps
             is_expected.to contain_pulpcore__admin('help').with_pulp_settings('/etc/pulp/settings.py')
             is_expected.to contain_concat('pulpcore settings')
-            is_expected.to contain_exec('python3-django-admin help')
-              .with_environment([
-                'DJANGO_SETTINGS_MODULE=pulpcore.app.settings',
-                'PULP_SETTINGS=/etc/pulp/settings.py',
-                'PULP_STATIC_ROOT=/var/lib/pulp/assets',
-              ])
+            is_expected.to contain_exec('pulpcore-manager help')
+              .with_environment(['PULP_SETTINGS=/etc/pulp/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
               .that_requires('Concat[pulpcore settings]')
