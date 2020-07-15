@@ -7,6 +7,7 @@ describe 'pulpcore::plugin::deb' do
 
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_pulpcore__plugin('deb') }
+      it { is_expected.to contain_package('python3-pulp-deb') }
 
       context 'with pulpcore' do
         let(:pre_condition) { 'include pulpcore' }
