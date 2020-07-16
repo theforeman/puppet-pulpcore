@@ -20,12 +20,12 @@ describe 'basic installation' do
     }
 
     include pulpcore
-    include pulpcore::plugin::file
+    include pulpcore::plugin::certguard
     include pulpcore::plugin::container
+    include pulpcore::plugin::deb
+    include pulpcore::plugin::file
     include pulpcore::plugin::migration
     include pulpcore::plugin::rpm
-    include pulpcore::plugin::certguard
-    include pulpcore::plugin::deb
     PUPPET
   }
 
