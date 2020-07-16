@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
-Environment="PULP_STATIC_ROOT=<%= scope['pulpcore::pulp_static_root'] %>"
+Environment="PULP_STATIC_ROOT=<%= scope['pulpcore::pulpcore_static_root'] %>"
 User=<%= scope['pulpcore::user'] %>
 PIDFile=/run/pulpcore-api.pid
 RuntimeDirectory=pulpcore-api

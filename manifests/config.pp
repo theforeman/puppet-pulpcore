@@ -20,7 +20,15 @@ class pulpcore::config {
     order   => '01',
   }
 
-  file { [$pulpcore::user_home, $pulpcore::webserver_static_dir, $pulpcore::cache_dir]:
+  $dirs = unique([
+      $pulpcore::user_home,
+      $pulpcore::apache_docroot,
+      $pulpcore::pulpcore_static_root,
+      $pulpcore::pulpcore_media_root,
+      $pulpcore::cache_dir,
+  ])
+
+  file { $dirs:
     ensure => directory,
     owner  => $pulpcore::user,
     group  => $pulpcore::group,

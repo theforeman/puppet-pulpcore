@@ -30,11 +30,14 @@
 # @param content_port
 #   Content service port
 #
-# @param webserver_static_dir
-#   Directory for Pulp webserver static content
+# @param apache_docroot
+#  Apache httpd vhost docroot
 #
-# @param pulp_static_root
-#   Root directory for collected static content
+# @param pulpcore_media_root
+#   Directory for Django server media content
+#
+# @param pulpcore_static_root
+#   Directory for Django server static content
 #
 # @param postgresql_db_name
 #   Name of Pulp PostgreSQL database
@@ -102,8 +105,9 @@ class pulpcore (
   Stdlib::Port $api_port = 24817,
   Stdlib::Host $content_host = '127.0.0.1',
   Stdlib::Port $content_port = 24816,
-  Stdlib::Absolutepath $webserver_static_dir = '/var/lib/pulp/docroot',
-  Stdlib::Absolutepath $pulp_static_root = '/var/lib/pulp/assets',
+  Stdlib::Absolutepath $apache_docroot = $user_home,
+  Stdlib::Absolutepath $pulpcore_media_root = $user_home,
+  Stdlib::Absolutepath $pulpcore_static_root = "${apache_docroot}/assets",
   String $postgresql_db_name = 'pulpcore',
   String $postgresql_db_user = 'pulp',
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),

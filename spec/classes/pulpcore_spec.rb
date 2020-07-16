@@ -24,7 +24,6 @@ describe 'pulpcore' do
             .without_content(/sslmode/)
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')
-          is_expected.to contain_file('/var/lib/pulp/docroot')
           is_expected.to contain_file('/var/lib/pulp/tmp')
           is_expected.to contain_pulpcore__admin('collectstatic --noinput')
         end
@@ -241,20 +240,23 @@ describe 'pulpcore' do
       context 'with custom static dirs' do
         let :params do
           {
-            webserver_static_dir: '/my/custom/directory',
-            pulp_static_root: '/my/other/custom/directory',
+            apache_docroot: '/my/custom/directory',
+            pulpcore_static_root: '/my/other/custom/directory',
+            pulpcore_media_root: '/yet/another/custom/directory',
           }
         end
 
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_file('/my/custom/directory')
+          is_expected.to contain_file('/my/other/custom/directory')
+          is_expected.to contain_file('/yet/another/custom/directory')
           is_expected.to contain_systemd__unit_file('pulpcore-api.service')
             .with_content(%r{Environment="PULP_STATIC_ROOT=/my/other/custom/directory"})
           is_expected.to contain_apache__vhost('pulpcore')
             .with_docroot('/my/custom/directory')
           is_expected.to contain_concat__fragment('base')
-            .with_content(%r{MEDIA_ROOT = "/my/custom/directory"})
+            .with_content(%r{MEDIA_ROOT = "/yet/another/custom/directory"})
         end
       end
     end

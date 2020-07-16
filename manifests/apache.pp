@@ -12,7 +12,7 @@ class pulpcore::apache {
       servername => $pulpcore::servername,
       port       => 80,
       priority   => '10',
-      docroot    => $pulpcore::webserver_static_dir,
+      docroot    => $pulpcore::apache_docroot,
       proxy_pass => [
         {
           'path'         => $api_path,
