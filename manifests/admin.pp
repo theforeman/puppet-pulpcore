@@ -14,6 +14,9 @@
 # @param path
 #   The path to look for commands.
 #
+# @param user
+#   The user to execute the command.
+#
 # @param pulp_settings
 #   Root directory for static content
 #
@@ -23,10 +26,12 @@ define pulpcore::admin(
   Boolean $refreshonly = false,
   Optional[String] $unless = undef,
   Array[Stdlib::Absolutepath] $path = ['/usr/bin'],
+  String $user = $pulpcore::user,
   Stdlib::Absolutepath $pulp_settings = $pulpcore::settings_file,
 ) {
   Concat <| title == 'pulpcore settings' |>
   -> exec { "pulpcore-manager ${command}":
+    user        => $user,
     path        => $path,
     environment => ["PULP_SETTINGS=${pulp_settings}"],
     refreshonly => $refreshonly,

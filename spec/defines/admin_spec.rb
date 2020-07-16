@@ -6,10 +6,11 @@ describe 'pulpcore::admin' do
       let(:facts) { os_facts }
       let(:title) { 'help' }
 
-      context 'with a fixed pulp_settings' do
+      context 'with a fixed pulp_settings and user' do
         let(:params) do
           {
             pulp_settings: '/etc/pulpcore/settings.py',
+            user: 'pulpcore',
           }
         end
 
@@ -17,6 +18,7 @@ describe 'pulpcore::admin' do
           it do
             is_expected.to compile.with_all_deps
             is_expected.to contain_exec('pulpcore-manager help')
+              .with_user('pulpcore')
               .with_environment(['PULP_SETTINGS=/etc/pulpcore/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
@@ -35,6 +37,7 @@ describe 'pulpcore::admin' do
           it do
             is_expected.to compile.with_all_deps
             is_expected.to contain_exec('pulpcore-manager migrate --noinput')
+              .with_user('pulpcore')
               .with_environment(['PULP_SETTINGS=/etc/pulpcore/settings.py'])
               .with_refreshonly(true)
               .with_unless('/usr/bin/false')
@@ -51,6 +54,7 @@ describe 'pulpcore::admin' do
             is_expected.to contain_pulpcore__admin('help').with_pulp_settings('/etc/pulp/settings.py')
             is_expected.to contain_concat('pulpcore settings')
             is_expected.to contain_exec('pulpcore-manager help')
+              .with_user('pulp')
               .with_environment(['PULP_SETTINGS=/etc/pulp/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
