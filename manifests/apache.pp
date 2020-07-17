@@ -9,11 +9,15 @@ class pulpcore::apache {
   if $pulpcore::manage_apache {
     include apache
     apache::vhost { 'pulpcore':
-      servername => $pulpcore::servername,
-      port       => 80,
-      priority   => '10',
-      docroot    => $pulpcore::webserver_static_dir,
-      proxy_pass => [
+      servername     => $pulpcore::servername,
+      port           => 80,
+      priority       => '10',
+      docroot        => $pulpcore::apache_docroot,
+      docroot_owner  => $pulpcore::user,
+      docroot_group  => $pulpcore::group,
+      docroot_mode   => '0755',
+      manage_docroot => true,
+      proxy_pass     => [
         {
           'path'         => $api_path,
           'url'          => $api_url,

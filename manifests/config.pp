@@ -3,6 +3,9 @@
 class pulpcore::config {
   file { $pulpcore::config_dir:
     ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
   }
 
   concat { 'pulpcore settings':
@@ -20,11 +23,18 @@ class pulpcore::config {
     order   => '01',
   }
 
-  file { [$pulpcore::user_home, $pulpcore::webserver_static_dir, $pulpcore::cache_dir]:
+  file { $pulpcore::user_home:
     ensure => directory,
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
     mode   => '0775',
+  }
+
+  file { [$pulpcore::cache_dir, $pulpcore::chunked_upload_dir, $pulpcore::media_root]:
+    ensure => directory,
+    owner  => $pulpcore::user,
+    group  => $pulpcore::group,
+    mode   => '0750',
   }
 
   selinux::port { 'pulpcore-api-port':

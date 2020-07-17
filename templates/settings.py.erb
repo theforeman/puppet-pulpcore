@@ -19,12 +19,17 @@ DATABASES = {
 <% end -%>
     },
 }
-MEDIA_ROOT = "<%= scope['pulpcore::webserver_static_dir'] %>"
-STATIC_ROOT = "<%= scope['pulpcore::pulp_static_root'] %>"
 REDIS_HOST = "localhost"
 REDIS_PORT = "<%= scope['redis::port'] %>"
 REDIS_DB = <%= scope['pulpcore::redis_db'] %>
+
+MEDIA_ROOT = "<%= scope['pulpcore::media_root'] %>"
+STATIC_ROOT = "<%= scope['pulpcore::static_root'] %>"
+STATIC_URL = "<%= scope['pulpcore::static_url'] %>"
+FILE_UPLOAD_TEMP_DIR = "<%= scope['pulpcore::cache_dir'] %>"
 WORKING_DIRECTORY = "<%= scope['pulpcore::cache_dir'] %>"
+CHUNKED_UPLOAD_DIR = "<%= scope['pulpcore::chunked_upload_dir'] %>"
+
 <% if scope['pulpcore::remote_user_environ_name'] -%>
 REMOTE_USER_ENVIRON_NAME = '<%= scope['pulpcore::remote_user_environ_name'] %>'
 <% end -%>
