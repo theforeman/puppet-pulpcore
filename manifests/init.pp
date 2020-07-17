@@ -1,11 +1,5 @@
 # Manage your next generation Pulp server
 #
-# @param cache_dir
-#   Pulp cache directory
-#
-# @param config_dir
-#   Pulp configuration directory
-#
 # @param user
 #   Pulp user
 #
@@ -30,11 +24,34 @@
 # @param content_port
 #   Content service port
 #
-# @param webserver_static_dir
-#   Directory for Pulp webserver static content
+# @param config_dir
+#   Pulp configuration directory. The settings.py file is created under this
+#   directory.
 #
-# @param pulp_static_root
-#   Root directory for collected static content
+# @param cache_dir
+#   Pulp cache directory. This is used to configure WORKING_DIRECTORY and
+#   FILE_UPLOAD_TEMP_DIR.
+#
+# @param chunked_upload_dir
+#   Pulp chunked upload directory. This is used to configure CHUNKED_UPLOAD_DIR
+#   and is used by Pulp to temporarily store files that are uploaded in chunks.
+#
+# @param apache_docroot
+#   Root directory for the Apache vhost. Only created if the Apache vhost is
+#   managed by this module.
+#
+# @param media_root
+#   Directory for Pulp's uploaded media. This corresponds to the MEDIA_ROOT
+#   setting.
+#
+# @param static_root
+#   Root directory for collected static content. This corresponds to the
+#   STATIC_ROOT setting.
+#
+# @param static_url
+#   The "URL" that serves the collected static content. This corresponds to the
+#   STATIC_URL setting. In reality this can also be just the path and doesn't
+#   have to be a full URL.
 #
 # @param postgresql_db_name
 #   Name of Pulp PostgreSQL database
@@ -89,21 +106,26 @@
 #   available, likely results in performance degradation due to I/O blocking and is not recommended in most cases. Modifying this parameter should
 #   be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
 #
-# @example
+# @example Default configuration
 #   include pulpcore
+#
+# @see https://docs.djangoproject.com/en/2.2/howto/static-files/
 class pulpcore (
-  Stdlib::Absolutepath $cache_dir = '/var/lib/pulp/tmp',
-  Stdlib::Absolutepath $config_dir = '/etc/pulp',
   String $user = 'pulp',
   String $group = 'pulp',
   Stdlib::Absolutepath $user_home = '/var/lib/pulp',
+  Stdlib::Absolutepath $config_dir = '/etc/pulp',
+  Stdlib::Absolutepath $cache_dir = '/var/lib/pulp/tmp',
+  Stdlib::Absolutepath $chunked_upload_dir = '/var/lib/pulp/upload',
+  Stdlib::Absolutepath $media_root = '/var/lib/pulp/media',
+  Stdlib::Absolutepath $static_root = '/var/lib/pulp/assets',
+  String[1] $static_url = '/assets/',
+  Stdlib::Absolutepath $apache_docroot = '/var/lib/pulp/docroot',
   Boolean $manage_apache = true,
   Stdlib::Host $api_host = '127.0.0.1',
   Stdlib::Port $api_port = 24817,
   Stdlib::Host $content_host = '127.0.0.1',
   Stdlib::Port $content_port = 24816,
-  Stdlib::Absolutepath $webserver_static_dir = '/var/lib/pulp/docroot',
-  Stdlib::Absolutepath $pulp_static_root = '/var/lib/pulp/assets',
   String $postgresql_db_name = 'pulpcore',
   String $postgresql_db_user = 'pulp',
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),

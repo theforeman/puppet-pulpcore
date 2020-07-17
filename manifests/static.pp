@@ -1,7 +1,7 @@
 # @summary Manage the static files (assets)
 # @api private
 class pulpcore::static {
-  file { $pulpcore::pulp_static_root:
+  file { $pulpcore::static_root:
     ensure => directory,
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
@@ -11,6 +11,6 @@ class pulpcore::static {
   pulpcore::admin { 'collectstatic --noinput':
     refreshonly => true,
     subscribe   => Concat['pulpcore settings'],
-    require     => File[$pulpcore::pulp_static_root],
+    require     => File[$pulpcore::static_root],
   }
 }
