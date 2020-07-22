@@ -10,7 +10,7 @@ User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=~
 RuntimeDirectory=pulpcore-content
-ExecStart=/usr/bin/gunicorn pulpcore.content:server \
+ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.content:server \
           --bind '<%= scope['pulpcore::content_host'] %>:<%= scope['pulpcore::content_port'] %>' \
           --worker-class 'aiohttp.GunicornWebWorker' \
           -w 2 \

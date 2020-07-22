@@ -1,11 +1,11 @@
 # puppet-pulpcore
-Puppet module for setting up Pulp 3 as part of Katello installation
 
-# Pulpcore 3.2
+Puppet module to set up Pulp 3. The primary goal of the maintainers is to set up Pulp 3 as part of Katello installation, but there's no reason it couldn't be used elsewhere.
 
-We are adding a few new settings to make the installer compatible with pulpcore 3.2. These settings are not available in releases prior to 3.2 and should not be used in earlier versions.
+## Support policy
 
-**ALLOWED_IMPORT_PATHS** : This setting whitelists paths that can be used for repository sync with file protocol. Katello uses the path /var/lib/pulp/sync_imports/ to run tests. For more information on this, see [https://docs.pulpproject.org/settings.html#allowed-import-paths](https://docs.pulpproject.org/settings.html#allowed-import-paths).
+The module provides no guarantee for multiple versions. Whenever a version is dropped, the major version is increased. All supported versions are listed.
 
-**AUTHENTICATION_BACKENDS , REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES** :
-The defaults that katello uses are defined in [templates/settings.py.erb](https://github.com/theforeman/puppet-pulpcore/blob/master/templates/settings.py.erb). For more information on these authentication settings, see [https://docs.pulpproject.org/installation/authentication.html](https://docs.pulpproject.org/installation/authentication.html)
+### Pulpcore 3.6
+
+Due to the use of libexec wrappers, at least python3-pulpcore 3.6.3-2 must be installed

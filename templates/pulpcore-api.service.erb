@@ -10,7 +10,7 @@ User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=~
 RuntimeDirectory=pulpcore-api
-ExecStart=/usr/bin/gunicorn pulpcore.app.wsgi:application \
+ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.app.wsgi:application \
           --bind '<%= scope['pulpcore::api_host'] %>:<%= scope['pulpcore::api_port'] %>' \
           --access-logfile -
 ProtectSystem=full

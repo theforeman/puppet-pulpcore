@@ -13,7 +13,7 @@ User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=~
 RuntimeDirectory=pulpcore-worker-%i
-ExecStart=/usr/bin/rq worker \
+ExecStart=/usr/libexec/pulpcore/rq worker \
           -w pulpcore.tasking.worker.PulpWorker \
           -c 'pulpcore.rqconfig' \
           --disable-job-desc-logging
