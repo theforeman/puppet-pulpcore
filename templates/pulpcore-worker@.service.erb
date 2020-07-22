@@ -4,17 +4,17 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
+Type=simple
 EnvironmentFile=-/etc/default/pulp-workers
 EnvironmentFile=-/etc/default/pulp-workers-%i
 Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
 User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
-WorkingDirectory=/var/run/pulpcore-worker-%i/
+WorkingDirectory=~
 RuntimeDirectory=pulpcore-worker-%i
 ExecStart=/usr/bin/rq worker \
           -w pulpcore.tasking.worker.PulpWorker \
-          --pid=/var/run/pulpcore-worker-%i/reserved-resource-worker-%i.pid \
           -c 'pulpcore.rqconfig' \
           --disable-job-desc-logging
 
