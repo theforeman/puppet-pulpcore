@@ -1,7 +1,6 @@
 # configure, enable, and start pulpcore services
 # @api private
 class pulpcore::service {
-
   systemd::unit_file { 'pulpcore-api.service':
     content => template('pulpcore/pulpcore-api.service.erb'),
     active  => true,
@@ -26,9 +25,10 @@ class pulpcore::service {
 
   Integer[1, $pulpcore::worker_count].each |$n| {
     service { "pulpcore-worker@${n}.service":
-      ensure  => running,
-      enable  => true,
-      require => [Systemd::Unit_file['pulpcore-worker@.service'], Class['systemd::systemctl::daemon_reload']],
+      ensure    => running,
+      enable    => true,
+      require   => Class['systemd::systemctl::daemon_reload'],
+      subscribe => Systemd::Unit_file['pulpcore-worker@.service'],
     }
   }
 
