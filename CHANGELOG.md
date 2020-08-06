@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/theforeman/puppet-pulpcore/tree/1.2.0) (2020-08-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.1.0...1.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#29895](https://projects.theforeman.org/issues/29895) - add pulp\_deb plugin [\#112](https://github.com/theforeman/puppet-pulpcore/pull/112) ([m-bucher](https://github.com/m-bucher))
+- Use pulpcore-manager [\#111](https://github.com/theforeman/puppet-pulpcore/pull/111) ([ekohl](https://github.com/ekohl))
+- Refs [\#30057](https://projects.theforeman.org/issues/30057) - Configure Pulpcore Worker Count [\#100](https://github.com/theforeman/puppet-pulpcore/pull/100) ([wbclark](https://github.com/wbclark))
+
+**Fixed bugs:**
+
+- Add the GPL license text [\#109](https://github.com/theforeman/puppet-pulpcore/pull/109) ([ekohl](https://github.com/ekohl))
+
 ## [1.1.0](https://github.com/theforeman/puppet-pulpcore/tree/1.1.0) (2020-06-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.0.0...1.1.0)
@@ -39,8 +53,6 @@
 **Fixed bugs:**
 
 - Update pulpcore::admin to use the command parameter if it is passed [\#91](https://github.com/theforeman/puppet-pulpcore/pull/91) ([gcoxmoz](https://github.com/gcoxmoz))
-
-# Changelog
 
 ## [0.2.0](https://github.com/theforeman/puppet-pulpcore/tree/0.2.0) (2020-03-19)
 

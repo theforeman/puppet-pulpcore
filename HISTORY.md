@@ -1,4 +1,42 @@
-# Changelog
+## [1.1.0](https://github.com/theforeman/puppet-pulpcore/tree/1.1.0) (2020-06-30)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.0.0...1.1.0)
+
+**Implemented enhancements:**
+
+- Use the non-deprecated namedspaced pg function [\#106](https://github.com/theforeman/puppet-pulpcore/pull/106) ([ekohl](https://github.com/ekohl))
+- Fixes [\#30059](https://projects.theforeman.org/issues/30059) - Add certguard plugin [\#99](https://github.com/theforeman/puppet-pulpcore/pull/99) ([sjha4](https://github.com/sjha4))
+- Fixes [\#29075](https://projects.theforeman.org/issues/29075) - add pulp\_rpm plugin [\#89](https://github.com/theforeman/puppet-pulpcore/pull/89) ([wbclark](https://github.com/wbclark))
+
+**Fixed bugs:**
+
+- Refs [\#30133](https://projects.theforeman.org/issues/30133) - Unconditionally install RHSM for certguard [\#103](https://github.com/theforeman/puppet-pulpcore/pull/103) ([ekohl](https://github.com/ekohl))
+- Fixes [\#30133](https://projects.theforeman.org/issues/30133) - Install python3-subscription-manager-rhsm [\#101](https://github.com/theforeman/puppet-pulpcore/pull/101) ([sjha4](https://github.com/sjha4))
+
+**Merged pull requests:**
+
+- Rename the apache vhost to match the project name [\#104](https://github.com/theforeman/puppet-pulpcore/pull/104) ([ekohl](https://github.com/ekohl))
+
+## [1.0.0](https://github.com/theforeman/puppet-pulpcore/tree/1.0.0) (2020-05-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/0.2.0...1.0.0)
+
+**Breaking changes:**
+
+- Use modern facts [\#96](https://github.com/theforeman/puppet-pulpcore/issues/96)
+- Fixes [\#29371](https://projects.theforeman.org/issues/29371) - Update settings.py for pulpcore3.2 [\#79](https://github.com/theforeman/puppet-pulpcore/pull/79) ([sjha4](https://github.com/sjha4))
+
+**Implemented enhancements:**
+
+- Allow puppet/redis 6.x [\#95](https://github.com/theforeman/puppet-pulpcore/pull/95) ([ekohl](https://github.com/ekohl))
+- Revert "Pin Facter to \< 4" [\#86](https://github.com/theforeman/puppet-pulpcore/pull/86) ([ekohl](https://github.com/ekohl))
+- Create admin user [\#85](https://github.com/theforeman/puppet-pulpcore/pull/85) ([sjha4](https://github.com/sjha4))
+- Allow extlib 5.x [\#84](https://github.com/theforeman/puppet-pulpcore/pull/84) ([mmoll](https://github.com/mmoll))
+- Fixes [\#29190](https://projects.theforeman.org/issues/29190) - Support EL8 [\#77](https://github.com/theforeman/puppet-pulpcore/pull/77) ([wbclark](https://github.com/wbclark))
+
+**Fixed bugs:**
+
+- Update pulpcore::admin to use the command parameter if it is passed [\#91](https://github.com/theforeman/puppet-pulpcore/pull/91) ([gcoxmoz](https://github.com/gcoxmoz))
 
 ## [0.2.0](https://github.com/theforeman/puppet-pulpcore/tree/0.2.0) (2020-03-19)
 
