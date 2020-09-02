@@ -17,7 +17,7 @@ class pulpcore::database {
   }
 
   pulpcore::admin { 'reset-admin-password --random':
-    unless      => 'pulpcore-manager dumpdata auth.User | grep "auth.user"',
+    unless      => 'pulpcore-manager dumpdata auth.User | grep "\"username\": \"admin\""',
     refreshonly => false,
     require     => Pulpcore::Admin['migrate --noinput'],
   }
