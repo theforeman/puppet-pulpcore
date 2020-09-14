@@ -26,9 +26,13 @@ describe 'pulpcore' do
           is_expected.to contain_file('/var/lib/pulp')
           is_expected.to contain_file('/var/lib/pulp/docroot')
           is_expected.to contain_file('/var/lib/pulp/tmp')
-          is_expected.to contain_pulpcore__admin('collectstatic --noinput')
         end
 
+        it 'sets up static files' do
+          is_expected.to contain_file('/var/lib/pulp/assets')
+          is_expected.to contain_pulpcore__admin('collectstatic --noinput')
+          is_expected.to contain_exec('pulpcore-manager collectstatic --noinput')
+        end
 
         it 'configures the database' do
           is_expected.to contain_class('pulpcore::database')

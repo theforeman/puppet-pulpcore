@@ -122,18 +122,18 @@ class pulpcore (
   Optional[String] $remote_user_environ_name = undef,
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
 ) {
-
   $settings_file = "${config_dir}/settings.py"
 
   contain pulpcore::install
   contain pulpcore::database
   contain pulpcore::config
+  contain pulpcore::static
   contain pulpcore::service
   contain pulpcore::apache
 
   Class['pulpcore::install'] ~> Class['pulpcore::config', 'pulpcore::database', 'pulpcore::service']
-  Class['pulpcore::config'] ~> Class['pulpcore::database', 'pulpcore::service']
-  Class['pulpcore::database'] -> Class['pulpcore::service'] -> Class['pulpcore::apache']
+  Class['pulpcore::config'] ~> Class['pulpcore::database', 'pulpcore::static', 'pulpcore::service']
+  Class['pulpcore::database', 'pulpcore::static'] -> Class['pulpcore::service'] -> Class['pulpcore::apache']
 
   # lint:ignore:spaceship_operator_without_tag
   Class['pulpcore::install']

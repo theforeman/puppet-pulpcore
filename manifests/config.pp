@@ -27,11 +27,6 @@ class pulpcore::config {
     mode   => '0775',
   }
 
-  pulpcore::admin { 'collectstatic --noinput':
-    refreshonly => true,
-    subscribe   => Concat['pulpcore settings'],
-  }
-
   selinux::port { 'pulpcore-api-port':
     ensure   => 'present',
     seltype  => 'pulpcore_port_t',
