@@ -20,6 +20,7 @@ DATABASES = {
     },
 }
 MEDIA_ROOT = "<%= scope['pulpcore::webserver_static_dir'] %>"
+STATIC_ROOT = "<%= scope['pulpcore::pulp_static_root'] %>"
 REDIS_HOST = "localhost"
 REDIS_PORT = "<%= scope['redis::port'] %>"
 REDIS_DB = <%= scope['pulpcore::redis_db'] %>

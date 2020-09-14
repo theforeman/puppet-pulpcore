@@ -254,11 +254,11 @@ describe 'pulpcore' do
           is_expected.to compile.with_all_deps
           is_expected.to contain_file('/my/custom/directory')
           is_expected.to contain_systemd__unit_file('pulpcore-api.service')
-            .with_content(%r{Environment="PULP_STATIC_ROOT=/my/other/custom/directory"})
           is_expected.to contain_apache__vhost('pulpcore')
             .with_docroot('/my/custom/directory')
           is_expected.to contain_concat__fragment('base')
             .with_content(%r{MEDIA_ROOT = "/my/custom/directory"})
+            .with_content(%r{STATIC_ROOT = "/my/other/custom/directory"})
         end
       end
     end
