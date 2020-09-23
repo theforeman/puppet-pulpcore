@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/theforeman/puppet-pulpcore/tree/1.3.0) (2020-09-23)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.2.0...1.3.0)
+
+**Implemented enhancements:**
+
+- Handle X-Forwarded-Proto headers [\#120](https://github.com/theforeman/puppet-pulpcore/pull/120) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Manage the static assets via a class [\#121](https://github.com/theforeman/puppet-pulpcore/pull/121) ([ekohl](https://github.com/ekohl))
+- Refs [\#30780](https://projects.theforeman.org/issues/30780) - set proper content origin setting [\#119](https://github.com/theforeman/puppet-pulpcore/pull/119) ([jlsherrill](https://github.com/jlsherrill))
+-  Fixes [\#30770](https://projects.theforeman.org/issues/30770) - check for the admin user before pw reset [\#118](https://github.com/theforeman/puppet-pulpcore/pull/118) ([jlsherrill](https://github.com/jlsherrill))
+
 ## [1.2.0](https://github.com/theforeman/puppet-pulpcore/tree/1.2.0) (2020-08-06)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.1.0...1.2.0)

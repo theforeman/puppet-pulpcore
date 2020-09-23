@@ -1,3 +1,31 @@
+## [1.3.0](https://github.com/theforeman/puppet-pulpcore/tree/1.3.0) (2020-09-23)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.2.0...1.3.0)
+
+**Implemented enhancements:**
+
+- Handle X-Forwarded-Proto headers [\#120](https://github.com/theforeman/puppet-pulpcore/pull/120) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Manage the static assets via a class [\#121](https://github.com/theforeman/puppet-pulpcore/pull/121) ([ekohl](https://github.com/ekohl))
+- Refs [\#30780](https://projects.theforeman.org/issues/30780) - set proper content origin setting [\#119](https://github.com/theforeman/puppet-pulpcore/pull/119) ([jlsherrill](https://github.com/jlsherrill))
+-  Fixes [\#30770](https://projects.theforeman.org/issues/30770) - check for the admin user before pw reset [\#118](https://github.com/theforeman/puppet-pulpcore/pull/118) ([jlsherrill](https://github.com/jlsherrill))
+
+## [1.2.0](https://github.com/theforeman/puppet-pulpcore/tree/1.2.0) (2020-08-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.1.0...1.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#29895](https://projects.theforeman.org/issues/29895) - add pulp\_deb plugin [\#112](https://github.com/theforeman/puppet-pulpcore/pull/112) ([m-bucher](https://github.com/m-bucher))
+- Use pulpcore-manager [\#111](https://github.com/theforeman/puppet-pulpcore/pull/111) ([ekohl](https://github.com/ekohl))
+- Refs [\#30057](https://projects.theforeman.org/issues/30057) - Configure Pulpcore Worker Count [\#100](https://github.com/theforeman/puppet-pulpcore/pull/100) ([wbclark](https://github.com/wbclark))
+
+**Fixed bugs:**
+
+- Add the GPL license text [\#109](https://github.com/theforeman/puppet-pulpcore/pull/109) ([ekohl](https://github.com/ekohl))
+
 ## [1.1.0](https://github.com/theforeman/puppet-pulpcore/tree/1.1.0) (2020-06-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.0.0...1.1.0)
