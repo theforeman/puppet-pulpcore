@@ -145,6 +145,16 @@ describe 'pulpcore' do
         end
       end
 
+      context 'with the repo' do
+        let(:pre_condition) { 'include pulpcore::repo' }
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_class('pulpcore::repo')
+          is_expected.to contain_file('/etc/yum.repos.d/pulpcore.repo').that_notifies('Class[pulpcore::install]')
+        end
+      end
+
       context 'with custom ports' do
         let :params do
           {
