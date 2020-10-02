@@ -61,7 +61,7 @@ describe 'pulpcore' do
               {
                 'path'            => '/pulp/content',
                 'provider'        => 'location',
-                'proxy_pass'      => [{'url'  => 'http://127.0.0.1:24816/pulp/content'}],
+                'proxy_pass'      => [{'url'  => 'unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content'}],
                 'request_headers' => [
                   'unset X-CLIENT-CERT',
                   'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
@@ -79,7 +79,7 @@ describe 'pulpcore' do
               {
                 'path'            => '/pulp/content',
                 'provider'        => 'location',
-                'proxy_pass'      => [{'url'  => 'http://127.0.0.1:24816/pulp/content'}],
+                'proxy_pass'      => [{'url'  => 'unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content'}],
                 'request_headers' => [
                   'unset X-CLIENT-CERT',
                   'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
@@ -88,7 +88,7 @@ describe 'pulpcore' do
               {
                 'path'            => '/pulp/api/v3',
                 'provider'        => 'location',
-                'proxy_pass'      => [{'url'=>'http://127.0.0.1:24817/pulp/api/v3'}],
+                'proxy_pass'      => [{'url'=>'unix:///run/pulpcore-api.sock|http://foo.example.com/pulp/api/v3'}],
                 'request_headers' => [
                   'unset REMOTE_USER',
                   'set REMOTE_USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN',
@@ -98,7 +98,7 @@ describe 'pulpcore' do
             .with_proxy_pass([
               {
                 'path' => '/assets/',
-                'url'  => 'http://127.0.0.1:24817/assets/',
+                'url'  => 'unix:///run/pulpcore-api.sock|http://foo.example.com/assets/',
               },
             ])
           is_expected.not_to contain_apache__vhost__fragment('pulpcore-https-pulpcore')
@@ -185,7 +185,6 @@ describe 'pulpcore' do
         it do
           is_expected.to compile.with_all_deps
           is_expected.not_to contain_file('/var/lib/pulp/docroot')
-          is_expected.not_to contain_class('apache')
           is_expected.not_to contain_apache__vhost('pulpcore')
           is_expected.not_to contain_apache__vhost('pulpcore-https')
           is_expected.not_to contain_selinux__boolean('httpd_can_network_connect')
@@ -228,8 +227,8 @@ describe 'pulpcore' do
   <Location "/pulp/content">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass http://127.0.0.1:24816/pulp/content
-    ProxyPassReverse http://127.0.0.1:24816/pulp/content
+    ProxyPass unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
+    ProxyPassReverse unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
   </Location>
 CONTENT
             )
@@ -245,19 +244,19 @@ CONTENT
   <Location "/pulp/content">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass http://127.0.0.1:24816/pulp/content
-    ProxyPassReverse http://127.0.0.1:24816/pulp/content
+    ProxyPass unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
+    ProxyPassReverse unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
   </Location>
 
   <Location "/pulp/api/v3">
     RequestHeader unset REMOTE_USER
     RequestHeader set REMOTE_USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN
-    ProxyPass http://127.0.0.1:24817/pulp/api/v3
-    ProxyPassReverse http://127.0.0.1:24817/pulp/api/v3
+    ProxyPass unix:///run/pulpcore-api.sock|http://foo.example.com/pulp/api/v3
+    ProxyPassReverse unix:///run/pulpcore-api.sock|http://foo.example.com/pulp/api/v3
   </Location>
 
-  ProxyPass /assets/ http://127.0.0.1:24817/assets/
-  ProxyPassReverse /assets/ http://127.0.0.1:24817/assets/
+  ProxyPass /assets/ unix:///run/pulpcore-api.sock|http://foo.example.com/assets/
+  ProxyPassReverse /assets/ unix:///run/pulpcore-api.sock|http://foo.example.com/assets/
 CONTENT
             )
         end
@@ -282,52 +281,6 @@ CONTENT
           is_expected.to compile.with_all_deps
           is_expected.to contain_class('pulpcore::repo')
           is_expected.to contain_file('/etc/yum.repos.d/pulpcore.repo').that_notifies('Class[pulpcore::install]')
-        end
-      end
-
-      context 'with custom ports' do
-        let :params do
-          {
-            api_port: 24819,
-            content_port: 24818,
-          }
-        end
-
-        it do
-          is_expected.to compile.with_all_deps
-          is_expected.to contain_selinux__port('pulpcore-api-port')
-            .with_port(24819)
-          is_expected.to contain_selinux__port('pulpcore-content-port')
-            .with_port(24818)
-          is_expected.to contain_systemd__unit_file('pulpcore-api.service')
-            .with_content(%r{--bind '127.0.0.1:24819'})
-          is_expected.to contain_systemd__unit_file('pulpcore-content.service')
-            .with_content(%r{--bind '127.0.0.1:24818'})
-          is_expected.to contain_apache__vhost('pulpcore')
-            .with_directories([
-              {
-                'provider'       => 'Directory',
-                'path'           => '/var/lib/pulp/docroot',
-                'options'        => ['-Indexes', '-FollowSymLinks'],
-                'allow_override' => ['None'],
-              },
-              {
-                'path'            => '/pulp/content',
-                'provider'        => 'location',
-                'proxy_pass'      => [{'url'  => 'http://127.0.0.1:24818/pulp/content'}],
-                'request_headers' => [
-                  'unset X-CLIENT-CERT',
-                  'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
-                ],
-              },
-            ])
-          is_expected.to contain_apache__vhost('pulpcore-https')
-            .with_proxy_pass([
-              {
-                'path' => '/assets/',
-                'url'  => 'http://127.0.0.1:24819/assets/',
-              },
-            ])
         end
       end
 
