@@ -1,9 +1,10 @@
 [Unit]
-Description=Pulp WSGI Server
-After=network-online.target
-Wants=network-online.target
+Description=Pulp API Server
+After=network.target
+Requires=pulpcore-api.socket
 
 [Service]
+type=notify
 Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
 User=<%= scope['pulpcore::user'] %>
@@ -11,8 +12,8 @@ Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-api
 ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.app.wsgi:application \
-          --bind '<%= scope['pulpcore::api_host'] %>:<%= scope['pulpcore::api_port'] %>' \
           --access-logfile -
+ExecReload=/bin/kill -s HUP $MAINPID
 ProtectSystem=full
 PrivateTmp=yes
 PrivateDevices=yes

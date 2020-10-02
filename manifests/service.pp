@@ -1,8 +1,22 @@
 # configure, enable, and start pulpcore services
 # @api private
 class pulpcore::service {
+  include apache
+
+  systemd::unit_file { 'pulpcore-api.socket':
+    content => template('pulpcore/pulpcore-api.socket.erb'),
+    active  => true,
+    enable  => true,
+  }
+
   systemd::unit_file { 'pulpcore-api.service':
     content => template('pulpcore/pulpcore-api.service.erb'),
+    active  => true,
+    enable  => true,
+  }
+
+  systemd::unit_file { 'pulpcore-content.socket':
+    content => template('pulpcore/pulpcore-content.socket.erb'),
     active  => true,
     enable  => true,
   }

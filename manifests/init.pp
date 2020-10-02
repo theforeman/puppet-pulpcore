@@ -42,17 +42,11 @@
 #   apache_https_vhost, this will be used when attaching fragments to those
 #   vhosts. Note that this implies both vhosts need to have the same priority.
 #
-# @param api_host
-#   API service host
+# @param api_socket_path
+#   Path where the Pulpcore API service is listening. This is a unix socket.
 #
-# @param api_port
-#   API service port
-#
-# @param content_host
-#   Content service host
-#
-# @param content_port
-#   Content service port
+# @param content_socket_path
+#   Path where the Pulpcore Content service is listening. This is a unix socket.
 #
 # @param config_dir
 #   Pulp configuration directory. The settings.py file is created under this
@@ -158,10 +152,8 @@ class pulpcore (
   Optional[Stdlib::Absolutepath] $apache_https_ca = undef,
   Optional[Stdlib::Absolutepath] $apache_https_chain = undef,
   String[1] $apache_vhost_priority = '10',
-  Stdlib::Host $api_host = '127.0.0.1',
-  Stdlib::Port $api_port = 24817,
-  Stdlib::Host $content_host = '127.0.0.1',
-  Stdlib::Port $content_port = 24816,
+  Stdlib::Absolutepath $api_socket_path = '/run/pulpcore-api.sock',
+  Stdlib::Absolutepath $content_socket_path = '/run/pulpcore-content.sock',
   String $postgresql_db_name = 'pulpcore',
   String $postgresql_db_user = 'pulp',
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),

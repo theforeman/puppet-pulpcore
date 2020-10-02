@@ -10,10 +10,10 @@ class pulpcore::apache (
 ) {
   $vhost_priority = $pulpcore::apache_vhost_priority
   $api_path = '/pulp/api/v3'
-  $api_base_url = "http://${pulpcore::api_host}:${pulpcore::api_port}"
+  $api_base_url = "unix://${pulpcore::api_socket_path}|http://${pulpcore::servername}"
   $api_url = "${api_base_url}${api_path}"
   $content_path = '/pulp/content'
-  $content_base_url = "http://${pulpcore::content_host}:${pulpcore::content_port}"
+  $content_base_url = "unix://${pulpcore::content_socket_path}|http://${pulpcore::servername}"
   $content_url = "${content_base_url}${content_path}"
 
   $docroot_directory = {

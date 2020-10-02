@@ -1,0 +1,10 @@
+[Unit]
+Description=Pulp Content App socket
+
+[Socket]
+ListenStream=<%= scope['pulpcore::content_socket_path'] %>
+SocketUser=<%= scope['apache::user'] %>
+SocketMode=0600
+
+[Install]
+WantedBy=sockets.target
