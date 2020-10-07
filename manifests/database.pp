@@ -7,6 +7,8 @@ class pulpcore::database {
     postgresql::server::db { $pulpcore::postgresql_db_name:
       user     => $pulpcore::postgresql_db_user,
       password => postgresql::postgresql_password($pulpcore::user, $pulpcore::postgresql_db_password),
+      encoding => 'utf8',
+      locale   => 'en_US.utf8',
       before   => Pulpcore::Admin['migrate --noinput'],
     }
   }
