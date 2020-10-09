@@ -8,7 +8,7 @@ Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
 User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
-WorkingDirectory=~
+WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-api
 ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.app.wsgi:application \
           --bind '<%= scope['pulpcore::api_host'] %>:<%= scope['pulpcore::api_port'] %>' \
