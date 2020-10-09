@@ -11,7 +11,7 @@ Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
 User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
-WorkingDirectory=~
+WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-worker-%i
 ExecStart=/usr/libexec/pulpcore/rq worker \
           -w pulpcore.tasking.worker.PulpWorker \
