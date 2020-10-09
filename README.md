@@ -2,15 +2,17 @@
 
 Puppet module to set up Pulp 3. The primary goal of the maintainers is to set up Pulp 3 as part of Katello installation, but there's no reason it couldn't be used elsewhere.
 
+The module assumes package repositories are present on the system. For convenience there is a `pulpcore::repo` class which installs from [yum.theforeman.org](https://yum.theforeman.org/pulpcore) (built from [pulpcore-packaging](https://github.com/theforeman/pulpcore-packaging)) but users can use other sources. Installation from pip is not supported.
+
 ## Support policy
 
-The module provides no guarantee for multiple versions. Whenever a version is dropped, the major version is increased. All supported versions are listed.
+All supported versions are listed below. For every supported version, acceptance tests run in CI on every supported platform. The module provides no guarantee for multiple versions. Whenever a Pulpcore version is dropped, the module's major version is increased.
+
+Supported operating systems are listed in `metadata.json` but individual releases can divert from that. For example, if Pulpcore x.y drops EL7, it will still be listed in metadata.json until all versions supported by the module have dropped it. Similarly, if x.z adds support for EL9, it'll be listed in `metadata.json` and all versions that don't support EL9 will have a note.
 
 ### Pulpcore 3.6
 
-Due to the use of libexec wrappers, at least python3-pulpcore 3.6.3-2 must be installed
-
-Supports EL 7 & 8, following [pulpcore-packaging](https://github.com/theforeman/pulpcore-packaging) only RPM specs are present.
+Due to the use of libexec wrappers, at least python3-pulpcore 3.6.3-2 must be installed.
 
 ## Installation layout
 
