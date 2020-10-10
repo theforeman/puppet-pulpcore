@@ -20,7 +20,6 @@ describe 'pulpcore' do
           is_expected.to contain_class('pulpcore::config')
           is_expected.to contain_concat('pulpcore settings').with_path('/etc/pulp/settings.py')
           is_expected.to contain_concat__fragment('base')
-            .without_content(/REMOTE_USER_ENVIRON_NAME/)
             .without_content(/sslmode/)
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')
