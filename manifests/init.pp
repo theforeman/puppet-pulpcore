@@ -141,7 +141,7 @@ class pulpcore (
   Integer[0] $redis_db = 8,
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
-  Optional[String] $remote_user_environ_name = undef,
+  String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
 ) {
   $settings_file = "${config_dir}/settings.py"

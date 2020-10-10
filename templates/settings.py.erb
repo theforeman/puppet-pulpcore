@@ -30,9 +30,7 @@ FILE_UPLOAD_TEMP_DIR = "<%= scope['pulpcore::cache_dir'] %>"
 WORKING_DIRECTORY = "<%= scope['pulpcore::cache_dir'] %>"
 CHUNKED_UPLOAD_DIR = "<%= scope['pulpcore::chunked_upload_dir'] %>"
 
-<% if scope['pulpcore::remote_user_environ_name'] -%>
 REMOTE_USER_ENVIRON_NAME = '<%= scope['pulpcore::remote_user_environ_name'] %>'
-<% end -%>
 AUTHENTICATION_BACKENDS = ['pulpcore.app.authentication.PulpNoCreateRemoteUserBackend']
 
 REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES = (
