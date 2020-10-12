@@ -32,6 +32,7 @@ describe 'pulpcore' do
         end
 
         it 'sets up static files' do
+          is_expected.to contain_class('pulpcore::static')
           is_expected.to contain_file('/var/lib/pulp/assets')
           is_expected.to contain_pulpcore__admin('collectstatic --noinput')
           is_expected.to contain_exec('pulpcore-manager collectstatic --noinput')
