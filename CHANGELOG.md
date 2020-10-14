@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/theforeman/puppet-pulpcore/tree/1.2.1) (2020-10-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.2.0...1.2.1)
+
+**Fixed bugs:**
+
+- Force UTF-8 database encoding [\#133](https://github.com/theforeman/puppet-pulpcore/pull/133) ([ekohl](https://github.com/ekohl))
+
 ## [1.2.0](https://github.com/theforeman/puppet-pulpcore/tree/1.2.0) (2020-08-06)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.1.0...1.2.0)
