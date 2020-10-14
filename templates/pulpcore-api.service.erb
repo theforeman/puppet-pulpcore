@@ -5,7 +5,6 @@ Requires=pulpcore-api.socket
 
 [Service]
 type=notify
-Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
 User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
