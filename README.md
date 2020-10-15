@@ -47,3 +47,16 @@ This results into the following structure, using `tree -pug`:
             ├── [drwxr-x--- pulp     pulp    ]  tmp ($cache_dir)
             └── [drwxr-x--- pulp     pulp    ]  upload ($chunked_upload_dir)
 ```
+
+## Service setup
+
+The module deploys a few systemd services:
+* `pulpcore-api.socket` - A unix socket that listens on `$api_socket_path` (default: `/run/pulpcore-api.sock`). It is owned by the Apache user.
+* `pulpcore-api.service` - The actual content service. It is using systemd socket activation.
+* `pulpcore-content.socket` - A unix socket that listens on `$content_socket_path` (default: `/run/pulpcore-content.sock`). It is owned by the Apache user.
+* `pulpcore-content.service` - The actual content service. It is using systemd socket activation.
+* `pulpcore-worker@.service` - A service template allowing multiple workers to be started. Actual workers will be named `pulpcore-worker@%i` where %i is a number starting at 1 and ending at `$worker_count`.
+
+The [systemd socket activated](https://www.freedesktop.org/software/systemd/man/systemd.socket.html) services bind to a unix socket. They are always owned by the Apache user. To find this out this username, it always pulls in the [apache](https://github.com/puppetlabs/puppetlabs-apache) module, even if the vhosts are unmanaged (`$apache_http_vhost` and `$apache_https_vhost` both set to `false`).
+
+Binding to a unix socket with minimal permissions is the most secure since only Apache can connect to Pulp's services. This forces the authentication to happen and prevents [MITM attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack). Binding on TCP ports is not supported for this reason.
