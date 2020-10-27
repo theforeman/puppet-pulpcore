@@ -144,7 +144,7 @@ class pulpcore (
   Stdlib::Absolutepath $media_root = '/var/lib/pulp/media',
   Stdlib::Absolutepath $static_root = '/var/lib/pulp/assets',
   Pattern['^/.+/$'] $static_url = '/assets/',
-  Stdlib::Absolutepath $apache_docroot = '/var/lib/pulp/docroot',
+  Stdlib::Absolutepath $apache_docroot = '/var/lib/pulp/pulpcore_static',
   Variant[Boolean, String[1]] $apache_http_vhost = true,
   Variant[Boolean, String[1]] $apache_https_vhost = true,
   Optional[Stdlib::Absolutepath] $apache_https_cert = undef,

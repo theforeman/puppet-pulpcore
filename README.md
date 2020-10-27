@@ -28,7 +28,7 @@ These is also the `cache_dir` which is used to configure [WORKING_DIRECTORY](htt
 
 There is also `chunked_upload_dir` to configure the undocumented `CHUNKED_UPLOAD_DIR`. This directory stores the temporary files used for files uploaded as chunks.
 
-Apache is configured to use an empty directory as docroot (`$apache_docroot`, default `/var/lib/pulp/docroot`). Doing so prevents Apache from bypassing the Pulp content app. When Apache is not managed, this directory is not managed.
+Apache is configured to use an empty directory as docroot (`$apache_docroot`, default `/var/lib/pulp/pulpcore_static`). Doing so prevents Apache from bypassing the Pulp content app. When Apache is not managed, this directory is not managed.
 
 While Pulp can create most of these directories at runtime, they're explicitly managed to set the correct permissions and, if pulpcore-selinux is installed, enforce the correct labels.
 
