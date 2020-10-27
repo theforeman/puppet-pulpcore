@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.0.0](https://github.com/theforeman/puppet-pulpcore/tree/2.0.0) (2020-10-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.2.1...2.0.0)
+
+**Breaking changes:**
+
+- Switch to using a Unix socket bind for API and Content services [\#124](https://github.com/theforeman/puppet-pulpcore/pull/124) ([ehelms](https://github.com/ehelms))
+- Fixes [\#30465](https://projects.theforeman.org/issues/30465) - Use libexec wrappers for SELinux [\#116](https://github.com/theforeman/puppet-pulpcore/pull/116) ([ekohl](https://github.com/ekohl))
+- Fixes [\#30423](https://projects.theforeman.org/issues/30423) - Change the application layout [\#115](https://github.com/theforeman/puppet-pulpcore/pull/115) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Drop pid files and fix working dirs [\#125](https://github.com/theforeman/puppet-pulpcore/pull/125) ([ekohl](https://github.com/ekohl))
+- Add Pulpcore repository class [\#123](https://github.com/theforeman/puppet-pulpcore/pull/123) ([ekohl](https://github.com/ekohl))
+- Set docroot to pulpcore_static [\#141](https://github.com/theforeman/puppet-pulpcore/pull/141) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- use absolute paths in unit files [\#129](https://github.com/theforeman/puppet-pulpcore/pull/129) ([wbclark](https://github.com/wbclark))
+- Fixes [\#31018](https://projects.theforeman.org/issues/31018) - Force UTF-8 database encoding [\#126](https://github.com/theforeman/puppet-pulpcore/pull/126) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Describe the service setup in README [\#135](https://github.com/theforeman/puppet-pulpcore/pull/135) ([ekohl](https://github.com/ekohl))
+- Expand README with more about the support policy. [\#128](https://github.com/theforeman/puppet-pulpcore/pull/128) ([ekohl](https://github.com/ekohl))
+
 ## [1.3.0](https://github.com/theforeman/puppet-pulpcore/tree/1.3.0) (2020-09-23)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.2.0...1.3.0)
