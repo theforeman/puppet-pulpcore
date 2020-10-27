@@ -109,7 +109,7 @@ describe 'pulpcore' do
           is_expected.to contain_class('pulpcore::service')
           is_expected.to contain_systemd__unit_file('pulpcore-resource-manager.service')
           is_expected.to contain_systemd__unit_file('pulpcore-worker@.service')
-          is_expected.to contain_service("pulpcore-worker@1.service").with_ensure('running')
+          is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(true)
           is_expected.not_to contain_service("pulpcore-worker@2.service")
         end
       end
@@ -124,12 +124,12 @@ describe 'pulpcore' do
             is_expected.to compile.with_all_deps
             (1..5).each do |n|
               is_expected.to contain_service("pulpcore-worker@#{n}.service")
-                .with_ensure('running')
-                .with_enable('true')
+                .with_ensure(true)
+                .with_enable(true)
             end
             is_expected.to contain_service('pulpcore-worker@6.service')
-              .with_ensure('stopped')
-              .with_enable('false')
+              .with_ensure(false)
+              .with_enable(false)
           end
         end
 
@@ -140,8 +140,8 @@ describe 'pulpcore' do
             is_expected.to compile.with_all_deps
             (1..5).each do |n|
               is_expected.to contain_service("pulpcore-worker@#{n}.service")
-                .with_ensure('running')
-                .with_enable('true')
+                .with_ensure(true)
+                .with_enable(true)
             end
             is_expected.not_to contain_service('pulpcore-worker@6.service')
           end
@@ -154,8 +154,8 @@ describe 'pulpcore' do
             is_expected.to compile.with_all_deps
             (1..5).each do |n|
               is_expected.to contain_service("pulpcore-worker@#{n}.service")
-                .with_ensure('running')
-                .with_enable('true')
+                .with_ensure(true)
+                .with_enable(true)
             end
             is_expected.not_to contain_service('pulpcore-worker@6.service')
           end
@@ -166,8 +166,8 @@ describe 'pulpcore' do
             is_expected.to compile.with_all_deps
             (1..5).each do |n|
               is_expected.to contain_service("pulpcore-worker@#{n}.service")
-                .with_ensure('running')
-                .with_enable('true')
+                .with_ensure(true)
+                .with_enable(true)
             end
             is_expected.not_to contain_service('pulpcore-worker@6.service')
           end
@@ -366,6 +366,38 @@ CONTENT
           is_expected.to contain_concat__fragment('base')
             .with_content(%r{MEDIA_ROOT = "/my/media/root"})
             .with_content(%r{STATIC_ROOT = "/my/other/custom/directory"})
+        end
+      end
+
+      context 'can disable services' do
+        let :params do
+          {
+            service_enable: false
+          }
+        end
+
+        it do
+          is_expected.to contain_systemd__unit_file("pulpcore-api.socket").with_enable(false)
+          is_expected.to contain_systemd__unit_file("pulpcore-api.service").with_enable(false)
+          is_expected.to contain_systemd__unit_file("pulpcore-content.service").with_enable(false)
+          is_expected.to contain_systemd__unit_file("pulpcore-content.socket").with_enable(false)
+          is_expected.to contain_service("pulpcore-worker@1.service").with_enable(false)
+        end
+      end
+
+      context 'can ensure services are stopped' do
+        let :params do
+          {
+            service_ensure: false
+          }
+        end
+
+        it do
+          is_expected.to contain_systemd__unit_file("pulpcore-api.socket").with_active(false)
+          is_expected.to contain_systemd__unit_file("pulpcore-api.service").with_active(false)
+          is_expected.to contain_systemd__unit_file("pulpcore-content.service").with_active(false)
+          is_expected.to contain_systemd__unit_file("pulpcore-content.socket").with_active(false)
+          is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(false)
         end
       end
     end

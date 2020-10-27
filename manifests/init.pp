@@ -130,6 +130,12 @@
 #   available, likely results in performance degradation due to I/O blocking and is not recommended in most cases. Modifying this parameter should
 #   be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
 #
+# @param service_enable
+#   Enable/disable Pulp services at boot.
+#
+# @param service_ensure
+#   Specify if Pulp services should be running or stopped.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -171,6 +177,8 @@ class pulpcore (
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
+  Boolean $service_enable = true,
+  Boolean $service_ensure = true,
 ) {
   $settings_file = "${config_dir}/settings.py"
 

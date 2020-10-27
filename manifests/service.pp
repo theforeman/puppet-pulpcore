@@ -5,32 +5,32 @@ class pulpcore::service {
 
   systemd::unit_file { 'pulpcore-api.socket':
     content => template('pulpcore/pulpcore-api.socket.erb'),
-    active  => true,
-    enable  => true,
+    active  => $pulpcore::service_ensure,
+    enable  => $pulpcore::service_enable,
   }
 
   systemd::unit_file { 'pulpcore-api.service':
     content => template('pulpcore/pulpcore-api.service.erb'),
-    active  => true,
-    enable  => true,
+    active  => $pulpcore::service_ensure,
+    enable  => $pulpcore::service_enable,
   }
 
   systemd::unit_file { 'pulpcore-content.socket':
     content => template('pulpcore/pulpcore-content.socket.erb'),
-    active  => true,
-    enable  => true,
+    active  => $pulpcore::service_ensure,
+    enable  => $pulpcore::service_enable,
   }
 
   systemd::unit_file { 'pulpcore-content.service':
     content => template('pulpcore/pulpcore-content.service.erb'),
-    active  => true,
-    enable  => true,
+    active  => $pulpcore::service_ensure,
+    enable  => $pulpcore::service_enable,
   }
 
   systemd::unit_file { 'pulpcore-resource-manager.service':
     content => template('pulpcore/pulpcore-resource-manager.service.erb'),
-    active  => true,
-    enable  => true,
+    active  => $pulpcore::service_ensure,
+    enable  => $pulpcore::service_enable,
   }
 
   systemd::unit_file { 'pulpcore-worker@.service':
@@ -39,8 +39,8 @@ class pulpcore::service {
 
   Integer[1, $pulpcore::worker_count].each |$n| {
     service { "pulpcore-worker@${n}.service":
-      ensure    => running,
-      enable    => true,
+      ensure    => $pulpcore::service_ensure,
+      enable    => $pulpcore::service_enable,
       require   => Class['systemd::systemctl::daemon_reload'],
       subscribe => Systemd::Unit_file['pulpcore-worker@.service'],
     }
@@ -51,7 +51,7 @@ class pulpcore::service {
     $existing_workers.each |$worker| {
       if $worker =~ /^pulpcore-worker@\d+\.service$/ and !defined(Service[$worker]) {
         service { $worker:
-          ensure  => stopped,
+          ensure  => false,
           enable  => false,
           require => [Systemd::Unit_file['pulpcore-worker@.service'], Class['systemd::systemctl::daemon_reload']],
         }
