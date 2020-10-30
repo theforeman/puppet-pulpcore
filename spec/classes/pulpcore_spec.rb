@@ -25,7 +25,7 @@ describe 'pulpcore' do
           is_expected.to contain_file('/var/lib/pulp')
           is_expected.to contain_file('/var/lib/pulp/assets')
           is_expected.to contain_file('/var/lib/pulp/media')
-          is_expected.to contain_file('/var/lib/pulp/docroot')
+          is_expected.to contain_file('/var/lib/pulp/pulpcore_static')
           is_expected.to contain_file('/var/lib/pulp/tmp')
           is_expected.to contain_file('/var/lib/pulp/upload')
         end
@@ -54,7 +54,7 @@ describe 'pulpcore' do
             .with_directories([
               {
                 'provider'       => 'Directory',
-                'path'           => '/var/lib/pulp/docroot',
+                'path'           => '/var/lib/pulp/pulpcore_static',
                 'options'        => ['-Indexes', '-FollowSymLinks'],
                 'allow_override' => ['None'],
               },
@@ -71,7 +71,7 @@ describe 'pulpcore' do
           is_expected.to contain_apache__vhost('pulpcore-https')
             .with_directories([
               {
-                'path'           => '/var/lib/pulp/docroot',
+                'path'           => '/var/lib/pulp/pulpcore_static',
                 'provider'       => 'Directory',
                 'options'        => ['-Indexes', '-FollowSymLinks'],
                 'allow_override' => ['None'],
@@ -184,7 +184,7 @@ describe 'pulpcore' do
 
         it do
           is_expected.to compile.with_all_deps
-          is_expected.not_to contain_file('/var/lib/pulp/docroot')
+          is_expected.not_to contain_file('/var/lib/pulp/pulpcore_static')
           is_expected.not_to contain_apache__vhost('pulpcore')
           is_expected.not_to contain_apache__vhost('pulpcore-https')
           is_expected.not_to contain_selinux__boolean('httpd_can_network_connect')
