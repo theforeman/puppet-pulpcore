@@ -1,5 +1,11 @@
 ---
-.travis.yml:
-  beaker_sets:
-    - centos7-64
-    - centos8-64
+.github/workflows/acceptance.yml:
+  beaker_fact_matrix:
+    pulpcore_version:
+      - "3.6"
+      - "3.7"
+.github/workflows/cron.yml:
+  beaker_fact_matrix:
+    pulpcore_version:
+      - "3.6"
+      - "3.7"

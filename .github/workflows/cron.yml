@@ -86,9 +86,9 @@ jobs:
           - "6"
           - "5"
         pulpcore_version:
-          - '3.6'
-          - '3.7'
-    name: Puppet ${{ matrix.puppet }} - Pulp ${{ matrix.pulpcore_version }} - ${{ matrix.setfile }}
+          - "3.6"
+          - "3.7"
+    name: Puppet ${{ matrix.puppet }} - ${{ matrix.setfile }} - Pulpcore version ${{ matrix.pulpcore_version }}
     steps:
       - name: Enable IPv6 on docker
         run: |
