@@ -342,7 +342,31 @@ CONTENT
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_concat__fragment('base')
-            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
+            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports", "/var/lib/pulp/imports"\]})
+
+        end
+      end
+
+      context 'with allowed export paths' do
+        let :params do
+          {
+            allowed_export_path: ['/test/path', '/test/path2'],
+          }
+        end
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{ALLOWED_EXPORT_PATHS = \["/test/path", "/test/path2"\]})
+
+        end
+      end
+
+      context 'with empty allowed export paths' do
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{ALLOWED_EXPORT_PATHS = \["/var/lib/pulp/exports"\]})
 
         end
       end
