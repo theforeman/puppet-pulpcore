@@ -1,3 +1,13 @@
+## [2.1.0](https://github.com/theforeman/puppet-pulpcore/tree/2.1.0) (2020-11-11)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.0.0...2.1.0)
+
+**Implemented enhancements:**
+
+- support /pulp/deb proxying [\#145](https://github.com/theforeman/puppet-pulpcore/pull/145) ([jlsherrill](https://github.com/jlsherrill))
+- Add ability to control if services are enabled or active [\#137](https://github.com/theforeman/puppet-pulpcore/pull/137) ([ehelms](https://github.com/ehelms))
+- Support Pulpcore 3.7 [\#127](https://github.com/theforeman/puppet-pulpcore/pull/127) ([ekohl](https://github.com/ekohl))
+
 ## [2.0.0](https://github.com/theforeman/puppet-pulpcore/tree/2.0.0) (2020-10-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/1.2.1...2.0.0)
