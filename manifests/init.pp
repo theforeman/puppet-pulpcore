@@ -123,7 +123,10 @@
 #   Django remote user environment variable
 #
 # @param allowed_import_path
-#   Allowed paths that pulp can sync from using file:// protocol
+#   Allowed paths that pulp can use for content view imports, or sync from using file:// protocol
+#
+# @param allowed_export_path
+#   Allowed paths that pulp can use for content view exports
 #
 # @param worker_count
 #   Number of pulpcore workers. Defaults to 8 or the number of CPU cores, whichever is smaller. Enabling more than 8 workers, even with additional CPU cores
@@ -174,7 +177,8 @@ class pulpcore (
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(32)),
   Integer[0] $redis_db = 8,
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
-  Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
+  Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports', '/var/lib/pulp/imports'],
+  Array[Stdlib::Absolutepath] $allowed_export_path = ['/var/lib/pulp/exports'],
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
   Boolean $service_enable = true,

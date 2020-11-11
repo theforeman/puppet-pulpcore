@@ -38,8 +38,11 @@ REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES = (
     'pulpcore.app.authentication.PulpRemoteUserAuthentication'
 )
 
-<%# This setting whitelists paths that can be used for repository sync with file protocol. Katello uses the path /var/lib/pulp/sync_imports/ to run tests -%>
+<%# These settings specify paths that can be used for repository sync with file protocol, -%>
+<%# and for content view version import/export. -%>
+<%# Katello uses the path /var/lib/pulp/sync_imports/ to run tests -%>
 ALLOWED_IMPORT_PATHS = <%= scope['pulpcore::allowed_import_path'] %>
+ALLOWED_EXPORT_PATHS = <%= scope['pulpcore::allowed_export_path'] %>
 
 # Derive HTTP/HTTPS via the X-Forwarded-Proto header set by Apache
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
