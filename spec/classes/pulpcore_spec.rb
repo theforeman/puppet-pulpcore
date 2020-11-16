@@ -342,7 +342,7 @@ CONTENT
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_concat__fragment('base')
-            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports", "/var/lib/pulp/imports"\]})
+            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
 
         end
       end

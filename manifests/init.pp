@@ -177,7 +177,7 @@ class pulpcore (
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(32)),
   Integer[0] $redis_db = 8,
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
-  Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports', '/var/lib/pulp/imports'],
+  Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
   Array[Stdlib::Absolutepath] $allowed_export_path = ['/var/lib/pulp/exports'],
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
