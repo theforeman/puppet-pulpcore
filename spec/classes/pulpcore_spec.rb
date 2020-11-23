@@ -366,7 +366,7 @@ CONTENT
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_concat__fragment('base')
-            .with_content(%r{ALLOWED_EXPORT_PATHS = \["/var/lib/pulp/exports"\]})
+            .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
 
         end
       end
