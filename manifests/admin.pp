@@ -36,5 +36,6 @@ define pulpcore::admin(
     environment => ["PULP_SETTINGS=${pulp_settings}"],
     refreshonly => $refreshonly,
     unless      => $unless,
+    logoutput   => 'on_failure',
   }
 }
