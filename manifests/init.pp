@@ -123,10 +123,10 @@
 #   Django remote user environment variable
 #
 # @param allowed_import_path
-#   Allowed paths that pulp can use for content view imports, or sync from using file:// protocol
+#   Allowed paths that pulp can use for content imports, or sync from using file:// protocol
 #
 # @param allowed_export_path
-#   Allowed paths that pulp can use for content view exports
+#   Allowed paths that pulp can use for content exports
 #
 # @param worker_count
 #   Number of pulpcore workers. Defaults to 8 or the number of CPU cores, whichever is smaller. Enabling more than 8 workers, even with additional CPU cores
