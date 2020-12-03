@@ -8,7 +8,15 @@
 class pulpcore::plugin::container (
   String $location_prefix = '/pulpcore_registry',
   String $registry_version_path = '/v2/',
+  String $registry_base_url = '',
 ) {
+
+  if $registry_base_url == '' {
+    $_registry_base_url = $pulpcore::apache::api_base_url
+  } else {
+    $_registry_base_url = $registry_base_url
+  }
+
   $context = {
     'directories' => [
       {
@@ -16,7 +24,7 @@ class pulpcore::plugin::container (
         'path'            => "${location_prefix}${registry_version_path}",
         'proxy_pass'      => [
           {
-            'url' => "${pulpcore::apache::api_base_url}${registry_version_path}",
+            'url' => "${_registry_base_url}${registry_version_path}",
           },
         ],
         'request_headers' => [
