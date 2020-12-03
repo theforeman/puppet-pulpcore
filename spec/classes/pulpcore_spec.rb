@@ -20,6 +20,8 @@ describe 'pulpcore' do
           is_expected.to contain_class('pulpcore::config')
           is_expected.to contain_concat('pulpcore settings').with_path('/etc/pulp/settings.py')
           is_expected.to contain_concat__fragment('base')
+            .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
+            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
             .without_content(/sslmode/)
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')
@@ -28,54 +30,6 @@ describe 'pulpcore' do
           is_expected.to contain_file('/var/lib/pulp/pulpcore_static')
           is_expected.to contain_file('/var/lib/pulp/tmp')
           is_expected.to contain_file('/var/lib/pulp/upload')
-        end
-
-        context 'with allowed import paths' do
-          let :params do
-            {
-              allowed_import_path: ['/test/path', '/test/path2'],
-            }
-          end
-
-          it do
-            is_expected.to compile.with_all_deps
-            is_expected.to contain_concat__fragment('base')
-              .with_content(%r{ALLOWED_IMPORT_PATHS = \["/test/path", "/test/path2"\]})
-
-          end
-        end
-
-        context 'with empty allowed import paths' do
-          it do
-            is_expected.to compile.with_all_deps
-            is_expected.to contain_concat__fragment('base')
-              .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
-
-          end
-        end
-
-        context 'with allowed export paths' do
-          let :params do
-            {
-              allowed_export_path: ['/test/path', '/test/path2'],
-            }
-          end
-
-          it do
-            is_expected.to compile.with_all_deps
-            is_expected.to contain_concat__fragment('base')
-              .with_content(%r{ALLOWED_EXPORT_PATHS = \["/test/path", "/test/path2"\]})
-
-          end
-        end
-
-        context 'with empty allowed export paths' do
-          it do
-            is_expected.to compile.with_all_deps
-            is_expected.to contain_concat__fragment('base')
-              .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
-
-          end
         end
 
         it 'sets up static files' do
@@ -159,6 +113,35 @@ describe 'pulpcore' do
           is_expected.to contain_systemd__unit_file('pulpcore-worker@.service')
           is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(true)
           is_expected.not_to contain_service("pulpcore-worker@2.service")
+        end
+      end
+
+      context 'with allowed import paths' do
+        let :params do
+          {
+            allowed_import_path: ['/test/path', '/test/path2'],
+          }
+        end
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/test/path", "/test/path2"\]})
+        end
+      end
+
+      context 'with allowed export paths' do
+        let :params do
+          {
+            allowed_export_path: ['/test/path', '/test/path2'],
+          }
+        end
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{ALLOWED_EXPORT_PATHS = \["/test/path", "/test/path2"\]})
+
         end
       end
 
