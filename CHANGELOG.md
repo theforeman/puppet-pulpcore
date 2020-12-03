@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.2.0](https://github.com/theforeman/puppet-pulpcore/tree/2.2.0) (2020-12-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.1.0...2.2.0)
+
+**Implemented enhancements:**
+
+- Set logoutput to on\_failure for pulpcore::admin [\#148](https://github.com/theforeman/puppet-pulpcore/pull/148) ([ekohl](https://github.com/ekohl))
+- Fixes [\#30436](https://projects.theforeman.org/issues/30436) - add allowed\_export\_paths to settings.py [\#147](https://github.com/theforeman/puppet-pulpcore/pull/147) ([jeremylenz](https://github.com/jeremylenz))
+
+**Fixed bugs:**
+
+- Drop selinux module dependency [\#149](https://github.com/theforeman/puppet-pulpcore/pull/149) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Correct allowed\_{export,import}\_paths tests [\#150](https://github.com/theforeman/puppet-pulpcore/pull/150) ([ekohl](https://github.com/ekohl))
+
 ## [2.1.0](https://github.com/theforeman/puppet-pulpcore/tree/2.1.0) (2020-11-11)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.0.0...2.1.0)
