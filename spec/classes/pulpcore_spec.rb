@@ -235,7 +235,7 @@ describe 'pulpcore' do
           is_expected.not_to contain_file('/var/lib/pulp/pulpcore_static')
           is_expected.not_to contain_apache__vhost('pulpcore')
           is_expected.not_to contain_apache__vhost('pulpcore-https')
-          is_expected.not_to contain_selinux__boolean('httpd_can_network_connect')
+          is_expected.not_to contain_selboolean('httpd_can_network_connect')
         end
       end
 
