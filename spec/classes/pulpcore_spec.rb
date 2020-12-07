@@ -63,7 +63,7 @@ describe 'pulpcore' do
               {
                 'path'            => '/pulp/content',
                 'provider'        => 'location',
-                'proxy_pass'      => [{'url'  => 'unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content'}],
+                'proxy_pass'      => [{'url'  => 'unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content'}],
                 'request_headers' => [
                   'unset X-CLIENT-CERT',
                   'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
@@ -81,7 +81,7 @@ describe 'pulpcore' do
               {
                 'path'            => '/pulp/content',
                 'provider'        => 'location',
-                'proxy_pass'      => [{'url'  => 'unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content'}],
+                'proxy_pass'      => [{'url'  => 'unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content'}],
                 'request_headers' => [
                   'unset X-CLIENT-CERT',
                   'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
@@ -90,7 +90,7 @@ describe 'pulpcore' do
               {
                 'path'            => '/pulp/api/v3',
                 'provider'        => 'location',
-                'proxy_pass'      => [{'url'=>'unix:///run/pulpcore-api.sock|http://foo.example.com/pulp/api/v3'}],
+                'proxy_pass'      => [{'url'=>'unix:///run/pulpcore-api.sock|http://pulpcore-api/pulp/api/v3'}],
                 'request_headers' => [
                   'unset REMOTE_USER',
                   'set REMOTE_USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN',
@@ -100,7 +100,7 @@ describe 'pulpcore' do
             .with_proxy_pass([
               {
                 'path' => '/assets/',
-                'url'  => 'unix:///run/pulpcore-api.sock|http://foo.example.com/assets/',
+                'url'  => 'unix:///run/pulpcore-api.sock|http://pulpcore-api/assets/',
               },
             ])
           is_expected.not_to contain_apache__vhost__fragment('pulpcore-https-pulpcore')
@@ -258,8 +258,8 @@ describe 'pulpcore' do
   <Location "/pulp/content">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
-    ProxyPassReverse unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
+    ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
   </Location>
 CONTENT
             )
@@ -275,19 +275,19 @@ CONTENT
   <Location "/pulp/content">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
-    ProxyPassReverse unix:///run/pulpcore-content.sock|http://foo.example.com/pulp/content
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
+    ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
   </Location>
 
   <Location "/pulp/api/v3">
     RequestHeader unset REMOTE_USER
     RequestHeader set REMOTE_USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN
-    ProxyPass unix:///run/pulpcore-api.sock|http://foo.example.com/pulp/api/v3
-    ProxyPassReverse unix:///run/pulpcore-api.sock|http://foo.example.com/pulp/api/v3
+    ProxyPass unix:///run/pulpcore-api.sock|http://pulpcore-api/pulp/api/v3
+    ProxyPassReverse unix:///run/pulpcore-api.sock|http://pulpcore-api/pulp/api/v3
   </Location>
 
-  ProxyPass /assets/ unix:///run/pulpcore-api.sock|http://foo.example.com/assets/
-  ProxyPassReverse /assets/ unix:///run/pulpcore-api.sock|http://foo.example.com/assets/
+  ProxyPass /assets/ unix:///run/pulpcore-api.sock|http://pulpcore-api/assets/
+  ProxyPassReverse /assets/ unix:///run/pulpcore-api.sock|http://pulpcore-api/assets/
 CONTENT
             )
         end
