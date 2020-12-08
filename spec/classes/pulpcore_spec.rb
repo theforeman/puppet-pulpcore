@@ -25,6 +25,7 @@ describe 'pulpcore' do
             .without_content(/sslmode/)
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')
+          is_expected.to contain_file('/var/lib/pulp/sync_imports')
           is_expected.to contain_file('/var/lib/pulp/assets')
           is_expected.to contain_file('/var/lib/pulp/media')
           is_expected.to contain_file('/var/lib/pulp/pulpcore_static')
@@ -119,29 +120,40 @@ describe 'pulpcore' do
       context 'with allowed import paths' do
         let :params do
           {
-            allowed_import_path: ['/test/path', '/test/path2'],
+            allowed_import_path: ['/tmp/imports', '/tmp/imports1'],
           }
         end
 
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_concat__fragment('base')
-            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/test/path", "/test/path2"\]})
+            .with_content(%r{ALLOWED_IMPORT_PATHS = \["/tmp/imports", "/tmp/imports1"\]})
+          is_expected.to contain_file('/tmp/imports1')
+          is_expected.to contain_file('/tmp/imports').with(
+            :mode => '0770',
+            :owner => 'pulp',
+            :group => 'pulp'
+          )
         end
       end
 
       context 'with allowed export paths' do
         let :params do
           {
-            allowed_export_path: ['/test/path', '/test/path2'],
+            allowed_export_path: ['/tmp/exports', '/tmp/exports1'],
           }
         end
 
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_concat__fragment('base')
-            .with_content(%r{ALLOWED_EXPORT_PATHS = \["/test/path", "/test/path2"\]})
-
+            .with_content(%r{ALLOWED_EXPORT_PATHS = \["/tmp/exports", "/tmp/exports1"\]})
+          is_expected.to contain_file('/tmp/exports1')
+          is_expected.to contain_file('/tmp/exports').with(
+            :mode => '0770',
+            :owner => 'pulp',
+            :group => 'pulp'
+          )
         end
       end
 
