@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.1](https://github.com/theforeman/puppet-pulpcore/tree/2.2.1) (2020-12-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.0...2.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#31468](https://projects.theforeman.org/issues/31468) - create import/export directories [\#156](https://github.com/theforeman/puppet-pulpcore/pull/156) ([jeremylenz](https://github.com/jeremylenz))
+
 ## [2.2.0](https://github.com/theforeman/puppet-pulpcore/tree/2.2.0) (2020-12-03)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.1.0...2.2.0)
