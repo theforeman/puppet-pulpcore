@@ -46,7 +46,7 @@ This results into the following structure, using `tree -pug`:
     └── [drwxr-xr-x root     root    ]  lib
         └── [drwxrwxr-x pulp     pulp    ]  pulp ($user_home)
             ├── [drwxr-xr-x pulp     pulp    ]  assets ($static_root)
-            ├── [drwxr-xr-x pulp     pulp    ]  docroot ($apache_docroot)
+            ├── [drwxr-xr-x pulp     pulp    ]  pulpcore_static ($apache_docroot)
             ├── [drwxr-x--- pulp     pulp    ]  media ($media_root)
             ├── [drwxr-x--- pulp     pulp    ]  tmp ($cache_dir)
             └── [drwxr-x--- pulp     pulp    ]  upload ($chunked_upload_dir)
