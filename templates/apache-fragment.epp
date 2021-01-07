@@ -40,7 +40,7 @@
     <%-   $directory['proxy_pass'].each |$proxy| { -%>
     ProxyPass <%= $proxy['url'] -%>
     <%-     if $proxy['params'] { -%>
-    <%-       $proxy['params'].sort.each |$key, $value| { -%> <%= $key %>=<%= $value -%><%- } -%>
+    <%-       $proxy['params'].keys.sort.each |$key| { -%> <%= ' ' %><%= $key %>=<%= $proxy['params'][$key] -%><%- } -%>
     <%-     } %>
     <%-     if $proxy['reverse_urls'] { -%>
     <%-       $proxy['reverse_urls'].each |$reverse_url| { -%>

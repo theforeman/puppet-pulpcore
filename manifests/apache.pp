@@ -7,6 +7,8 @@ class pulpcore::apache (
   Hash[String, Any] $http_vhost_options = {},
   Hash[String, Any] $https_vhost_options = {},
   Enum['none', 'optional', 'require', 'optional_no_ca'] $ssl_verify_client = 'optional',
+  Hash $content_proxy_params = {'timeout' => '600'},
+  Hash $api_proxy_params = {'timeout' => '600'},
 ) {
   $vhost_priority = $pulpcore::apache_vhost_priority
   $api_path = '/pulp/api/v3'
@@ -27,7 +29,8 @@ class pulpcore::apache (
     'provider'        => 'location',
     'proxy_pass'      => [
       {
-        'url' => $content_url,
+        'url'    => $content_url,
+        'params' => $content_proxy_params,
       },
     ],
     'request_headers' => [
@@ -44,7 +47,8 @@ class pulpcore::apache (
     'provider'        => 'location',
     'proxy_pass'      => [
       {
-        'url' => $api_url,
+        'url'    => $api_url,
+        'params' => $api_proxy_params,
       },
     ],
     'request_headers' => [
