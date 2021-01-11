@@ -12,7 +12,8 @@ class pulpcore::plugin::file (
           'path'            => '/pulp/isos',
           'proxy_pass'      => [
             {
-              'url' => $pulpcore::apache::content_url,
+              'url'    => $pulpcore::apache::content_url,
+              'params' => $pulpcore::apache::content_proxy_params,
             },
           ],
           'request_headers' => [
