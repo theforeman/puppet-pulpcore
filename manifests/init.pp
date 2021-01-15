@@ -149,7 +149,7 @@ class pulpcore (
   Stdlib::Absolutepath $user_home = '/var/lib/pulp',
   Stdlib::Absolutepath $config_dir = '/etc/pulp',
   Stdlib::Absolutepath $cache_dir = '/var/lib/pulp/tmp',
-  Stdlib::Absolutepath $chunked_upload_dir = '/var/lib/pulp/upload',
+  Stdlib::Absolutepath $chunked_upload_dir = '/var/lib/pulp/media/upload',
   Stdlib::Absolutepath $media_root = '/var/lib/pulp/media',
   Stdlib::Absolutepath $static_root = '/var/lib/pulp/assets',
   Pattern['^/.+/$'] $static_url = '/assets/',
