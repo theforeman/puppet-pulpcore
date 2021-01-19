@@ -1,6 +1,8 @@
 # Set up the PostgreSQL and Redis databases
 # @api private
-class pulpcore::database {
+class pulpcore::database(
+  Integer[0] $timeout = 3600,
+) {
   if $pulpcore::postgresql_manage_db {
     include postgresql::client
     include postgresql::server
@@ -14,6 +16,7 @@ class pulpcore::database {
   }
 
   pulpcore::admin { 'migrate --noinput':
+    timeout     => $timeout,
     unless      => 'pulpcore-manager migrate --plan | grep "No planned migration operations"',
     refreshonly => false,
   }

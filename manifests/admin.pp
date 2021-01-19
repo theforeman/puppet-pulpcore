@@ -20,6 +20,9 @@
 # @param pulp_settings
 #   Root directory for static content
 #
+# @param timeout
+#   The command should timeout after so many seconds.
+#
 # @see exec
 define pulpcore::admin(
   String $command = $title,
@@ -28,6 +31,7 @@ define pulpcore::admin(
   Array[Stdlib::Absolutepath] $path = ['/usr/bin'],
   String $user = $pulpcore::user,
   Stdlib::Absolutepath $pulp_settings = $pulpcore::settings_file,
+  Optional[Integer[0]] $timeout = undef,
 ) {
   Concat <| title == 'pulpcore settings' |>
   -> exec { "pulpcore-manager ${command}":
@@ -36,6 +40,7 @@ define pulpcore::admin(
     environment => ["PULP_SETTINGS=${pulp_settings}"],
     refreshonly => $refreshonly,
     unless      => $unless,
+    timeout     => $timeout,
     logoutput   => 'on_failure',
   }
 }
