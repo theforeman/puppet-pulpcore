@@ -30,7 +30,6 @@ describe 'pulpcore' do
           is_expected.to contain_file('/var/lib/pulp/media')
           is_expected.to contain_file('/var/lib/pulp/pulpcore_static')
           is_expected.to contain_file('/var/lib/pulp/tmp')
-          is_expected.to contain_file('/var/lib/pulp/upload')
         end
 
         it 'sets up static files' do

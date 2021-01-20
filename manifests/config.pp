@@ -30,7 +30,7 @@ class pulpcore::config {
     mode   => '0775',
   }
 
-  file { [$pulpcore::cache_dir, $pulpcore::chunked_upload_dir, $pulpcore::media_root]:
+  file { [$pulpcore::cache_dir, $pulpcore::media_root]:
     ensure => directory,
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
