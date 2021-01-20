@@ -4,7 +4,7 @@ After=network.target
 Requires=pulpcore-api.socket
 
 [Service]
-type=notify
+Type=notify
 Environment="DJANGO_SETTINGS_MODULE=pulpcore.app.settings"
 Environment="PULP_SETTINGS=<%= scope['pulpcore::settings_file'] %>"
 User=<%= scope['pulpcore::user'] %>
