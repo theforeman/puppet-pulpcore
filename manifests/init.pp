@@ -56,10 +56,6 @@
 #   Pulp cache directory. This is used to configure WORKING_DIRECTORY and
 #   FILE_UPLOAD_TEMP_DIR.
 #
-# @param chunked_upload_dir
-#   Pulp chunked upload directory. This is used to configure CHUNKED_UPLOAD_DIR
-#   and is used by Pulp to temporarily store files that are uploaded in chunks.
-#
 # @param apache_docroot
 #   Root directory for the Apache vhost. Only created if the Apache vhost is
 #   managed by this module.
@@ -149,7 +145,6 @@ class pulpcore (
   Stdlib::Absolutepath $user_home = '/var/lib/pulp',
   Stdlib::Absolutepath $config_dir = '/etc/pulp',
   Stdlib::Absolutepath $cache_dir = '/var/lib/pulp/tmp',
-  Stdlib::Absolutepath $chunked_upload_dir = '/var/lib/pulp/upload',
   Stdlib::Absolutepath $media_root = '/var/lib/pulp/media',
   Stdlib::Absolutepath $static_root = '/var/lib/pulp/assets',
   Pattern['^/.+/$'] $static_url = '/assets/',

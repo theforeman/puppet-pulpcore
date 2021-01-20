@@ -10,13 +10,9 @@ All supported versions are listed below. For every supported version, acceptance
 
 Supported operating systems are listed in `metadata.json` but individual releases can divert from that. For example, if Pulpcore x.y drops EL7, it will still be listed in metadata.json until all versions supported by the module have dropped it. Similarly, if x.z adds support for EL9, it'll be listed in `metadata.json` and all versions that don't support EL9 will have a note.
 
-### Pulpcore 3.7
+### Pulpcore 3.9
 
-Recommended version.
-
-### Pulpcore 3.6
-
-Due to the use of libexec wrappers, at least python3-pulpcore 3.6.3-2 must be installed.
+Recommended version. At least version 3.9.1 should be used.
 
 ## Installation layout
 
@@ -29,8 +25,6 @@ The media root (default `/var/lib/pulp/media`) refers to the [MEDIA_ROOT setting
 There are also the [STATIC_ROOT](https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-STATIC_ROOT) and [STATIC_URL](https://docs.djangoproject.com/en/2.2/ref/settings/#static-url) settings. These serve the static assets used by Pulp. This includes CSS and Javascript for the HTML pages. They're not needed for the application to function, but make browsing the API more convenient.
 
 These is also the `cache_dir` which is used to configure [WORKING_DIRECTORY](https://docs.pulpproject.org/settings.html#working-directory) and [FILE_UPLOAD_TEMP_DIR](https://docs.djangoproject.com/en/2.2/ref/settings/#file-upload-temp-dir). This defaults to `/var/lib/pulp/tmp`. It is strongly recommended that this is on the same filesystem as `MEDIA_ROOT`.
-
-There is also `chunked_upload_dir` to configure the undocumented `CHUNKED_UPLOAD_DIR`. This directory stores the temporary files used for files uploaded as chunks.
 
 Apache is configured to use an empty directory as docroot (`$apache_docroot`, default `/var/lib/pulp/pulpcore_static`). Doing so prevents Apache from bypassing the Pulp content app. When Apache is not managed, this directory is not managed.
 
@@ -48,8 +42,7 @@ This results into the following structure, using `tree -pug`:
             ├── [drwxr-xr-x pulp     pulp    ]  assets ($static_root)
             ├── [drwxr-xr-x pulp     pulp    ]  pulpcore_static ($apache_docroot)
             ├── [drwxr-x--- pulp     pulp    ]  media ($media_root)
-            ├── [drwxr-x--- pulp     pulp    ]  tmp ($cache_dir)
-            └── [drwxr-x--- pulp     pulp    ]  upload ($chunked_upload_dir)
+            └── [drwxr-x--- pulp     pulp    ]  tmp ($cache_dir)
 ```
 
 ## Service setup
