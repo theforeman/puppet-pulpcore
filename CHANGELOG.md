@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.2](https://github.com/theforeman/puppet-pulpcore/tree/2.2.2) (2020-12-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.1...2.2.2)
+
+**Fixed bugs:**
+
+- Fixes [\#31694](https://projects.theforeman.org/issues/31694): systemd service type should be Type [\#165](https://github.com/theforeman/puppet-pulpcore/pull/165) ([ehelms](https://github.com/ehelms))
+
 ## [2.2.1](https://github.com/theforeman/puppet-pulpcore/tree/2.2.1) (2020-12-09)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.0...2.2.1)
