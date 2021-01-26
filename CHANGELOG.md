@@ -1,6 +1,44 @@
 # Changelog
 
-## [2.2.0](https://github.com/theforeman/puppet-pulpcore/tree/2.2.0) (2020-12-03)
+## [3.0.0](https://github.com/theforeman/puppet-pulpcore/tree/3.0.0) (2021-01-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.2...3.0.0)
+
+**Breaking changes:**
+
+- Support Pulp 3.9, drop earlier versions [\#164](https://github.com/theforeman/puppet-pulpcore/pull/164) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Refs [\#31670](https://projects.theforeman.org/issues/31670) - don't timeout DB migrations [\#163](https://github.com/theforeman/puppet-pulpcore/pull/163) ([evgeni](https://github.com/evgeni))
+- Allow setting parameters on the API and Content Apache proxy [\#160](https://github.com/theforeman/puppet-pulpcore/pull/160) ([ehelms](https://github.com/ehelms))
+- Increase the secret key size to 50 chars [\#158](https://github.com/theforeman/puppet-pulpcore/pull/158) ([ekohl](https://github.com/ekohl))
+- Set the reverse proxy host to the name of the service [\#153](https://github.com/theforeman/puppet-pulpcore/pull/153) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Include pulpcore in pulpcore::apache [\#169](https://github.com/theforeman/puppet-pulpcore/pull/169) ([ehelms](https://github.com/ehelms))
+- Fixes [\#31694](https://projects.theforeman.org/issues/31694): systemd service type should be Type [\#165](https://github.com/theforeman/puppet-pulpcore/pull/165) ([ehelms](https://github.com/ehelms))
+- Add proxy params to plugin Pulp 2 content routes [\#161](https://github.com/theforeman/puppet-pulpcore/pull/161) ([ehelms](https://github.com/ehelms))
+- Fixes [\#31468](https://projects.theforeman.org/issues/31468) - create import/export directories [\#154](https://github.com/theforeman/puppet-pulpcore/pull/154) ([jeremylenz](https://github.com/jeremylenz))
+
+## [2.2.2](https://github.com/theforeman/puppet-pulpcore/tree/2.2.2) (2021-01-21)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.1...2.2.2)
+
+**Fixed bugs:**
+
+- Fixes [\#31694](https://projects.theforeman.org/issues/31694): systemd service type should be Type [\#166](https://github.com/theforeman/puppet-pulpcore/pull/166) ([ehelms](https://github.com/ehelms))
+
+## [2.2.1](https://github.com/theforeman/puppet-pulpcore/tree/2.2.1) (2020-12-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.0...2.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#31468](https://projects.theforeman.org/issues/31468) - create import/export directories [\#156](https://github.com/theforeman/puppet-pulpcore/pull/156) ([ehelms](https://github.com/ehelms))
+
+## [2.2.0](https://github.com/theforeman/puppet-pulpcore/tree/2.2.0) (2020-12-07)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.1.0...2.2.0)
 
