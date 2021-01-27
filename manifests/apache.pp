@@ -10,6 +10,8 @@ class pulpcore::apache (
   Hash $content_proxy_params = {'timeout' => '600'},
   Hash $api_proxy_params = {'timeout' => '600'},
 ) {
+  include pulpcore
+
   $vhost_priority = $pulpcore::apache_vhost_priority
   $api_path = '/pulp/api/v3'
   $api_base_url = "unix://${pulpcore::api_socket_path}|http://pulpcore-api"
