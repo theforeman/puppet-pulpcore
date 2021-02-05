@@ -135,6 +135,14 @@
 # @param service_ensure
 #   Specify if Pulp services should be running or stopped.
 #
+# @param content_service_worker_count
+#   Number of pulpcore-content service workers for gunicorn to use.
+#   Modifying this parameter should be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
+#
+# @param api_service_worker_count
+#   Number of pulpcore-api service workers for gunicorn to use.
+#   Modifying this parameter should be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -178,6 +186,8 @@ class pulpcore (
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
   Boolean $service_enable = true,
   Boolean $service_ensure = true,
+  Integer[0] $content_service_worker_count = (2*min(8, $facts['processors']['count']) + 1),
+  Integer[0] $api_service_worker_count = 1,
 ) {
   $settings_file = "${config_dir}/settings.py"
 
