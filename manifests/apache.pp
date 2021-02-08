@@ -7,7 +7,7 @@ class pulpcore::apache (
   Hash[String, Any] $http_vhost_options = {},
   Hash[String, Any] $https_vhost_options = {},
   Enum['none', 'optional', 'require', 'optional_no_ca'] $ssl_verify_client = 'optional',
-  Hash $content_proxy_params = {'timeout' => '600'},
+  Hash $content_proxy_params = {'timeout' => '600', 'disablereuse' => 'on'},
   Hash $api_proxy_params = {'timeout' => '600'},
 ) {
   include pulpcore

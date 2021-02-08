@@ -65,7 +65,7 @@ describe 'pulpcore' do
                 'provider'        => 'location',
                 'proxy_pass'      => [{
                   'url'    => 'unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content',
-                  'params' => {'timeout' => '600'},
+                  'params' => {'timeout' => '600', 'disablereuse' => 'on'},
                 }],
                 'request_headers' => [
                   'unset X-CLIENT-CERT',
@@ -86,7 +86,7 @@ describe 'pulpcore' do
                 'provider'        => 'location',
                 'proxy_pass'      => [{
                   'url'    => 'unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content',
-                  'params' => {'timeout' => '600'},
+                  'params' => {'timeout' => '600', 'disablereuse' => 'on'},
                 }],
                 'request_headers' => [
                   'unset X-CLIENT-CERT',
@@ -278,7 +278,7 @@ describe 'pulpcore' do
   <Location "/pulp/content">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content timeout=600
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content disablereuse=on timeout=600
     ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
   </Location>
 CONTENT
@@ -295,7 +295,7 @@ CONTENT
   <Location "/pulp/content">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content timeout=600
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content disablereuse=on timeout=600
     ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
   </Location>
 
