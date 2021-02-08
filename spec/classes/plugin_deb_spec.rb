@@ -34,7 +34,7 @@ describe 'pulpcore::plugin::deb' do
   <Location "/pulp/deb">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content timeout=600
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content disablereuse=on timeout=600
     ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
   </Location>
 CONTENT
@@ -46,7 +46,7 @@ CONTENT
   <Location "/pulp/deb">
     RequestHeader unset X-CLIENT-CERT
     RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
-    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content timeout=600
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content disablereuse=on timeout=600
     ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
   </Location>
 CONTENT
