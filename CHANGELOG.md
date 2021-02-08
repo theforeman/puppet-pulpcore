@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.1.0](https://github.com/theforeman/puppet-pulpcore/tree/3.1.0) (2021-02-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.0.0...3.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#31835](https://projects.theforeman.org/issues/31835): Add disablereuse=on for pulpcore-content service [\#171](https://github.com/theforeman/puppet-pulpcore/pull/171) ([ehelms](https://github.com/ehelms))
+- Fixes [\#31815](https://projects.theforeman.org/issues/31815) - Allow setting number of workers for content app [\#170](https://github.com/theforeman/puppet-pulpcore/pull/170) ([ehelms](https://github.com/ehelms))
+
 ## [3.0.0](https://github.com/theforeman/puppet-pulpcore/tree/3.0.0) (2021-01-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.2...3.0.0)
