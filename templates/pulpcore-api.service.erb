@@ -13,7 +13,8 @@ WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-api
 ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.app.wsgi:application \
           -w <%= scope['pulpcore::api_service_worker_count'] %> \
-          --access-logfile -
+          --access-logfile - \
+          --access-logformat 'pulp [%({correlation-id}o)s]: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
 ExecReload=/bin/kill -s HUP $MAINPID
 ProtectSystem=full
 PrivateTmp=yes
