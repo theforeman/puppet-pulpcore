@@ -59,6 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUNDLE_WITHOUT: development:test:release
+      PUPPET_VERSION: "${{ matrix.puppet.value }}.0"
     strategy:
       fail-fast: false
       matrix:
