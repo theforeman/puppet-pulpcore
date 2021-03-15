@@ -28,11 +28,21 @@ class pulpcore::service {
     content => template('pulpcore/pulpcore-worker@.service.erb'),
   }
 
+  # In camptocamp/systemd 3.0.0 support for Puppet < 6.1.0 was dropped.
+  # This means there is no single daemon-reload class anymore. This also means
+  # there is no more relation that ensures all services are loaded prior to running them.
+  $metadata = load_module_metadata('systemd')
+  if SemVer($metadata['version']) >= SemVer('3.0.0') {
+    $reload_require = undef
+  } else {
+    $reload_require = Class['systemd::systemctl::daemon_reload']
+  }
+
   Integer[1, $pulpcore::worker_count].each |$n| {
     service { "pulpcore-worker@${n}.service":
       ensure    => $pulpcore::service_ensure,
       enable    => $pulpcore::service_enable,
-      require   => Class['systemd::systemctl::daemon_reload'],
+      require   => $reload_require,
       subscribe => Systemd::Unit_file['pulpcore-worker@.service'],
     }
   }
@@ -44,7 +54,7 @@ class pulpcore::service {
         service { $worker:
           ensure  => false,
           enable  => false,
-          require => [Systemd::Unit_file['pulpcore-worker@.service'], Class['systemd::systemctl::daemon_reload']],
+          require => [Systemd::Unit_file['pulpcore-worker@.service'], $reload_require],
         }
       }
     }
