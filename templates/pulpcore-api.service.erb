@@ -12,6 +12,7 @@ Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-api
 ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.app.wsgi:application \
+          --timeout <%= scope['pulpcore::api_service_worker_timeout'] %> \
           -w <%= scope['pulpcore::api_service_worker_count'] %> \
           --access-logfile -
 ExecReload=/bin/kill -s HUP $MAINPID
