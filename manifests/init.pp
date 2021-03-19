@@ -191,7 +191,7 @@ class pulpcore (
   Boolean $service_ensure = true,
   Integer[0] $content_service_worker_count = (2*min(8, $facts['processors']['count']) + 1),
   Integer[0] $api_service_worker_count = 1,
-  Integer[0] $api_service_worker_timeout = 60,
+  Integer[0] $api_service_worker_timeout = 90,
 ) {
   $settings_file = "${config_dir}/settings.py"
 
