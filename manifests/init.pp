@@ -143,6 +143,9 @@
 #   Number of pulpcore-api service workers for gunicorn to use.
 #   Modifying this parameter should be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
 #
+# @param content_service_worker_timeout
+#   Timeout in seconds of the pulpcore-content gunicorn workers.
+#
 # @param api_service_worker_timeout
 #   Timeout in seconds of the pulpcore-api gunicorn workers.
 #
@@ -191,6 +194,7 @@ class pulpcore (
   Boolean $service_ensure = true,
   Integer[0] $content_service_worker_count = (2*min(8, $facts['processors']['count']) + 1),
   Integer[0] $api_service_worker_count = 1,
+  Integer[0] $content_service_worker_timeout = 90,
   Integer[0] $api_service_worker_timeout = 90,
 ) {
   $settings_file = "${config_dir}/settings.py"

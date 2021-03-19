@@ -12,6 +12,7 @@ Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-content
 ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.content:server \
+          --timeout <%= scope['pulpcore::content_service_worker_timeout'] %> \
           --worker-class 'aiohttp.GunicornWebWorker' \
           -w <%= scope['pulpcore::content_service_worker_count'] %> \
           --access-logfile -
