@@ -1,3 +1,77 @@
+## [3.2.0](https://github.com/theforeman/puppet-pulpcore/tree/3.2.0) (2021-03-24)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.1.0...3.2.0)
+
+**Implemented enhancements:**
+
+- Refs [\#32112](https://projects.theforeman.org/issues/32112) - Match upstream pulp default api service worker timeout [\#179](https://github.com/theforeman/puppet-pulpcore/pull/179) ([wbclark](https://github.com/wbclark))
+- Fixes [\#32112](https://projects.theforeman.org/issues/32112) - Configure api service gunicorn worker timeout [\#178](https://github.com/theforeman/puppet-pulpcore/pull/178) ([wbclark](https://github.com/wbclark))
+- Pulpcore logging format to include correlation id. [\#175](https://github.com/theforeman/puppet-pulpcore/pull/175) ([jjeffers](https://github.com/jjeffers))
+
+## [3.1.0](https://github.com/theforeman/puppet-pulpcore/tree/3.1.0) (2021-02-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.0.0...3.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#31835](https://projects.theforeman.org/issues/31835): Add disablereuse=on for pulpcore-content service [\#171](https://github.com/theforeman/puppet-pulpcore/pull/171) ([ehelms](https://github.com/ehelms))
+- Fixes [\#31815](https://projects.theforeman.org/issues/31815) - Allow setting number of workers for content app [\#170](https://github.com/theforeman/puppet-pulpcore/pull/170) ([ehelms](https://github.com/ehelms))
+
+## [3.0.0](https://github.com/theforeman/puppet-pulpcore/tree/3.0.0) (2021-01-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.2...3.0.0)
+
+**Breaking changes:**
+
+- Support Pulp 3.9, drop earlier versions [\#164](https://github.com/theforeman/puppet-pulpcore/pull/164) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Refs [\#31670](https://projects.theforeman.org/issues/31670) - don't timeout DB migrations [\#163](https://github.com/theforeman/puppet-pulpcore/pull/163) ([evgeni](https://github.com/evgeni))
+- Allow setting parameters on the API and Content Apache proxy [\#160](https://github.com/theforeman/puppet-pulpcore/pull/160) ([ehelms](https://github.com/ehelms))
+- Increase the secret key size to 50 chars [\#158](https://github.com/theforeman/puppet-pulpcore/pull/158) ([ekohl](https://github.com/ekohl))
+- Set the reverse proxy host to the name of the service [\#153](https://github.com/theforeman/puppet-pulpcore/pull/153) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Include pulpcore in pulpcore::apache [\#169](https://github.com/theforeman/puppet-pulpcore/pull/169) ([ehelms](https://github.com/ehelms))
+- Fixes [\#31694](https://projects.theforeman.org/issues/31694): systemd service type should be Type [\#165](https://github.com/theforeman/puppet-pulpcore/pull/165) ([ehelms](https://github.com/ehelms))
+- Add proxy params to plugin Pulp 2 content routes [\#161](https://github.com/theforeman/puppet-pulpcore/pull/161) ([ehelms](https://github.com/ehelms))
+- Fixes [\#31468](https://projects.theforeman.org/issues/31468) - create import/export directories [\#154](https://github.com/theforeman/puppet-pulpcore/pull/154) ([jeremylenz](https://github.com/jeremylenz))
+
+## [2.2.2](https://github.com/theforeman/puppet-pulpcore/tree/2.2.2) (2021-01-21)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.1...2.2.2)
+
+**Fixed bugs:**
+
+- Fixes [\#31694](https://projects.theforeman.org/issues/31694): systemd service type should be Type [\#166](https://github.com/theforeman/puppet-pulpcore/pull/166) ([ehelms](https://github.com/ehelms))
+
+## [2.2.1](https://github.com/theforeman/puppet-pulpcore/tree/2.2.1) (2020-12-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.0...2.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#31468](https://projects.theforeman.org/issues/31468) - create import/export directories [\#156](https://github.com/theforeman/puppet-pulpcore/pull/156) ([ehelms](https://github.com/ehelms))
+
+## [2.2.0](https://github.com/theforeman/puppet-pulpcore/tree/2.2.0) (2020-12-07)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.1.0...2.2.0)
+
+**Implemented enhancements:**
+
+- Set logoutput to on\_failure for pulpcore::admin [\#148](https://github.com/theforeman/puppet-pulpcore/pull/148) ([ekohl](https://github.com/ekohl))
+- Fixes [\#30436](https://projects.theforeman.org/issues/30436) - add allowed\_export\_paths to settings.py [\#147](https://github.com/theforeman/puppet-pulpcore/pull/147) ([jeremylenz](https://github.com/jeremylenz))
+
+**Fixed bugs:**
+
+- Drop selinux module dependency [\#149](https://github.com/theforeman/puppet-pulpcore/pull/149) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Correct allowed\_{export,import}\_paths tests [\#150](https://github.com/theforeman/puppet-pulpcore/pull/150) ([ekohl](https://github.com/ekohl))
+
 ## [2.1.0](https://github.com/theforeman/puppet-pulpcore/tree/2.1.0) (2020-11-11)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.0.0...2.1.0)

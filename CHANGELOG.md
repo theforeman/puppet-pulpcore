@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.2.0](https://github.com/theforeman/puppet-pulpcore/tree/3.2.0) (2021-03-24)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.1.0...3.2.0)
+
+**Implemented enhancements:**
+
+- Refs [\#32112](https://projects.theforeman.org/issues/32112) - Match upstream pulp default api service worker timeout [\#179](https://github.com/theforeman/puppet-pulpcore/pull/179) ([wbclark](https://github.com/wbclark))
+- Fixes [\#32112](https://projects.theforeman.org/issues/32112) - Configure api service gunicorn worker timeout [\#178](https://github.com/theforeman/puppet-pulpcore/pull/178) ([wbclark](https://github.com/wbclark))
+- Pulpcore logging format to include correlation id. [\#175](https://github.com/theforeman/puppet-pulpcore/pull/175) ([jjeffers](https://github.com/jjeffers))
+
 ## [3.1.0](https://github.com/theforeman/puppet-pulpcore/tree/3.1.0) (2021-02-09)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.0.0...3.1.0)
