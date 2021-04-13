@@ -11,6 +11,7 @@ describe 'pulpcore::admin' do
           {
             pulp_settings: '/etc/pulpcore/settings.py',
             user: 'pulpcore',
+            working_dir: '/var/lib/pulp'
           }
         end
 
@@ -22,6 +23,7 @@ describe 'pulpcore::admin' do
               .with_environment(['PULP_SETTINGS=/etc/pulpcore/settings.py'])
               .with_refreshonly(false)
               .with_unless(nil)
+              .with_cwd('/var/lib/pulp')
           end
         end
 

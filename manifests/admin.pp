@@ -23,6 +23,9 @@
 # @param timeout
 #   The command should timeout after so many seconds.
 #
+# @param working_dir
+#   The directory to run pulpcore-manager from.
+#
 # @see exec
 define pulpcore::admin(
   String $command = $title,
@@ -32,11 +35,13 @@ define pulpcore::admin(
   String $user = $pulpcore::user,
   Stdlib::Absolutepath $pulp_settings = $pulpcore::settings_file,
   Optional[Integer[0]] $timeout = undef,
+  Stdlib::Absolutepath $working_dir = $pulpcore::user_home,
 ) {
   Concat <| title == 'pulpcore settings' |>
   -> exec { "pulpcore-manager ${command}":
     user        => $user,
     path        => $path,
+    cwd         => $working_dir,
     environment => ["PULP_SETTINGS=${pulp_settings}"],
     refreshonly => $refreshonly,
     unless      => $unless,
