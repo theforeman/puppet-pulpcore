@@ -22,6 +22,7 @@ describe 'pulpcore' do
           is_expected.to contain_concat__fragment('base')
             .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
             .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
+            .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
             .without_content(/sslmode/)
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')

@@ -39,6 +39,7 @@ REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES = (
 
 ALLOWED_IMPORT_PATHS = <%= scope['pulpcore::allowed_import_path'] %>
 ALLOWED_EXPORT_PATHS = <%= scope['pulpcore::allowed_export_path'] %>
+ALLOWED_CONTENT_CHECKSUMS = <%= scope['pulpcore::allowed_content_checksums'] %>
 
 # Derive HTTP/HTTPS via the X-Forwarded-Proto header set by Apache
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -124,6 +124,9 @@
 # @param allowed_export_path
 #   Allowed paths that pulp can use for content exports
 #
+# @param allowed_content_checksums
+#   List of checksum types to allow for content operations
+#
 # @param worker_count
 #   Number of pulpcore workers. Defaults to 8 or the number of CPU cores, whichever is smaller. Enabling more than 8 workers, even with additional CPU cores
 #   available, likely results in performance degradation due to I/O blocking and is not recommended in most cases. Modifying this parameter should
@@ -188,6 +191,7 @@ class pulpcore (
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
   Array[Stdlib::Absolutepath] $allowed_export_path = [],
+  Pulpcore::ChecksumTypes $allowed_content_checksums = ['sha224', 'sha256', 'sha384', 'sha512'],
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
   Boolean $service_enable = true,
