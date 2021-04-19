@@ -19,6 +19,9 @@ case $major {
     package { 'glibc-langpack-en':
       ensure => installed,
     }
+    package { 'centos-release-ansible-29':
+      ensure => present,
+    }
   }
   default: {}
 }
