@@ -26,6 +26,7 @@ describe 'basic installation' do
       apache_https_key  => '#{certdir}/ca-key.pem',
       apache_https_ca   => '#{certdir}/ca-cert.pem',
     }
+    include pulpcore::plugin::ansible
     include pulpcore::plugin::certguard
     include pulpcore::plugin::container
     include pulpcore::plugin::deb
