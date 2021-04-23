@@ -126,6 +126,11 @@ describe 'reducing worker count' do
 
   it_behaves_like 'a idempotent resource'
 
+  describe command('sudo -u pulp PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager check --deploy --fail-level WARNING') do
+    its(:exit_status) { is_expected.to eq 0 }
+    its(:stderr) { is_expected.not_to match(/System check identified some issues:/) }
+  end
+
   describe service('httpd') do
     it { is_expected.to be_enabled }
     it { is_expected.to be_running }
