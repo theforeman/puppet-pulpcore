@@ -428,6 +428,51 @@ CONTENT
           is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(false)
         end
       end
+
+      context 'with API client auth common names' do
+        let :params do
+          {
+            'api_client_auth_cn_map': {'foreman.example.com' => 'admin'}
+          }
+        end
+
+        it do
+          is_expected.to contain_apache__vhost('pulpcore-https')
+            .with_directories([
+              {
+                'provider'       => 'Directory',
+                'path'           => '/var/lib/pulp/pulpcore_static',
+                'options'        => ['-Indexes', '-FollowSymLinks'],
+                'allow_override' => ['None'],
+              },
+              {
+                'path'            => '/pulp/content',
+                'provider'        => 'location',
+                'proxy_pass'      => [{
+                  'url'    => 'unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content',
+                  'params' => {'timeout' => '600', 'disablereuse' => 'on'},
+                }],
+                'request_headers' => [
+                  'unset X-CLIENT-CERT',
+                  'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
+                ],
+              },
+              {
+                'path'            => '/pulp/api/v3',
+                'provider'        => 'location',
+                'proxy_pass'      => [{
+                  'url'    => 'unix:///run/pulpcore-api.sock|http://pulpcore-api/pulp/api/v3',
+                  'params' => {'timeout' => '600'},
+                }],
+                'request_headers' => [
+                  'unset REMOTE_USER',
+                  'set REMOTE_USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN',
+                  'set REMOTE_USER "admin" "expr=%{SSL_CLIENT_S_DN_CN} == \'foreman.example.com\'"',
+                ],
+              }
+            ])
+        end
+      end
     end
   end
 end

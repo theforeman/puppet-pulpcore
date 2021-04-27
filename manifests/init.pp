@@ -152,6 +152,9 @@
 # @param api_service_worker_timeout
 #   Timeout in seconds of the pulpcore-api gunicorn workers.
 #
+# @param api_client_auth_cn_map
+#   Mapping of certificate common name and Pulp user to authenticate to Pulp API.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -200,6 +203,7 @@ class pulpcore (
   Integer[0] $api_service_worker_count = 1,
   Integer[0] $content_service_worker_timeout = 90,
   Integer[0] $api_service_worker_timeout = 90,
+  Hash[String[1], String[1]] $api_client_auth_cn_map = {},
 ) {
   $settings_file = "${config_dir}/settings.py"
 

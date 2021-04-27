@@ -44,6 +44,16 @@ class pulpcore::apache (
   # Pulp has a default for remote header. Here it's ensured that the end user
   # can't send that header to spoof users.
   $remote_user_environ_header = $pulpcore::remote_user_environ_name.regsubst(/^HTTP_/, '')
+
+  $api_default_request_headers = [
+    "unset ${remote_user_environ_header}",
+    "set ${remote_user_environ_header} \"%{SSL_CLIENT_S_DN_CN}s\" env=SSL_CLIENT_S_DN_CN",
+  ]
+
+  $api_additional_request_headers = $pulpcore::api_client_auth_cn_map.map |String $cn, String $pulp_user| {
+    "set ${remote_user_environ_header} \"${pulp_user}\" \"expr=%{SSL_CLIENT_S_DN_CN} == '${cn}'\""
+  }
+
   $api_directory = {
     'path'            => $api_path,
     'provider'        => 'location',
@@ -53,10 +63,7 @@ class pulpcore::apache (
         'params' => $api_proxy_params,
       },
     ],
-    'request_headers' => [
-      "unset ${remote_user_environ_header}",
-      "set ${remote_user_environ_header} \"%{SSL_CLIENT_S_DN_CN}s\" env=SSL_CLIENT_S_DN_CN",
-    ],
+    'request_headers' => $api_default_request_headers + $api_additional_request_headers,
   }
 
   # Static content is served by the whitenoise application. SELinux prevents
