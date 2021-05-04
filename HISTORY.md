@@ -1,3 +1,20 @@
+## [3.3.0](https://github.com/theforeman/puppet-pulpcore/tree/3.3.0) (2021-04-21)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.2.1...3.3.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#31950](https://projects.theforeman.org/issues/31950) - support ansible plugin [\#184](https://github.com/theforeman/puppet-pulpcore/pull/184) ([jlsherrill](https://github.com/jlsherrill))
+- Add support for ALLOWED\_CONTENT\_CHECKSUMS [\#183](https://github.com/theforeman/puppet-pulpcore/pull/183) ([jlsherrill](https://github.com/jlsherrill))
+
+## [3.2.1](https://github.com/theforeman/puppet-pulpcore/tree/3.2.1) (2021-04-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.2.0...3.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#32309](https://projects.theforeman.org/issues/32309) - pulpcore-manager fails from certain directories [\#181](https://github.com/theforeman/puppet-pulpcore/pull/181) ([ianballou](https://github.com/ianballou))
+
 ## [3.2.0](https://github.com/theforeman/puppet-pulpcore/tree/3.2.0) (2021-03-24)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.1.0...3.2.0)

@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.4.0](https://github.com/theforeman/puppet-pulpcore/tree/3.4.0) (2021-05-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.3...3.4.0)
+
+**Implemented enhancements:**
+
+- Allow Puppet 7 compatible versions of mods [\#187](https://github.com/theforeman/puppet-pulpcore/pull/187) ([ekohl](https://github.com/ekohl))
+- Refs [\#32383](https://projects.theforeman.org/issues/32383): Configurable client certificate authentication to Pulp [\#186](https://github.com/theforeman/puppet-pulpcore/pull/186) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Fixes [\#32622](https://projects.theforeman.org/issues/32622): Include StdEnvVars, ExportCertData SSL options in Apache [\#193](https://github.com/theforeman/puppet-pulpcore/pull/193) ([ehelms](https://github.com/ehelms))
+
 ## [3.3.0](https://github.com/theforeman/puppet-pulpcore/tree/3.3.0) (2021-04-21)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.2.1...3.3.0)
