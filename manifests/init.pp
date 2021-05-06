@@ -217,7 +217,7 @@ class pulpcore (
   Anchor <| title == 'pulpcore::repo' |> ~> Class['pulpcore::install']
   Class['pulpcore::install'] ~> Class['pulpcore::config', 'pulpcore::database', 'pulpcore::service']
   Class['pulpcore::config'] ~> Class['pulpcore::database', 'pulpcore::static', 'pulpcore::service']
-  Class['pulpcore::database', 'pulpcore::static'] -> Class['pulpcore::service'] -> Class['pulpcore::apache']
+  Class['pulpcore::database'] -> Class['pulpcore::static'] -> Class['pulpcore::service'] -> Class['pulpcore::apache']
 
   # lint:ignore:spaceship_operator_without_tag
   Class['pulpcore::install']
