@@ -123,6 +123,7 @@ class pulpcore::apache (
         ssl_chain         => $pulpcore::apache_https_chain,
         ssl_ca            => $pulpcore::apache_https_ca,
         ssl_verify_client => $ssl_verify_client,
+        ssl_options       => ['+StdEnvVars', '+ExportCertData'],
         *                 => $https_vhost_options,
       }
     }
