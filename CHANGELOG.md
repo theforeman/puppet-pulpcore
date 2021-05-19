@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.3](https://github.com/theforeman/puppet-pulpcore/tree/2.2.3) (2021-05-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.2...2.2.3)
+
+**Fixed bugs:**
+
+- Fixes [\#32622](https://projects.theforeman.org/issues/32622): Include StdEnvVars, ExportCertData SSL options in Apache [\#193](https://github.com/theforeman/puppet-pulpcore/pull/193) ([ehelms](https://github.com/ehelms))
+- Fixes [\#32309](https://projects.theforeman.org/issues/32309) - pulpcore-manager fails from certain directories [\#181](https://github.com/theforeman/puppet-pulpcore/pull/181) ([ianballou](https://github.com/ianballou))
+
 ## [2.2.2](https://github.com/theforeman/puppet-pulpcore/tree/2.2.2) (2020-12-09)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.1...2.2.2)
