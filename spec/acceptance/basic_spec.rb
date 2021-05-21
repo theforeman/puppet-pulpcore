@@ -3,34 +3,15 @@ require 'spec_helper_acceptance'
 describe 'basic installation' do
   certdir = '/etc/pulpcore-certs'
 
-  let(:pp) {
-    <<-PUPPET
-    if $facts['os']['release']['major'] == '7' {
-      class { 'postgresql::globals':
-        version              => '12',
-        client_package_name  => 'rh-postgresql12-postgresql-syspaths',
-        server_package_name  => 'rh-postgresql12-postgresql-server-syspaths',
-        contrib_package_name => 'rh-postgresql12-postgresql-contrib-syspaths',
-        service_name         => 'postgresql',
-        datadir              => '/var/lib/pgsql/data',
-        confdir              => '/var/lib/pgsql/data',
-        bindir               => '/usr/bin',
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-PUPPET
+      class { 'pulpcore':
+        worker_count => 2,
       }
-      class { 'redis::globals':
-        scl => 'rh-redis5',
-      }
-    }
-
-    class { 'pulpcore':
-      worker_count      => 2,
-      apache_https_cert => '#{certdir}/ca-cert.pem',
-      apache_https_key  => '#{certdir}/ca-key.pem',
-      apache_https_ca   => '#{certdir}/ca-cert.pem',
-    }
-    PUPPET
-  }
-
-  it_behaves_like 'a idempotent resource'
+      PUPPET
+    end
+  end
 
   describe service('httpd') do
     it { is_expected.to be_enabled }
@@ -95,36 +76,15 @@ describe 'basic installation' do
 end
 
 describe 'reducing worker count' do
-  certdir = '/etc/pulpcore-certs'
-
-  let(:pp) {
-    <<-PUPPET
-    if $facts['os']['release']['major'] == '7' {
-      class { 'postgresql::globals':
-        version              => '12',
-        client_package_name  => 'rh-postgresql12-postgresql-syspaths',
-        server_package_name  => 'rh-postgresql12-postgresql-server-syspaths',
-        contrib_package_name => 'rh-postgresql12-postgresql-contrib-syspaths',
-        service_name         => 'postgresql',
-        datadir              => '/var/lib/pgsql/data',
-        confdir              => '/var/lib/pgsql/data',
-        bindir               => '/usr/bin',
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-PUPPET
+      class { 'pulpcore':
+        worker_count => 1,
       }
-      class { 'redis::globals':
-        scl => 'rh-redis5',
-      }
-    }
-
-    class { 'pulpcore':
-      worker_count      => 1,
-      apache_https_cert => '#{certdir}/ca-cert.pem',
-      apache_https_key  => '#{certdir}/ca-key.pem',
-      apache_https_ca   => '#{certdir}/ca-cert.pem',
-    }
-    PUPPET
-  }
-
-  it_behaves_like 'a idempotent resource'
+      PUPPET
+    end
+  end
 
   describe service('httpd') do
     it { is_expected.to be_enabled }
