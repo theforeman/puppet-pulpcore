@@ -1,42 +1,20 @@
 require 'spec_helper_acceptance'
 
 describe 'basic installation' do
-  certdir = '/etc/pulpcore-certs'
-
-  let(:pp) {
-    <<-PUPPET
-    if $facts['os']['release']['major'] == '7' {
-      class { 'postgresql::globals':
-        version              => '12',
-        client_package_name  => 'rh-postgresql12-postgresql-syspaths',
-        server_package_name  => 'rh-postgresql12-postgresql-server-syspaths',
-        contrib_package_name => 'rh-postgresql12-postgresql-contrib-syspaths',
-        service_name         => 'postgresql',
-        datadir              => '/var/lib/pgsql/data',
-        confdir              => '/var/lib/pgsql/data',
-        bindir               => '/usr/bin',
-      }
-      class { 'redis::globals':
-        scl => 'rh-redis5',
-      }
-    }
-
-    class { 'pulpcore':
-      apache_https_cert => '#{certdir}/ca-cert.pem',
-      apache_https_key  => '#{certdir}/ca-key.pem',
-      apache_https_ca   => '#{certdir}/ca-cert.pem',
-    }
-    include pulpcore::plugin::ansible
-    include pulpcore::plugin::certguard
-    include pulpcore::plugin::container
-    include pulpcore::plugin::deb
-    include pulpcore::plugin::file
-    include pulpcore::plugin::migration
-    include pulpcore::plugin::rpm
-    PUPPET
-  }
-
-  it_behaves_like 'a idempotent resource'
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-PUPPET
+      include pulpcore
+      include pulpcore::plugin::ansible
+      include pulpcore::plugin::certguard
+      include pulpcore::plugin::container
+      include pulpcore::plugin::deb
+      include pulpcore::plugin::file
+      include pulpcore::plugin::migration
+      include pulpcore::plugin::rpm
+      PUPPET
+    end
+  end
 
   describe file('/etc/pulp/settings.py') do
     it { is_expected.to be_file }
@@ -67,7 +45,7 @@ describe 'basic installation' do
     it { is_expected.to be_listening }
   end
 
-  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: "#{certdir}/ca-cert.pem") do
+  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: '/etc/pulpcore-certs/ca-cert.pem') do
     its(:response_code) { is_expected.to eq(200) }
     its(:exit_status) { is_expected.to eq 0 }
   end
