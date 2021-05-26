@@ -2,29 +2,20 @@
 # @api private
 class pulpcore::service {
   include apache
+  $socket_service_ensure = bool2str($pulpcore::service_ensure, 'running', 'stopped')
 
-  systemd::unit_file { 'pulpcore-api.socket':
-    content => template('pulpcore/pulpcore-api.socket.erb'),
-    active  => $pulpcore::service_ensure,
-    enable  => $pulpcore::service_enable,
+  pulpcore::socket_service { 'pulpcore-api':
+    ensure          => $socket_service_ensure,
+    enable          => $pulpcore::service_enable,
+    socket_content  => template('pulpcore/pulpcore-api.socket.erb'),
+    service_content => template('pulpcore/pulpcore-api.service.erb'),
   }
 
-  systemd::unit_file { 'pulpcore-api.service':
-    content => template('pulpcore/pulpcore-api.service.erb'),
-    active  => $pulpcore::service_ensure,
-    enable  => $pulpcore::service_enable,
-  }
-
-  systemd::unit_file { 'pulpcore-content.socket':
-    content => template('pulpcore/pulpcore-content.socket.erb'),
-    active  => $pulpcore::service_ensure,
-    enable  => $pulpcore::service_enable,
-  }
-
-  systemd::unit_file { 'pulpcore-content.service':
-    content => template('pulpcore/pulpcore-content.service.erb'),
-    active  => $pulpcore::service_ensure,
-    enable  => $pulpcore::service_enable,
+  pulpcore::socket_service { 'pulpcore-content':
+    ensure          => $socket_service_ensure,
+    enable          => $pulpcore::service_enable,
+    socket_content  => template('pulpcore/pulpcore-content.socket.erb'),
+    service_content => template('pulpcore/pulpcore-content.service.erb'),
   }
 
   systemd::unit_file { 'pulpcore-resource-manager.service':

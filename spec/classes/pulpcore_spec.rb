@@ -119,6 +119,14 @@ describe 'pulpcore' do
 
         it 'configures services' do
           is_expected.to contain_class('pulpcore::service')
+          is_expected.to contain_pulpcore__socket_service('pulpcore-api')
+          is_expected.to contain_systemd__unit_file('pulpcore-api.socket')
+          is_expected.to contain_systemd__unit_file('pulpcore-api.service')
+          is_expected.to contain_file('/etc/systemd/system/pulpcore-api.socket').that_comes_before('Service[pulpcore-api.service]')
+          is_expected.to contain_pulpcore__socket_service('pulpcore-content')
+          is_expected.to contain_systemd__unit_file('pulpcore-content.socket')
+          is_expected.to contain_systemd__unit_file('pulpcore-content.service')
+          is_expected.to contain_file('/etc/systemd/system/pulpcore-content.socket').that_comes_before('Service[pulpcore-content.service]')
           is_expected.to contain_systemd__unit_file('pulpcore-resource-manager.service')
           is_expected.to contain_systemd__unit_file('pulpcore-worker@.service')
           is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(true)
