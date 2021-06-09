@@ -27,7 +27,7 @@ class pulpcore::apache (
   } else {
     $external_content_url = "https://${pulpcore::servername}${pulpcore::apache::content_path}"
   }
-  
+
   $docroot_directory = {
     'provider'       => 'Directory',
     'path'           => $pulpcore::apache_docroot,
