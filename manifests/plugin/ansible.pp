@@ -16,7 +16,7 @@ class pulpcore::plugin::ansible(
   }
 
   pulpcore::plugin { 'ansible':
-    config        => "ANSIBLE_API_HOSTNAME = \"${pulpcore::servername}\"\nANSIBLE_CONTENT_HOSTNAME = \"${pulpcore::apache::external_content_url}\"",
+    config        => "ANSIBLE_API_HOSTNAME = \"${pulpcore::servername}\"\nANSIBLE_CONTENT_HOSTNAME = \"${pulpcore::apache::external_content_url}/\"",
     https_content => epp('pulpcore/apache-fragment.epp', $context),
   }
 }
