@@ -166,12 +166,4 @@ class pulpcore::apache (
       })
     }
   }
-
-  if ! $pulpcore::apache_https_vhost {
-    fail('HTTPS must be turned on for Ansible content')
-  } elsif $https_port != 443 {
-    $external_content_url = "https://${pulpcore::servername}:${https_port}${content_path}"
-  } else {
-    $external_content_url = "https://${pulpcore::servername}${content_path}"
-  }
 }
