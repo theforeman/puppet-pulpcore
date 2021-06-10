@@ -20,14 +20,6 @@ class pulpcore::apache (
   $content_base_url = "unix://${pulpcore::content_socket_path}|http://pulpcore-content"
   $content_url = "${content_base_url}${content_path}"
 
-  if ! $pulpcore::apache_https_vhost {
-    fail('HTTPS must be turned on for Ansible content')
-  } elsif $pulpcore::apache::https_port != 443 {
-    $external_content_url = "https://${pulpcore::servername}:${pulpcore::apache::https_port}${pulpcore::apache::content_path}"
-  } else {
-    $external_content_url = "https://${pulpcore::servername}${pulpcore::apache::content_path}"
-  }
-
   $docroot_directory = {
     'provider'       => 'Directory',
     'path'           => $pulpcore::apache_docroot,
@@ -173,5 +165,13 @@ class pulpcore::apache (
           persistent => true,
       })
     }
+  }
+
+  if ! $pulpcore::apache_https_vhost {
+    fail('HTTPS must be turned on for Ansible content')
+  } elsif $https_port != 443 {
+    $external_content_url = "https://${pulpcore::servername}:${https_port}${content_path}"
+  } else {
+    $external_content_url = "https://${pulpcore::servername}${content_path}"
   }
 }
