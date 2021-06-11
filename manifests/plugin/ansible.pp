@@ -15,8 +15,16 @@ class pulpcore::plugin::ansible(
     ],
   }
 
+  if ! $pulpcore::apache_https_vhost {
+    fail('HTTPS must be turned on for Ansible content')
+  } elsif $pulpcore::apache::https_port != 443 {
+    $external_content_url = "https://${pulpcore::servername}:${pulpcore::apache::https_port}${pulpcore::apache::content_path}"
+  } else {
+    $external_content_url = "https://${pulpcore::servername}${pulpcore::apache::content_path}"
+  }
+
   pulpcore::plugin { 'ansible':
-    config        => "ANSIBLE_API_HOSTNAME = \"${pulpcore::servername}\"\nANSIBLE_CONTENT_HOSTNAME = \"${pulpcore::servername}\"",
+    config        => "ANSIBLE_API_HOSTNAME = \"${pulpcore::servername}\"\nANSIBLE_CONTENT_HOSTNAME = \"${external_content_url}\"",
     https_content => epp('pulpcore/apache-fragment.epp', $context),
   }
 }
