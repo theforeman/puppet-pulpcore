@@ -64,6 +64,9 @@ jobs:
       matrix:
         setfile: ${{fromJson(needs.setup_matrix.outputs.beaker_setfiles)}}
         puppet: ${{fromJson(needs.setup_matrix.outputs.puppet_major_versions)}}
+        pulpcore_version:
+          - '3.9'
+          - '3.11'
     name: Acceptance / ${{ matrix.puppet.name }} - ${{ matrix.setfile.name }}
     steps:
       - uses: actions/checkout@v2
@@ -80,3 +83,4 @@ jobs:
           # In Puppet 7 the locale ends up being C.UTF-8 if it isn't passed.
           # This locale doesn't exist in EL7 and won't be supported either.
           LANG: en_US.UTF-8
+          BEAKER_FACTER_PULPCORE_VERSION: ${{ matrix.pulpcore_version }}
