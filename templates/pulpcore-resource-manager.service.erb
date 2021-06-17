@@ -11,11 +11,7 @@ User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-resource-manager
-ExecStart=/usr/libexec/pulpcore/rq worker \
-          -w pulpcore.tasking.worker.PulpWorker -n resource-manager \
-          -c 'pulpcore.rqconfig' \
-          --disable-job-desc-logging
-
+ExecStart=/usr/libexec/pulpcore/pulpcore-worker --resource-manager
 SyslogIdentifier=pulpcore-resource-manager
 
 # This provides reconnect support for PostgreSQL and Redis. Without reconnect support, if either
