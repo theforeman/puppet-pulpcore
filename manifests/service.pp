@@ -18,10 +18,18 @@ class pulpcore::service {
     service_content => template('pulpcore/pulpcore-content.service.erb'),
   }
 
-  systemd::unit_file { 'pulpcore-resource-manager.service':
-    content => template('pulpcore/pulpcore-resource-manager.service.erb'),
-    active  => $pulpcore::service_ensure,
-    enable  => $pulpcore::service_enable,
+  if $pulpcore::use_rq_tasking_system {
+    systemd::unit_file { 'pulpcore-resource-manager.service':
+      content => template('pulpcore/pulpcore-resource-manager.service.erb'),
+      active  => $pulpcore::service_ensure,
+      enable  => $pulpcore::service_enable,
+    }
+  } else {
+    systemd::unit_file { 'pulpcore-resource-manager.service':
+      ensure => 'absent',
+      active => false,
+      enable => false,
+    }
   }
 
   systemd::unit_file { 'pulpcore-worker@.service':
