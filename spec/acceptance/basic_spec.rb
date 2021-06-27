@@ -29,8 +29,8 @@ describe 'basic installation' do
   end
 
   describe service('pulpcore-resource-manager') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
+    it { is_expected.not_to be_enabled }
+    it { is_expected.not_to be_running }
   end
 
   describe service('pulpcore-worker@1') do
@@ -73,6 +73,17 @@ describe 'basic installation' do
     its(:body) { is_expected.to contain('artifacts_list') }
     its(:exit_status) { is_expected.to eq 0 }
   end
+
+  describe command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings") do
+    its(:stdout) { is_expected.to match(/^USE_NEW_WORKER_TYPE = True/) }
+    its(:exit_status) { is_expected.to eq 0 }
+  end
+
+  describe command("DJANGO_SETTINGS_MODULE=pulpcore.app.settings PULP_SETTINGS=/etc/pulp/settings.py rq info -c pulpcore.rqconfig") do
+    its(:stdout) { is_expected.to match(/^0 workers, /) }
+    its(:stdout) { is_expected.not_to match(/^resource-manager /) }
+    its(:exit_status) { is_expected.to eq 0 }
+  end
 end
 
 describe 'reducing worker count' do
@@ -102,8 +113,8 @@ describe 'reducing worker count' do
   end
 
   describe service('pulpcore-resource-manager') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
+    it { is_expected.not_to be_enabled }
+    it { is_expected.not_to be_running }
   end
 
   describe service('pulpcore-worker@1') do

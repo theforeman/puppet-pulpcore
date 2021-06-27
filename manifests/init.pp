@@ -132,6 +132,11 @@
 #   available, likely results in performance degradation due to I/O blocking and is not recommended in most cases. Modifying this parameter should
 #   be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
 #
+# @param use_rq_tasking_system
+#   Use the older RQ workers tasking system instead of the newer PostgreSQL tasking system introduced in Pulpcore 3.14.
+#   Any benchmarking you did to optimize worker_count or other tasking related parameters will no longer be accurate after changing the tasking system.
+#   Do not modify this setting unless you understand the implications for performance and stability.
+#
 # @param service_enable
 #   Enable/disable Pulp services at boot.
 #
@@ -203,6 +208,7 @@ class pulpcore (
   Pulpcore::ChecksumTypes $allowed_content_checksums = ['sha224', 'sha256', 'sha384', 'sha512'],
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
+  Boolean $use_rq_tasking_system = false,
   Boolean $service_enable = true,
   Boolean $service_ensure = true,
   Integer[0] $content_service_worker_count = (2*min(8, $facts['processors']['count']) + 1),

@@ -128,7 +128,7 @@ describe 'pulpcore' do
           is_expected.to contain_systemd__unit_file('pulpcore-content.socket')
           is_expected.to contain_systemd__unit_file('pulpcore-content.service')
           is_expected.to contain_file('/etc/systemd/system/pulpcore-content.socket').that_comes_before('Service[pulpcore-content.service]')
-          is_expected.to contain_systemd__unit_file('pulpcore-resource-manager.service')
+          is_expected.to contain_systemd__unit_file('pulpcore-resource-manager.service').with_ensure('absent')
           is_expected.to contain_systemd__unit_file('pulpcore-worker@.service')
           is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(true)
           is_expected.not_to contain_service("pulpcore-worker@2.service")

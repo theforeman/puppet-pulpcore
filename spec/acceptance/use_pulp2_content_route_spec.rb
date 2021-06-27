@@ -40,8 +40,8 @@ describe 'basic installation' do
   end
 
   describe service('pulpcore-resource-manager') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
+    it { is_expected.not_to be_enabled }
+    it { is_expected.not_to be_running }
   end
 
   describe port(80) do

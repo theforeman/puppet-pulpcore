@@ -23,6 +23,8 @@ REDIS_HOST = "localhost"
 REDIS_PORT = "<%= scope['redis::port'] %>"
 REDIS_DB = <%= scope['pulpcore::redis_db'] %>
 
+USE_NEW_WORKER_TYPE = <%= scope['pulpcore::use_rq_tasking_system'] ? "False" : "True" %>
+
 MEDIA_ROOT = "<%= scope['pulpcore::media_root'] %>"
 STATIC_ROOT = "<%= scope['pulpcore::static_root'] %>"
 STATIC_URL = "<%= scope['pulpcore::static_url'] %>"
