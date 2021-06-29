@@ -117,3 +117,54 @@ describe 'reducing worker count' do
   end
 
 end
+
+describe 'with content cache enabled' do
+  certdir = '/etc/pulpcore-certs'
+
+  it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-PUPPET
+      class { 'pulpcore':
+        cache_enabled => true,
+      }
+      PUPPET
+    end
+  end
+
+  describe service('httpd') do
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
+  end
+
+  describe service('pulpcore-content') do
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
+  end
+
+  describe port(80) do
+    it { is_expected.to be_listening }
+  end
+
+  describe port(443) do
+    it { is_expected.to be_listening }
+  end
+
+  describe port(6379) do
+    it { is_expected.to be_listening }
+  end
+
+  describe service('rh-redis5-redis'), if: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
+    it { is_expected.to be_running }
+    it { is_expected.to be_enabled }
+  end
+
+  describe service('redis'), unless: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
+    it { is_expected.to be_running }
+    it { is_expected.to be_enabled }
+  end
+
+  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: "#{certdir}/ca-cert.pem") do
+    its(:response_code) { is_expected.to eq(200) }
+    its(:exit_status) { is_expected.to eq 0 }
+  end
+end
