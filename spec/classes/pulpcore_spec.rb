@@ -23,6 +23,7 @@ describe 'pulpcore' do
             .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
             .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
             .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
+            .with_content(%r{CACHE_ENABLED = False})
             .without_content(/sslmode/)
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')
@@ -479,6 +480,21 @@ CONTENT
                 ],
               }
             ])
+        end
+      end
+
+      context 'can enable content caching and set an expires' do
+        let :params do
+          {
+            cache_enabled: true,
+            cache_expires_ttl: 60,
+          }
+        end
+
+        it do
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{CACHE_ENABLED = True})
+            .with_content(%r{CACHE_SETTINGS = \{\n    'EXPIRES_TTL': 60,\n\}})
         end
       end
     end
