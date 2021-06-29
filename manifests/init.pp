@@ -208,7 +208,7 @@ class pulpcore (
   Pulpcore::ChecksumTypes $allowed_content_checksums = ['sha224', 'sha256', 'sha384', 'sha512'],
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
-  Boolean $use_rq_tasking_system = true,
+  Boolean $use_rq_tasking_system = false,
   Boolean $service_enable = true,
   Boolean $service_ensure = true,
   Integer[0] $content_service_worker_count = (2*min(8, $facts['processors']['count']) + 1),
