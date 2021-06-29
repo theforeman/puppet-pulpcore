@@ -23,6 +23,8 @@ describe 'pulpcore' do
             .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
             .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
             .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
+            .with_content(%r{PULP_CACHE_ENABLED = False})
+            .with_content(%r{PULP_CACHE_SETTINGS = \{\n    'EXPIRES_TTL': 60,\n\}})
             .without_content(/sslmode/)
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')

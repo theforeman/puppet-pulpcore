@@ -160,6 +160,12 @@
 # @param api_client_auth_cn_map
 #   Mapping of certificate common name and Pulp user to authenticate to Pulp API.
 #
+# @param pulp_cache_enable
+#   Enables Redis based content caching within the Pulp content app.
+#
+# @param pulp_cache_expires_ttl
+#   The number of seconds that content should be cached for.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -210,6 +216,8 @@ class pulpcore (
   Integer[0] $content_service_worker_timeout = 90,
   Integer[0] $api_service_worker_timeout = 90,
   Hash[String[1], String[1]] $api_client_auth_cn_map = {},
+  Boolean $pulp_cache_enable = false,
+  Integer[0] $pulp_cache_expires_ttl = 60,
 ) {
   $settings_file = "${config_dir}/settings.py"
 

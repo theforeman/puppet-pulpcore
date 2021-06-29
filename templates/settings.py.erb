@@ -45,3 +45,8 @@ ALLOWED_CONTENT_CHECKSUMS = <%= scope['pulpcore::allowed_content_checksums'] %>
 
 # Derive HTTP/HTTPS via the X-Forwarded-Proto header set by Apache
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+PULP_CACHE_ENABLED = <%= scope['pulpcore::pulp_cache_enable'] ? 'True' : 'False' %>
+PULP_CACHE_SETTINGS = {
+    'EXPIRES_TTL': <%= scope['pulpcore::pulp_cache_expires_ttl'] %>,
+}
