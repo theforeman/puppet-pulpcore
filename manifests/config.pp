@@ -8,6 +8,16 @@ class pulpcore::config {
     mode   => '0755',
   }
 
+  file { $pulpcore::db_encrypted_fields_keyfile:
+    ensure    => file,
+    content   => $pulpcore::db_encrypted_fields_key,
+    owner     => 'root',
+    group     => $pulpcore::group,
+    mode      => '0640',
+    show_diff => false,
+    require   => File[$pulpcore::config_dir],
+  }
+
   concat { 'pulpcore settings':
     ensure         => present,
     path           => $pulpcore::settings_file,

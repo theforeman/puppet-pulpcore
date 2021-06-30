@@ -109,6 +109,9 @@
 # @param django_secret_key
 #   SECRET_KEY for Django
 #
+# @param db_encrypted_fields_key
+#   String representing 32 byte secret key encoded in url-safe base64 alphabet, used to encrypt sensitive data in the DB.
+#
 # @param redis_db
 #   Redis DB number to use. By default, Redis supports a DB number of 0 through 15.
 #
@@ -190,6 +193,7 @@ class pulpcore (
   Optional[Stdlib::Absolutepath] $postgresql_db_ssl_key = undef,
   Optional[Stdlib::Absolutepath] $postgresql_db_ssl_root_ca = undef,
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(50)),
+  Pattern[/\A([a-zA-Z]|\d|-|_){43}=\z/] $db_encrypted_fields_key = extlib::cache_data('pulpcore_cache_data', 'db_encrypted_fields_key', pulpcore::generate_fernet_key()),
   Integer[0] $redis_db = 8,
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
@@ -206,6 +210,7 @@ class pulpcore (
   Hash[String[1], String[1]] $api_client_auth_cn_map = {},
 ) {
   $settings_file = "${config_dir}/settings.py"
+  $db_encrypted_fields_keyfile = "${config_dir}/db_encrypted_fields_key"
 
   contain pulpcore::install
   contain pulpcore::database

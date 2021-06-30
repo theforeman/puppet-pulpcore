@@ -73,6 +73,14 @@ describe 'basic installation' do
     its(:body) { is_expected.to contain('artifacts_list') }
     its(:exit_status) { is_expected.to eq 0 }
   end
+
+  describe file('/etc/pulp/db_encrypted_fields_key') do
+    it { is_expected.to be_file }
+    it { is_expected.to be_mode 640 }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into 'pulp' }
+    its(:content) { is_expected.to match /\A([a-zA-Z]|\d|-|_){43}=\z/ }
+  end
 end
 
 describe 'reducing worker count' do
