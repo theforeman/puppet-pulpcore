@@ -112,6 +112,13 @@
 # @param redis_db
 #   Redis DB number to use. By default, Redis supports a DB number of 0 through 15.
 #
+# @param manage_redis
+#   Enable installation of Redis via this module. When management is enabled, Redis will be installed and
+#   configured exactly when it is required by either of the `pulp_cache_enable` or `use_rq_tasking_system`
+#   features. Disable management when Redis will be installed and configured by another source. In that case,
+#   Pulpcore's connection to Redis will still be configured if required by the tasking or caching features,
+#   but this module will neither install nor configure Redis itself.
+#
 # @param servername
 #   Server name of the VirtualHost in the webserver
 #
@@ -202,6 +209,7 @@ class pulpcore (
   Optional[Stdlib::Absolutepath] $postgresql_db_ssl_root_ca = undef,
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(50)),
   Integer[0] $redis_db = 8,
+  Boolean $manage_redis = true,
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
   Array[Stdlib::Absolutepath] $allowed_export_path = [],
@@ -220,6 +228,9 @@ class pulpcore (
   Integer[0] $pulp_cache_expires_ttl = 60,
 ) {
   $settings_file = "${config_dir}/settings.py"
+
+  $configure_redis_connection = ($pulp_cache_enable or $use_rq_tasking_system)
+  $deploy_redis = ($manage_redis and $configure_redis_connection)
 
   contain pulpcore::install
   contain pulpcore::database
