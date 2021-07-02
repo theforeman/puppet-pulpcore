@@ -6,9 +6,7 @@ describe 'basic installation' do
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
       <<-PUPPET
-      class { 'pulpcore':
-        worker_count => 2,
-      }
+      include pulpcore
       PUPPET
     end
   end
@@ -36,11 +34,6 @@ describe 'basic installation' do
   describe service('pulpcore-worker@1') do
     it { is_expected.to be_enabled }
     it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-worker@3') do
-    it { is_expected.not_to be_enabled }
-    it { is_expected.not_to be_running }
   end
 
   describe port(80) do
@@ -84,49 +77,6 @@ describe 'basic installation' do
     its(:stdout) { is_expected.not_to match(/^resource-manager /) }
     its(:exit_status) { is_expected.to eq 0 }
   end
-end
-
-describe 'reducing worker count' do
-  it_behaves_like 'an idempotent resource' do
-    let(:manifest) do
-      <<-PUPPET
-      class { 'pulpcore':
-        worker_count => 1,
-      }
-      PUPPET
-    end
-  end
-
-  describe service('httpd') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-api') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-content') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-resource-manager') do
-    it { is_expected.not_to be_enabled }
-    it { is_expected.not_to be_running }
-  end
-
-  describe service('pulpcore-worker@1') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-worker@2') do
-    it { is_expected.not_to be_enabled }
-    it { is_expected.not_to be_running }
-  end
-
 end
 
 describe 'with content cache enabled' do
