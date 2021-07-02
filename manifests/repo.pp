@@ -3,7 +3,7 @@
 # @param version
 #   The Pulpcore version to use
 class pulpcore::repo (
-  Pattern['^\d+\.\d+$'] $version = '3.13',
+  Pattern['^\d+\.\d+$'] $version = '3.14',
 ) {
   $context = {
     'version'   => $version,
