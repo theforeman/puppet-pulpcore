@@ -526,6 +526,66 @@ CONTENT
             .with_content(%r{^WORKER_TTL = 60$})
         end
       end
+
+      context 'with 24 processors from facts and default worker_count' do
+        let(:facts) { override_facts(os_facts, processors: {count: 24}) }
+
+        it 'enables only 8 pulpcore workers' do
+          (1..8).each do |i|
+            is_expected.to contain_service("pulpcore-worker@#{i}.service")
+              .with_ensure(true)
+              .with_enable(true)
+          end
+
+          (9..24).each do |i|
+            is_expected.not_to contain_service("pulpcore-worker@#{i}.service")
+          end
+        end
+      end
+
+      context 'with 24 workers previously enabled and reset to default worker_count' do
+        let(:facts) {
+          override_facts(
+            os_facts,
+            processors: {count: 24},
+            pulpcore_workers: (1..24).map { |i| "pulpcore-worker@#{i}.service" }
+          )
+        }
+
+        it 'enables 8 pulpcore workers' do
+          (1..8).each do |i|
+            is_expected.to contain_service("pulpcore-worker@#{i}.service")
+              .with_ensure(true)
+              .with_enable(true)
+          end
+        end
+
+        it 'disables existing workers from previous configuration' do
+          (9..24).each do |i|
+            is_expected.to contain_service("pulpcore-worker@#{i}.service")
+              .with_ensure(false)
+              .with_enable(false)
+          end
+        end
+      end
+
+      context 'configured for 12 workers and only 8 processors' do
+        let(:facts) { override_facts(os_facts, processors: { count: 8 }) }
+
+        let(:params) do
+          {
+            worker_count: 12
+          }
+        end
+
+        it 'allows configuring more workers than processors' do
+          (1..12).each do |i|
+            is_expected.to contain_service("pulpcore-worker@#{i}.service")
+              .with_ensure(true)
+              .with_enable(true)
+          end
+        end
+      end
     end
   end
 end
