@@ -1,3 +1,11 @@
+########################################################################################
+# WARNING: This file is externally managed and you should never make manual edits.     #
+#                                                                                      #
+# Not only are your edits likely to be overwritten, there is also a strong possibility #
+# of breaking your system. Refer to documentation for the software that installed      #
+# Pulpcore to determine the safe and persistent way to modify the configuration.       #
+########################################################################################
+
 CONTENT_HOST = "<%= scope['pulpcore::servername'] %>"
 CONTENT_ORIGIN = "https://<%= scope['pulpcore::servername'] %>"
 SECRET_KEY = "<%= scope['pulpcore::django_secret_key'] %>"
