@@ -23,6 +23,7 @@ describe 'pulpcore' do
             .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
             .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
             .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
+            .with_content(%r{\s'level': 'INFO',})
             .without_content(%r{sslmode})
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')
@@ -552,6 +553,19 @@ CONTENT
             .with_content(%r{REDIS_HOST})
             .with_content(%r{REDIS_PORT})
             .with_content(%r{REDIS_DB})
+        end
+      end
+
+      context 'can change the log level to DEBUG' do
+        let :params do
+          {
+            log_level: 'DEBUG'
+          }
+        end
+
+        it do
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{\s'level': 'DEBUG',})
         end
       end
     end
