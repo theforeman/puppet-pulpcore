@@ -90,7 +90,7 @@ describe 'basic installation' do
   end
 
   describe command("DJANGO_SETTINGS_MODULE=pulpcore.app.settings PULP_SETTINGS=/etc/pulp/settings.py rq info -c pulpcore.rqconfig") do
-    its(:stdout) { is_expected.not_to match(/Connection refused/) }
+    its(:stdout) { is_expected.to match(/Connection refused/) }
     its(:exit_status) { is_expected.to eq 1 }
   end
 end
