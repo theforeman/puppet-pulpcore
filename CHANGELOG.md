@@ -1,5 +1,28 @@
 # Changelog
 
+## [4.0.0](https://github.com/theforeman/puppet-pulpcore/tree/4.0.0) (2021-07-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.4.0...4.0.0)
+
+**Breaking changes:**
+
+- Support 3.14, drop 3.13 [\#208](https://github.com/theforeman/puppet-pulpcore/pull/208) ([ehelms](https://github.com/ehelms))
+- Support Pulp 3.13, drop earlier versions [\#202](https://github.com/theforeman/puppet-pulpcore/pull/202) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Fixes [\#32968](https://projects.theforeman.org/issues/32968): Add ability to modify log level [\#212](https://github.com/theforeman/puppet-pulpcore/pull/212) ([ehelms](https://github.com/ehelms))
+- Refs [\#32917](https://projects.theforeman.org/issues/32917) - Don't deploy or configure Redis with new tasking system [\#207](https://github.com/theforeman/puppet-pulpcore/pull/207) ([wbclark](https://github.com/wbclark))
+- Refs [\#32910](https://projects.theforeman.org/issues/32910): Add ability to enable content caching [\#204](https://github.com/theforeman/puppet-pulpcore/pull/204) ([ehelms](https://github.com/ehelms))
+- Fixes [\#32891](https://projects.theforeman.org/issues/32891) - Add feature to enable new tasking system and enable it by default [\#203](https://github.com/theforeman/puppet-pulpcore/pull/203) ([wbclark](https://github.com/wbclark))
+- Support version 3.11 [\#201](https://github.com/theforeman/puppet-pulpcore/pull/201) ([ekohl](https://github.com/ekohl))
+- Introduce a private socket\_service helper [\#199](https://github.com/theforeman/puppet-pulpcore/pull/199) ([ekohl](https://github.com/ekohl))
+- Support Puppet 7 [\#174](https://github.com/theforeman/puppet-pulpcore/pull/174) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Fixes [\#32766](https://projects.theforeman.org/issues/32766) - adds scheme and pulp content path to setting value [\#200](https://github.com/theforeman/puppet-pulpcore/pull/200) ([jjeffers](https://github.com/jjeffers))
+
 ## [3.4.0](https://github.com/theforeman/puppet-pulpcore/tree/3.4.0) (2021-05-19)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.3...3.4.0)
