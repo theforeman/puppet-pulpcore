@@ -5,7 +5,14 @@ class pulpcore::config {
     $redis_url = $pulpcore::redis_url
   } else {
     contain redis
-    $redis_url = "redis://localhost:${redis::port}/${pulpcore::redis_db}"
+    if $redis::unixsocket != '' {
+      $redis_url = "redis+unix://${redis::unixsocket}?db=${pulpcore::redis_db}"
+    } elsif $redis::port != 0 {
+      # TODO: this assumes $redis::bind at least has localhost in it
+      $redis_url = "redis://localhost:${redis::port}/${pulpcore::redis_db}"
+    } else {
+      fail('Unable to determine Redis URL')
+    }
   }
 
   file { [$pulpcore::config_dir, $pulpcore::certs_dir]:
