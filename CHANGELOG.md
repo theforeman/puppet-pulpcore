@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.0.1](https://github.com/theforeman/puppet-pulpcore/tree/4.0.1) (2021-07-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/4.0.0...4.0.1)
+
+**Fixed bugs:**
+
+- Revert "Refs [\#32917](https://projects.theforeman.org/issues/32917) - Don't deploy or configure Redis with new taskin… [\#217](https://github.com/theforeman/puppet-pulpcore/pull/217) ([ehelms](https://github.com/ehelms))
+
 ## [4.0.0](https://github.com/theforeman/puppet-pulpcore/tree/4.0.0) (2021-07-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.4.0...4.0.0)
