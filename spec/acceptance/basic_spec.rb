@@ -79,19 +79,10 @@ describe 'basic installation' do
     its(:exit_status) { is_expected.to eq 0 }
   end
 
-  describe service('rh-redis5-redis'), if: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
-    it { is_expected.not_to be_running }
-    it { is_expected.not_to be_enabled }
-  end
-
-  describe service('redis'), unless: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
-    it { is_expected.not_to be_running }
-    it { is_expected.not_to be_enabled }
-  end
-
   describe command("DJANGO_SETTINGS_MODULE=pulpcore.app.settings PULP_SETTINGS=/etc/pulp/settings.py rq info -c pulpcore.rqconfig") do
-    its(:stdout) { is_expected.not_to match(/Connection refused/) }
-    its(:exit_status) { is_expected.to eq 1 }
+    its(:stdout) { is_expected.to match(/^0 workers, /) }
+    its(:stdout) { is_expected.not_to match(/^resource-manager /) }
+    its(:exit_status) { is_expected.to eq 0 }
   end
 end
 
@@ -181,12 +172,6 @@ describe 'with content cache enabled' do
   describe service('redis'), unless: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
     it { is_expected.to be_running }
     it { is_expected.to be_enabled }
-  end
-
-  describe command("DJANGO_SETTINGS_MODULE=pulpcore.app.settings PULP_SETTINGS=/etc/pulp/settings.py rq info -c pulpcore.rqconfig") do
-    its(:stdout) { is_expected.to match(/^0 workers, /) }
-    its(:stdout) { is_expected.not_to match(/^resource-manager /) }
-    its(:exit_status) { is_expected.to eq 0 }
   end
 
   describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: "#{certdir}/ca-cert.pem") do

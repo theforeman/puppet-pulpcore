@@ -225,8 +225,6 @@ class pulpcore (
 ) {
   $settings_file = "${config_dir}/settings.py"
 
-  $uses_redis = $use_rq_tasking_system or $cache_enabled
-
   contain pulpcore::install
   contain pulpcore::database
   contain pulpcore::config
