@@ -24,6 +24,7 @@ describe 'pulpcore' do
             .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
             .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
             .with_content(%r{\s'level': 'INFO',})
+            .with_content(%r{CACHE_ENABLED = False})
             .without_content(%r{sslmode})
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/var/lib/pulp')
@@ -41,7 +42,7 @@ describe 'pulpcore' do
           is_expected.to contain_exec('pulpcore-manager collectstatic --noinput')
         end
 
-        it 'configures the PostgreSQL database' do
+        it 'configures the database' do
           is_expected.to contain_class('pulpcore::database')
           is_expected.to contain_class('postgresql::server')
           is_expected.to contain_postgresql__server__db('pulpcore')
@@ -49,30 +50,6 @@ describe 'pulpcore' do
           is_expected.to contain_exec('pulpcore-manager migrate --noinput')
           is_expected.to contain_pulpcore__admin('reset-admin-password --random')
           is_expected.to contain_exec('pulpcore-manager reset-admin-password --random')
-        end
-
-        it 'does not install Redis' do
-          is_expected.not_to contain_class('redis')
-        end
-
-        it 'does not configure Pulpcore connection to Redis' do
-          is_expected.to contain_concat__fragment('base')
-            .without_content(%r{REDIS_HOST})
-            .without_content(%r{REDIS_POST})
-            .without_content(%r{REDIS_DB})
-        end
-
-        it 'does not configure content caching' do
-          is_expected.to contain_concat__fragment('base')
-            .with_content(/CACHE_ENABLED = False/)
-            .without_content(%r{CACHE_SETTINGS})
-            .without_content(%r{'EXPIRES_TTL':})
-        end
-
-        it 'configures pulpcore to use PostgreSQL tasking system' do
-          is_expected.to contain_concat__fragment('base')
-            .with_content(%r{USE_NEW_WORKER_TYPE = True})
-          is_expected.to contain_systemd__unit_file('pulpcore-resource-manager.service').with_ensure('absent')
         end
 
         it 'configures apache' do
@@ -152,6 +129,7 @@ describe 'pulpcore' do
           is_expected.to contain_systemd__unit_file('pulpcore-content.socket')
           is_expected.to contain_systemd__unit_file('pulpcore-content.service')
           is_expected.to contain_file('/etc/systemd/system/pulpcore-content.socket').that_comes_before('Service[pulpcore-content.service]')
+          is_expected.to contain_systemd__unit_file('pulpcore-resource-manager.service').with_ensure('absent')
           is_expected.to contain_systemd__unit_file('pulpcore-worker@.service')
           is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(true)
           is_expected.not_to contain_service("pulpcore-worker@2.service")
@@ -514,45 +492,10 @@ CONTENT
           }
         end
 
-        it 'configures content caching' do
+        it do
           is_expected.to contain_concat__fragment('base')
             .with_content(%r{CACHE_ENABLED = True})
             .with_content(%r{CACHE_SETTINGS = \{\n    'EXPIRES_TTL': 60,\n\}})
-        end
-
-        it 'installs Redis' do
-          is_expected.to contain_class('redis')
-        end
-
-        it 'configures Pulpcore connection to Redis' do
-          is_expected.to contain_concat__fragment('base')
-            .with_content(%r{REDIS_HOST})
-            .with_content(%r{REDIS_PORT})
-            .with_content(%r{REDIS_DB})
-        end
-      end
-
-      context 'can enable RQ tasking system' do
-        let :params do
-          {
-            use_rq_tasking_system: true,
-          }
-        end
-
-        it 'configures RQ tasking system' do
-          is_expected.to contain_concat__fragment('base')
-            .with_content(%r{USE_NEW_WORKER_TYPE = False})
-        end
-
-        it 'installs Redis' do
-          is_expected.to contain_class('redis')
-        end
-
-        it 'configures Pulpcore connection to Redis' do
-          is_expected.to contain_concat__fragment('base')
-            .with_content(%r{REDIS_HOST})
-            .with_content(%r{REDIS_PORT})
-            .with_content(%r{REDIS_DB})
         end
       end
 
