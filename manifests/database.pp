@@ -27,6 +27,6 @@ class pulpcore::database(
     require     => Pulpcore::Admin['migrate --noinput'],
   }
 
-  include redis
+  contain redis
 
 }

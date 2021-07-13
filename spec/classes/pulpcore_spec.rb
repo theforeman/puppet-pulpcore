@@ -50,6 +50,7 @@ describe 'pulpcore' do
           is_expected.to contain_exec('pulpcore-manager migrate --noinput')
           is_expected.to contain_pulpcore__admin('reset-admin-password --random')
           is_expected.to contain_exec('pulpcore-manager reset-admin-password --random')
+          is_expected.to contain_class('redis').that_comes_before('Class[pulpcore::service]')
         end
 
         it 'configures apache' do
