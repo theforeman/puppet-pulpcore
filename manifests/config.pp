@@ -17,6 +17,15 @@ class pulpcore::config {
     ensure_newline => true,
   }
 
+  if $redis::unixsocket != '' {
+    $redis_url = "redis+unix://${redis::unixsocket}?db=${pulpcore::redis_db}"
+  } elsif $redis::port != 0 {
+    # TODO: this assumes $redis::bind at least has localhost in it
+    $redis_url = "redis://localhost:${redis::port}/${pulpcore::redis_db}"
+  } else {
+    fail('Unable to determine Redis URL')
+  }
+
   concat::fragment { 'base':
     target  => 'pulpcore settings',
     content => template('pulpcore/settings.py.erb'),
