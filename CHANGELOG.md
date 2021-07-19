@@ -1,5 +1,21 @@
 # Changelog
 
+## [5.0.0](https://github.com/theforeman/puppet-pulpcore/tree/5.0.0) (2021-07-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/4.0.1...5.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 5 support [\#197](https://github.com/theforeman/puppet-pulpcore/pull/197) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Use REDIS\_URL as a configuration option [\#218](https://github.com/theforeman/puppet-pulpcore/pull/218) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Contain Redis within database [\#216](https://github.com/theforeman/puppet-pulpcore/pull/216) ([ekohl](https://github.com/ekohl))
+
 ## [4.0.1](https://github.com/theforeman/puppet-pulpcore/tree/4.0.1) (2021-07-13)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/4.0.0...4.0.1)
@@ -43,6 +59,10 @@
 **Fixed bugs:**
 
 - Fixes [\#32622](https://projects.theforeman.org/issues/32622): Include StdEnvVars, ExportCertData SSL options in Apache [\#193](https://github.com/theforeman/puppet-pulpcore/pull/193) ([ehelms](https://github.com/ehelms))
+
+## [2.2.3](https://github.com/theforeman/puppet-pulpcore/tree/2.2.3) (2021-05-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.3.0...2.2.3)
 
 ## [3.3.0](https://github.com/theforeman/puppet-pulpcore/tree/3.3.0) (2021-04-21)
 
