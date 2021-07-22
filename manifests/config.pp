@@ -17,6 +17,8 @@ class pulpcore::config {
     ensure_newline => true,
   }
 
+  include pulpcore::header_strings
+
   concat::fragment { 'base':
     target  => 'pulpcore settings',
     content => template('pulpcore/settings.py.erb'),

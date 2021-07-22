@@ -1,3 +1,5 @@
+<%= scope['pulpcore::header_strings::settings_header_content'].join("\n") %>
+
 CONTENT_HOST = "<%= scope['pulpcore::servername'] %>"
 CONTENT_ORIGIN = "https://<%= scope['pulpcore::servername'] %>"
 SECRET_KEY = "<%= scope['pulpcore::django_secret_key'] %>"
