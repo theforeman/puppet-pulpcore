@@ -1,3 +1,13 @@
+################################################################################
+# File managed by Puppet module: <%= scope['module_name'] %>
+################################################################################
+# Not only will edits be overwritten later, there is also a strong
+# possibility of breaking the system if changes are made here without making
+# required corresponding changes elsewhere. Refer to the documentation used to
+# install Pulpcore to determine the safe and persistent way to modify the
+# configuration.
+################################################################################
+
 CONTENT_HOST = "<%= scope['pulpcore::servername'] %>"
 CONTENT_ORIGIN = "https://<%= scope['pulpcore::servername'] %>"
 SECRET_KEY = "<%= scope['pulpcore::django_secret_key'] %>"
