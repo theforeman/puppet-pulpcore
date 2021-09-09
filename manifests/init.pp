@@ -215,7 +215,7 @@ class pulpcore (
   Boolean $service_enable = true,
   Boolean $service_ensure = true,
   Integer[0] $content_service_worker_count = (2*min(8, $facts['processors']['count']) + 1),
-  Integer[0] $api_service_worker_count = 1,
+  Integer[0] $api_service_worker_count = (2*min(4, $facts['processors']['count']) + 1),
   Integer[0] $content_service_worker_timeout = 90,
   Integer[0] $api_service_worker_timeout = 90,
   Hash[String[1], String[1]] $api_client_auth_cn_map = {},
