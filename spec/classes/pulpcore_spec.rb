@@ -513,6 +513,19 @@ CONTENT
             .with_content(%r{\s'level': 'DEBUG',})
         end
       end
+
+      context 'can change the worker_ttl to 60' do
+        let :params do
+          {
+            worker_ttl: 60
+          }
+        end
+
+        it do
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{\sWORKER_TTL = 60})
+        end
+      end
     end
   end
 end
