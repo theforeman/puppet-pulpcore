@@ -133,7 +133,8 @@
 #   be done incrementally with benchmarking at each step to determine an optimal value for your deployment.
 #
 # @param worker_ttl
-#   The number of seconds before a pulpcore worker should be considered lost.
+#   The number of seconds before a pulpcore worker should be considered lost. If undefined, pulpcore will use its default setting which is 30 seconds as of
+#   pulpcore version 3.14. You should not need to modify this setting unless the application reports workers timing out while they are busy completing tasks.
 #
 # @param use_rq_tasking_system
 #   Use the older RQ workers tasking system instead of the newer PostgreSQL tasking system introduced in Pulpcore 3.14.

@@ -514,14 +514,14 @@ CONTENT
         end
       end
 
-      context 'can change the worker_ttl to 60' do
+      context "with worker_ttl = 60" do
         let :params do
           {
             worker_ttl: 60
           }
         end
 
-        it do
+        it "configures pulpcore with WORKER_TTL = 60" do
           is_expected.to contain_concat__fragment('base')
             .with_content(%r{\sWORKER_TTL = 60})
         end

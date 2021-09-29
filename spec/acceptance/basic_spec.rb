@@ -74,14 +74,20 @@ describe 'basic installation' do
     its(:exit_status) { is_expected.to eq 0 }
   end
 
-  describe command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings") do
-    its(:stdout) { is_expected.to match(/^USE_NEW_WORKER_TYPE = True/) }
-    its(:exit_status) { is_expected.to eq 0 }
-  end
+  describe "Pulpcore Settings" do
+    let(:settings) { command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings") }
 
-  describe command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings") do
-    its(:stdout) { is_expected.to match(/^WORKER_TTL = 30/) }
-    its(:exit_status) { is_expected.to eq 0 }
+    it "retrieves pulpcore settings" do
+      expect(settings.exit_status).to eq 0
+    end
+
+    it "uses new worker type" do
+      expect(settings.stdout).to match(%r{^USE_NEW_WORKER_TYPE = True})
+    end
+
+    it "has default WORKER_TTL of 30 seconds" do
+      expect(settings.stdout).to match(%r{^WORKER_TTL = 30})
+    end
   end
 
   describe command("DJANGO_SETTINGS_MODULE=pulpcore.app.settings PULP_SETTINGS=/etc/pulp/settings.py rq info -c pulpcore.rqconfig") do
