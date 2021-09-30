@@ -45,6 +45,22 @@ This results into the following structure, using `tree -pug`:
             └── [drwxr-x--- pulp     pulp    ]  tmp ($cache_dir)
 ```
 
+## Pulpcore settings
+
+The application will load settings from Django's defaults, Pulpcore's defaults, plus any overrides defined in the settings file at `${config_dir}/settings.py` (default: `/etc/pulp/settings.py`). The Django `diffsettings` tool is useful to check settings which are different from Django's defaults (i.e. all of the Pulpcore defaults which are not present in Django, plus any overrides defined in the settings file):
+
+```shell
+PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings
+```
+
+For example, to check the current value of a Pulpcore setting such as `WORKER_TTL`:
+
+```shell
+PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings | grep WORKER_TTL
+```
+
+This is useful for module parameter which configure Pulpcore settings but have an `undef` default, such as `$worker_ttl`.  When the param value is `undef`, the setting is omitted from `settings.py` and therefore Pulpcore's default is used.
+
 ## Service setup
 
 The module deploys a few systemd services:
