@@ -22,7 +22,6 @@ DATABASES = {
 REDIS_URL = "redis://localhost:<%= scope['redis::port'] %>/<%= scope['pulpcore::redis_db'] %>"
 
 USE_NEW_WORKER_TYPE = <%= scope['pulpcore::use_rq_tasking_system'] ? "False" : "True" %>
-
 <% if scope['pulpcore::worker_ttl'] -%>
 WORKER_TTL = <%= scope['pulpcore::worker_ttl'] %>
 <% end -%>
