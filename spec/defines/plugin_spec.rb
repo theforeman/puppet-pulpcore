@@ -8,14 +8,14 @@ describe 'pulpcore::plugin' do
 
       context 'without parameters' do
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to create_package('python3-pulp-myplugin').with_ensure('present') }
+        it { is_expected.to create_package('pulpcore-plugin(myplugin)').with_ensure('present') }
       end
 
       context 'with package name' do
         let(:params) { { package_name: 'breaking-conventions' } }
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.not_to contain_package('python3-pulp-myplugin') }
+        it { is_expected.not_to contain_package('pulpcore-plugin(myplugin)') }
         it { is_expected.to create_package('breaking-conventions').with_ensure('present') }
       end
     end

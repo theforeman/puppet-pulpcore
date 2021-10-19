@@ -7,7 +7,7 @@ describe 'pulpcore::plugin::deb' do
 
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_pulpcore__plugin('deb') }
-      it { is_expected.to contain_package('python3-pulp-deb') }
+      it { is_expected.to contain_package('pulpcore-plugin(deb)') }
       it { is_expected.not_to contain_apache__vhost__fragment('pulpcore-http-plugin-deb') }
       it { is_expected.not_to contain_apache__vhost__fragment('pulpcore-https-plugin-deb') }
 

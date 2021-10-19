@@ -6,7 +6,7 @@ describe 'pulpcore::plugin::rpm' do
       let(:facts) { os_facts }
 
       it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_package('python3-pulp-rpm') }
+      it { is_expected.to contain_package('pulpcore-plugin(rpm)') }
       it { is_expected.to contain_pulpcore__plugin('rpm') }
       it { is_expected.not_to contain_apache__vhost__fragment('pulpcore-http-plugin-rpm') }
       it { is_expected.not_to contain_apache__vhost__fragment('pulpcore-https-plugin-rpm') }

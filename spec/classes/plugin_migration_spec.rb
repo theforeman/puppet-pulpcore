@@ -17,7 +17,7 @@ describe 'pulpcore::plugin::migration' do
 
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_pulpcore__plugin('migration') }
-      it { is_expected.to contain_package('python3-pulp-2to3-migration') }
+      it { is_expected.to contain_package('pulpcore-plugin(2to3-migration)') }
       it { is_expected.to contain_concat__fragment('plugin-migration').with_content("\n# migration plugin settings\n#{migration_config}") }
 
       context 'with pulpcore' do
@@ -26,7 +26,7 @@ describe 'pulpcore::plugin::migration' do
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_pulpcore__plugin('migration')
-            .with_package_name('python3-pulp-2to3-migration')
+            .with_package_name('pulpcore-plugin(2to3-migration)')
             .with_config(migration_config)
             .that_subscribes_to('Class[Pulpcore::Install]')
             .that_notifies(['Class[Pulpcore::Database]', 'Class[Pulpcore::Service]'])

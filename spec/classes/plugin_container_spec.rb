@@ -11,7 +11,7 @@ describe 'pulpcore::plugin::container' do
         is_expected.to contain_pulpcore__plugin('container')
           .that_subscribes_to('Class[Pulpcore::Install]')
           .that_notifies(['Class[Pulpcore::Database]', 'Class[Pulpcore::Service]'])
-        is_expected.to contain_package('python3-pulp-container')
+        is_expected.to contain_package('pulpcore-plugin(container)')
         is_expected.to contain_concat__fragment('plugin-container').with_content("\n# container plugin settings\nTOKEN_AUTH_DISABLED=True")
         is_expected.to contain_pulpcore__apache__fragment('plugin-container')
         is_expected.not_to contain_apache__vhost__fragment('pulpcore-http-plugin-container')

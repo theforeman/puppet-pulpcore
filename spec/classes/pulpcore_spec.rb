@@ -335,7 +335,7 @@ CONTENT
           is_expected.to contain_pulpcore__plugin('myplugin')
             .that_subscribes_to('Class[Pulpcore::Install]')
             .that_notifies(['Class[Pulpcore::Database]', 'Class[Pulpcore::Service]'])
-          is_expected.to contain_package('python3-pulp-myplugin')
+          is_expected.to contain_package('pulpcore-plugin(myplugin)')
         end
       end
 

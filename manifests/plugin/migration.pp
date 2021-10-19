@@ -43,7 +43,7 @@ class pulpcore::plugin::migration (
   Stdlib::Absolutepath $mongo_db_ca_path = '/etc/pki/tls/certs/ca-bundle.crt',
 ) {
   pulpcore::plugin { 'migration':
-    package_name => 'python3-pulp-2to3-migration',
+    package_name => 'pulpcore-plugin(2to3-migration)',
     config       => template('pulpcore/migration-settings.py.erb'),
   }
 }
