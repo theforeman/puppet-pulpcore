@@ -6,7 +6,7 @@ describe 'pulpcore::plugin::file' do
       let(:facts) { os_facts }
 
       it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_package('python3-pulp-file') }
+      it { is_expected.to contain_package('pulpcore-plugin(file)') }
       it { is_expected.to contain_pulpcore__plugin('file') }
 
       context 'with pulpcore' do

@@ -14,7 +14,7 @@ CONTENT
       end
 
       it { is_expected.to compile.with_all_deps }
-      it { is_expected.to contain_package('python3-pulp-ansible') }
+      it { is_expected.to contain_package('pulpcore-plugin(ansible)') }
       it { is_expected.to contain_pulpcore__plugin('ansible') }
       it do
         is_expected.to compile.with_all_deps

@@ -12,7 +12,7 @@
 # @param https_content
 #   Optional fragment for the Apache HTTPS vhost
 define pulpcore::plugin(
-  String $package_name = "python3-pulp-${title}",
+  String $package_name = "pulpcore-plugin(${title})",
   Optional[String] $config = undef,
   Optional[String] $http_content = undef,
   Optional[String] $https_content = undef,
