@@ -1,7 +1,7 @@
 # Configures pulp3
 # @api private
 class pulpcore::config {
-  file { $pulpcore::config_dir:
+  file { [$pulpcore::config_dir, $pulpcore::certs_dir]:
     ensure => directory,
     owner  => 'root',
     group  => 'root',
@@ -49,6 +49,19 @@ class pulpcore::config {
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
     mode   => '0770',
+  }
+
+  exec { 'Create database symmetric key':
+    path    => ['/bin', '/usr/bin'],
+    command => "openssl rand -base64 32    | tr '+/' '-_' > ${pulpcore::database_key_file}",
+    creates => $pulpcore::database_key_file,
+  }
+
+  file { $pulpcore::database_key_file:
+    owner   => 'root',
+    group   => $pulpcore::group,
+    mode    => '0640',
+    require => Exec['Create database symmetric key'],
   }
 
 }
