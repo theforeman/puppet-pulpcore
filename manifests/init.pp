@@ -232,6 +232,8 @@ class pulpcore (
   Enum['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'] $log_level = 'INFO',
 ) {
   $settings_file = "${config_dir}/settings.py"
+  $certs_dir = "${config_dir}/certs"
+  $database_key_file = "${certs_dir}/database_fields.symmetric.key"
 
   contain pulpcore::install
   contain pulpcore::database

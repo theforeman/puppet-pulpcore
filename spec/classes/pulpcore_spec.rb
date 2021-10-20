@@ -29,6 +29,7 @@ describe 'pulpcore' do
             .without_content(%r{sslmode})
             .without_content(%r{WORKER_TTL})
           is_expected.to contain_file('/etc/pulp')
+          is_expected.to contain_file('/etc/pulp/certs/database_fields.symmetric.key')
           is_expected.to contain_file('/var/lib/pulp')
           is_expected.to contain_file('/var/lib/pulp/sync_imports')
           is_expected.to contain_file('/var/lib/pulp/assets')
