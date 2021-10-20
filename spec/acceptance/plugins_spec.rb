@@ -13,6 +13,12 @@ describe 'Installation with all plugins' do
       if fact('pulpcore_version') == '3.14' {
         include pulpcore::plugin::migration
       }
+      if versioncmp(fact('pulpcore_version'), '3.15') >= 0 {
+        if versioncmp(fact('os.release.major'), '8') >= 0 {
+          include pulpcore::plugin::ostree
+        }
+        include pulpcore::plugin::python
+      }
       include pulpcore::plugin::rpm
       PUPPET
     end
