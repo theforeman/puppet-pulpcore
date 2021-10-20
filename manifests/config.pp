@@ -53,7 +53,7 @@ class pulpcore::config {
 
   exec { 'Create database symmetric key':
     path    => ['/bin', '/usr/bin'],
-    command => "openssl rand -base64 32    | tr '+/' '-_' > ${pulpcore::database_key_file}",
+    command => "openssl rand -base64 32 | tr '+/' '-_' > ${pulpcore::database_key_file}",
     creates => $pulpcore::database_key_file,
   }
 
