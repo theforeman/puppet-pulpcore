@@ -3,7 +3,7 @@
 # @api private
 class pulpcore::install {
 
-  package { 'python3-pulpcore':
+  package { 'pulpcore':
     ensure => present,
   }
 

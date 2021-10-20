@@ -10,7 +10,7 @@ describe 'pulpcore' do
 
         it 'installs' do
           is_expected.to contain_class('pulpcore::install')
-          is_expected.to contain_package('python3-pulpcore')
+          is_expected.to contain_package('pulpcore')
           is_expected.to contain_package('pulpcore-selinux')
           is_expected.to contain_user('pulp').with_gid('pulp').with_home('/var/lib/pulp')
           is_expected.to contain_group('pulp')
