@@ -13,6 +13,10 @@ class pulpcore::database(
       locale   => 'en_US.utf8',
       before   => Pulpcore::Admin['migrate --noinput'],
     }
+
+    # pulpcore-content fails to reconnect to the database, so schedule a restart whenever the db changes
+    # see https://pulp.plan.io/issues/9276 for details
+    Class['postgresql::server::service'] ~> Service['pulpcore-content.service']
   }
 
   pulpcore::admin { 'migrate --noinput':
