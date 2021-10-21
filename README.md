@@ -14,7 +14,7 @@ Supported operating systems are listed in `metadata.json` but individual release
 
 Only supported version.
 
-At lest pulpcore 3.14.8-2 (and matching plugins) should be used, as this version introduced virtual package names that are used in this module.
+At least pulpcore 3.14.8-2 (and matching plugins) should be used, as this version introduced virtual package names that are used in this module. Certguard 1.4.0-3 should be used to pull in the correct RHSM package.
 
 ## Installation layout
 
