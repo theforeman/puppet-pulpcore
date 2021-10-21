@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'basic installation' do
+describe 'Installation with all plugins' do
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
       <<-PUPPET
@@ -10,7 +10,9 @@ describe 'basic installation' do
       include pulpcore::plugin::container
       include pulpcore::plugin::deb
       include pulpcore::plugin::file
-      include pulpcore::plugin::migration
+      if fact('pulpcore_version') == '3.14' {
+        include pulpcore::plugin::migration
+      }
       include pulpcore::plugin::rpm
       PUPPET
     end
