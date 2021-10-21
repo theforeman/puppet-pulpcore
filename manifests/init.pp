@@ -140,7 +140,7 @@
 #   Modification should be performed incrementally to determine the least value that prevents false positive worker timeouts.
 #
 # @param use_rq_tasking_system
-#   Use the older RQ workers tasking system instead of the newer PostgreSQL tasking system introduced in Pulpcore 3.14.
+#   Use the older RQ workers tasking system instead of the newer PostgreSQL tasking system introduced in Pulpcore 3.14. This is deprecated in 3.15.
 #   Any benchmarking you did to optimize worker_count or other tasking related parameters will no longer be accurate after changing the tasking system.
 #   Do not modify this setting unless you understand the implications for performance and stability.
 #

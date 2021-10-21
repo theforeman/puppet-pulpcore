@@ -65,8 +65,9 @@ jobs:
         setfile: ${{fromJson(needs.setup_matrix.outputs.beaker_setfiles)}}
         puppet: ${{fromJson(needs.setup_matrix.outputs.puppet_major_versions)}}
         pulpcore_version:
+          - '3.15'
           - '3.14'
-    name: Acceptance / ${{ matrix.puppet.name }} - ${{ matrix.setfile.name }}
+    name: Acceptance / ${{ matrix.puppet.name }} - ${{ matrix.setfile.name }} - Pulp ${{ matrix.pulpcore_version }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup ruby

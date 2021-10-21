@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'basic installation' do
+describe 'Pulp 2 content routes' do
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
       <<-PUPPET
@@ -11,7 +11,9 @@ describe 'basic installation' do
       class { 'pulpcore::plugin::file':
         use_pulp2_content_route => true,
       }
-      include pulpcore::plugin::migration
+      if fact('pulpcore_version') == '3.14' {
+        include pulpcore::plugin::migration
+      }
       class { 'pulpcore::plugin::rpm':
         use_pulp2_content_route => true,
       }
