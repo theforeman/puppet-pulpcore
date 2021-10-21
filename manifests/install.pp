@@ -15,8 +15,10 @@ class pulpcore::install {
 
   user { $pulpcore::user:
     ensure     => present,
+    system     => true,
     gid        => $pulpcore::group,
     home       => $pulpcore::user_home,
+    shell      => '/sbin/nologin',
     managehome => false,
   }
 
