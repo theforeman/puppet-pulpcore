@@ -1,5 +1,29 @@
 # Changelog
 
+## [5.1.0](https://github.com/theforeman/puppet-pulpcore/tree/5.1.0) (2021-10-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.0.0...5.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#33766](https://projects.theforeman.org/issues/33766) - Support Pulpcore 3.15 [\#238](https://github.com/theforeman/puppet-pulpcore/pull/238) ([ekohl](https://github.com/ekohl))
+- Fixes [\#33765](https://projects.theforeman.org/issues/33765) - Use a system user without a login shell [\#237](https://github.com/theforeman/puppet-pulpcore/pull/237) ([ekohl](https://github.com/ekohl))
+- Refs [\#33751](https://projects.theforeman.org/issues/33751) - support ostree and python [\#236](https://github.com/theforeman/puppet-pulpcore/pull/236) ([jlsherrill](https://github.com/jlsherrill))
+- Fixes [\#33733](https://projects.theforeman.org/issues/33733) - generate key for db encryption [\#235](https://github.com/theforeman/puppet-pulpcore/pull/235) ([jlsherrill](https://github.com/jlsherrill))
+- use provides, not the python package name for plugins [\#233](https://github.com/theforeman/puppet-pulpcore/pull/233) ([evgeni](https://github.com/evgeni))
+- Fixes [\#33445](https://projects.theforeman.org/issues/33445): Increase default API gunicorn worker count [\#231](https://github.com/theforeman/puppet-pulpcore/pull/231) ([jlsherrill](https://github.com/jlsherrill))
+- Fixes [\#33446](https://projects.theforeman.org/issues/33446) - Allow configuring Pulpcore worker timeout [\#230](https://github.com/theforeman/puppet-pulpcore/pull/230) ([wbclark](https://github.com/wbclark))
+- Switch to puppet/systemd & allow puppet/redis 8 [\#228](https://github.com/theforeman/puppet-pulpcore/pull/228) ([ekohl](https://github.com/ekohl))
+- Fixes [\#33687](https://projects.theforeman.org/issues/33687) - Add warning not to directly edit settings.py [\#223](https://github.com/theforeman/puppet-pulpcore/pull/223) ([wbclark](https://github.com/wbclark))
+
+**Fixed bugs:**
+
+- Fixes [\#33744](https://projects.theforeman.org/issues/33744) - notify the socket service when the DB changes [\#234](https://github.com/theforeman/puppet-pulpcore/pull/234) ([evgeni](https://github.com/evgeni))
+
+**Closed issues:**
+
+- Ordering issue when adding repository [\#225](https://github.com/theforeman/puppet-pulpcore/issues/225)
+
 ## [5.0.0](https://github.com/theforeman/puppet-pulpcore/tree/5.0.0) (2021-07-27)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/4.0.1...5.0.0)
