@@ -137,6 +137,13 @@ class pulpcore::apache (
           'directories' => [$content_directory, $api_directory],
           'proxy_pass'  => [$proxy_pass_static],
       })
+
+      include apache
+      apache::vhost { 'pulpcore-https':
+        ensure   => 'absent',
+        priority => '10',
+        docroot  => $pulpcore::apache_docroot,
+      }
     }
   }
 

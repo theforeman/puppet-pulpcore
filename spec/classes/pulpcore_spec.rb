@@ -300,6 +300,9 @@ CONTENT
             )
         end
         it do
+          is_expected.to contain_apache__vhost('pulpcore-https')
+            .with_priority('10')
+            .with_ensure('absent')
           is_expected.to contain_pulpcore__apache__fragment('pulpcore')
           is_expected.to contain_apache__vhost__fragment('pulpcore-https-pulpcore')
             .with_vhost('foreman-ssl')
