@@ -19,6 +19,17 @@ describe 'pulpcore::plugin::rpm' do
           is_expected.to contain_pulpcore__plugin('rpm')
             .that_subscribes_to('Class[Pulpcore::Install]')
             .that_notifies(['Class[Pulpcore::Database]', 'Class[Pulpcore::Service]'])
+          is_expected.not_to contain_concat__fragment('plugin-rpm')
+        end
+
+        context 'with keep_changelog_limit' do
+          let(:params) { { keep_changelog_limit: 20 } }
+
+          it 'configures pulpcore with KEEP_CHANGELOG_LIMIT' do
+            is_expected.to compile.with_all_deps
+            is_expected.to contain_concat__fragment('plugin-rpm')
+              .with_content("\n# rpm plugin settings\nKEEP_CHANGELOG_LIMIT = 20")
+          end
         end
 
         context 'with pulp2 content route' do
