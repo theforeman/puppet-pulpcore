@@ -1,8 +1,14 @@
 # @summary Pulp RPM plugin
 # @param use_pulp2_content_route
 #   Whether to redirect the legacy (Pulp 2) URLs to the content server
+#
+# @param keep_changelog_limit
+#   Pulpcore's KEEP_CHANGELOG_LIMIT setting. Uses Pulpcore's default when
+#   undefined. Increasing this limit will cause pulpcore workers to use more
+#   memory when more changelogs are available in the repo metadata.
 class pulpcore::plugin::rpm (
   Boolean $use_pulp2_content_route = false,
+  Optional[Integer[0]] $keep_changelog_limit = undef,
 ) {
   if $use_pulp2_content_route {
     $context = {
@@ -28,8 +34,15 @@ class pulpcore::plugin::rpm (
     $content = undef
   }
 
+  if $keep_changelog_limit {
+    $rpm_plugin_config = "KEEP_CHANGELOG_LIMIT = ${keep_changelog_limit}"
+  } else {
+    $rpm_plugin_config = undef
+  }
+
   pulpcore::plugin { 'rpm':
     http_content  => $content,
     https_content => $content,
+    config        => $rpm_plugin_config,
   }
 }
