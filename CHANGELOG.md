@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.0](https://github.com/theforeman/puppet-pulpcore/tree/5.1.0) (2022-01-25)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.1.0...5.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#34298](https://projects.theforeman.org/issues/34298) - support KEEP\_CHANGELOG\_LIMIT option [\#242](https://github.com/theforeman/puppet-pulpcore/pull/242) ([wbclark](https://github.com/wbclark))
+
 ## [5.1.0](https://github.com/theforeman/puppet-pulpcore/tree/5.1.0) (2021-10-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.0.0...5.1.0)
