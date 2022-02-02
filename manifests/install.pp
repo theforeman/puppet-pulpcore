@@ -24,5 +24,6 @@ class pulpcore::install {
 
   group { $pulpcore::group:
     ensure => present,
+    system => true,
   }
 }

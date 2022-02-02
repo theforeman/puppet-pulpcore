@@ -11,6 +11,16 @@ describe 'basic installation' do
     end
   end
 
+  describe user('pulp') do
+    it { is_expected.to exist }
+    its(:uid) { is_expected.to be < 1000 }
+  end
+
+  describe group('pulp') do
+    it { is_expected.to exist }
+    its(:gid) { is_expected.to be < 1000 }
+  end
+
   describe service('httpd') do
     it { is_expected.to be_enabled }
     it { is_expected.to be_running }
