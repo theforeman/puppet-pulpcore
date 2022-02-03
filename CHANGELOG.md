@@ -1,8 +1,16 @@
 # Changelog
 
-## [5.1.0](https://github.com/theforeman/puppet-pulpcore/tree/5.1.0) (2022-01-25)
+## [5.2.1](https://github.com/theforeman/puppet-pulpcore/tree/5.2.1) (2022-02-03)
 
-[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.1.0...5.1.0)
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.2.0...5.2.1)
+
+**Merged pull requests:**
+
+- Fixes [\#34379](https://projects.theforeman.org/issues/34379) - Create the Pulp group as a system group [\#244](https://github.com/theforeman/puppet-pulpcore/pull/244) ([ekohl](https://github.com/ekohl))
+
+## [5.2.0](https://github.com/theforeman/puppet-pulpcore/tree/5.2.0) (2022-01-25)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.1.0...5.2.0)
 
 **Implemented enhancements:**
 
@@ -91,6 +99,10 @@
 **Fixed bugs:**
 
 - Fixes [\#32622](https://projects.theforeman.org/issues/32622): Include StdEnvVars, ExportCertData SSL options in Apache [\#193](https://github.com/theforeman/puppet-pulpcore/pull/193) ([ehelms](https://github.com/ehelms))
+
+## [2.2.3](https://github.com/theforeman/puppet-pulpcore/tree/2.2.3) (2021-05-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.3.0...2.2.3)
 
 ## [3.3.0](https://github.com/theforeman/puppet-pulpcore/tree/3.3.0) (2021-04-21)
 
