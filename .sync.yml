@@ -1,0 +1,4 @@
+---
+# This file is different in that it also tests multiple pulpcore versions
+.github/workflows/ci.yml:
+  unmanaged: true
