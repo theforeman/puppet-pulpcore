@@ -42,7 +42,7 @@ jobs:
         include: ${{fromJson(needs.setup_matrix.outputs.puppet_unit_test_matrix)}}
     env:
       BUNDLE_WITHOUT: development:system_tests:release
-      PUPPET_VERSION: "${{ matrix.puppet }}.0"
+      PUPPET_GEM_VERSION: "~> ${{ matrix.puppet }}.0"
     name: Unit / Puppet ${{ matrix.puppet }} (Ruby ${{ matrix.ruby }})
     steps:
       - uses: actions/checkout@v2
@@ -51,6 +51,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+          cache-version: '1'
       - name: Run tests
         run: bundle exec rake parallel_spec
 
@@ -75,6 +76,7 @@ jobs:
         with:
           ruby-version: '2.7'
           bundler-cache: true
+          cache-version: '1'
       - name: Run tests
         run: bundle exec rake beaker
         env:
@@ -84,3 +86,12 @@ jobs:
           # This locale doesn't exist in EL7 and won't be supported either.
           LANG: en_US.UTF-8
           BEAKER_FACTER_PULPCORE_VERSION: ${{ matrix.pulpcore_version }}
+
+  tests:
+    needs:
+      - unit
+      - acceptance
+    runs-on: ubuntu-latest
+    name: Test suite
+    steps:
+      - run: echo Test suite completed
