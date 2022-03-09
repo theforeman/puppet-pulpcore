@@ -3,11 +3,12 @@
 # @param version
 #   The Pulpcore version to use
 class pulpcore::repo (
-  Pattern['^\d+\.\d+$'] $version = '3.15',
+  Pattern['^\d+\.\d+$'] $version = '3.16',
 ) {
+  $dist_tag = "el${facts['os']['release']['major']}"
   $context = {
-    'version'   => $version,
-    'dist_tag' => "el${facts['os']['release']['major']}",
+    'version'  => $version,
+    'dist_tag' => $dist_tag,
   }
 
   file { '/etc/yum.repos.d/pulpcore.repo':
@@ -17,6 +18,17 @@ class pulpcore::repo (
     mode    => '0644',
     content => epp('pulpcore/repo.epp', $context),
     notify  => Anchor['pulpcore::repo'],
+  }
+
+  if $facts['os']['release']['major'] == '8' {
+    package { 'pulpcore-dnf-module':
+      ensure      => $dist_tag,
+      name        => 'pulpcore',
+      enable_only => true,
+      provider    => 'dnfmodule',
+      require     => File['/etc/yum.repos.d/pulpcore.repo'],
+      notify      => Anchor['pulpcore::repo'],
+    }
   }
 
   # An anchor is used because it can be collected

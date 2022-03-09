@@ -10,15 +10,9 @@ All supported versions are listed below. For every supported version, acceptance
 
 Supported operating systems are listed in `metadata.json` but individual releases can divert from that. For example, if Pulpcore x.y drops EL7, it will still be listed in metadata.json until all versions supported by the module have dropped it. Similarly, if x.z adds support for EL9, it'll be listed in `metadata.json` and all versions that don't support EL9 will have a note.
 
-### Pulpcore 3.15
+### Pulpcore 3.16
 
 Default recommended version.
-
-Starting Pulpcore 3.15 the migration plugin is no longer built. Users should remove the plugin prior to upgrding. The [foreman_maintain Pulp 2 removal procedure](https://github.com/theforeman/foreman_maintain/blob/d49ece67f1dba761bb232229593765f61e01361a/definitions/procedures/pulp/remove.rb#L109-L160) is a good reference. Additionally the package `python3-pulp-2to3-migration` should be removed.
-
-### Pulpcore 3.14
-
-At least pulpcore 3.14.8-2 (and matching plugins) should be used, as this version introduced virtual package names that are used in this module. Certguard 1.4.0-3 should be used to pull in the correct RHSM package.
 
 ## Installation layout
 
