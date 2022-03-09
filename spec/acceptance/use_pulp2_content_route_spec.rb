@@ -11,9 +11,6 @@ describe 'Pulp 2 content routes' do
       class { 'pulpcore::plugin::file':
         use_pulp2_content_route => true,
       }
-      if fact('pulpcore_version') == '3.14' {
-        include pulpcore::plugin::migration
-      }
       class { 'pulpcore::plugin::rpm':
         use_pulp2_content_route => true,
       }

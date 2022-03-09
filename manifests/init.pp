@@ -139,11 +139,6 @@
 #   You should not need to modify this setting unless the application reports workers timing out while they are busy completing tasks.
 #   Modification should be performed incrementally to determine the least value that prevents false positive worker timeouts.
 #
-# @param use_rq_tasking_system
-#   Use the older RQ workers tasking system instead of the newer PostgreSQL tasking system introduced in Pulpcore 3.14. This is deprecated in 3.15.
-#   Any benchmarking you did to optimize worker_count or other tasking related parameters will no longer be accurate after changing the tasking system.
-#   Do not modify this setting unless you understand the implications for performance and stability.
-#
 # @param service_enable
 #   Enable/disable Pulp services at boot.
 #
@@ -219,7 +214,6 @@ class pulpcore (
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
   Optional[Integer[0]] $worker_ttl = undef,
-  Boolean $use_rq_tasking_system = false,
   Boolean $service_enable = true,
   Boolean $service_ensure = true,
   Integer[0] $content_service_worker_count = (2*min(8, $facts['processors']['count']) + 1),

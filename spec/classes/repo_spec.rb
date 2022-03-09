@@ -10,7 +10,21 @@ describe 'pulpcore::repo' do
         is_expected.to contain_anchor('pulpcore::repo')
         is_expected.to contain_file('/etc/yum.repos.d/pulpcore.repo')
           .with_content(%r{^baseurl=https://yum.theforeman.org/pulpcore/\d+\.\d+/el\d+/\$basearch$})
-          .that_comes_before('Anchor[pulpcore::repo]')
+          .that_notifies('Anchor[pulpcore::repo]')
+      end
+
+      it 'configures the pulpcore module on EL8' do
+        if os_facts[:os]['release']['major'] == '7'
+          is_expected.not_to contain_package('pulpcore-dnf-module')
+        else
+          is_expected.to contain_package('pulpcore-dnf-module')
+            .with_name('pulpcore')
+            .with_ensure(/^el\d+/)
+            .with_enable_only(true)
+            .with_provider('dnfmodule')
+            .that_requires('File[/etc/yum.repos.d/pulpcore.repo]')
+            .that_notifies('Anchor[pulpcore::repo]')
+        end
       end
     end
   end

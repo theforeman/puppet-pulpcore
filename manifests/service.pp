@@ -18,18 +18,11 @@ class pulpcore::service {
     service_content => template('pulpcore/pulpcore-content.service.erb'),
   }
 
-  if $pulpcore::use_rq_tasking_system {
-    systemd::unit_file { 'pulpcore-resource-manager.service':
-      content => template('pulpcore/pulpcore-resource-manager.service.erb'),
-      active  => $pulpcore::service_ensure,
-      enable  => $pulpcore::service_enable,
-    }
-  } else {
-    systemd::unit_file { 'pulpcore-resource-manager.service':
-      ensure => 'absent',
-      active => false,
-      enable => false,
-    }
+  # Clean up the RQ tasking system which 3.16 removed
+  systemd::unit_file { 'pulpcore-resource-manager.service':
+    ensure => 'absent',
+    active => false,
+    enable => false,
   }
 
   systemd::unit_file { 'pulpcore-worker@.service':

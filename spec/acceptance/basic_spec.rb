@@ -65,26 +65,18 @@ describe 'basic installation' do
   end
 
   describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/", cacert: "#{certdir}/ca-cert.pem") do
-    its(:response_code) { is_expected.to eq(200) }
-    its(:body) { is_expected.not_to contain('artifacts_list') }
+    its(:response_code) { is_expected.to eq(403) }
     its(:exit_status) { is_expected.to eq 0 }
   end
 
   describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/",
                         cacert: "#{certdir}/ca-cert.pem", key: "#{certdir}/client-key.pem", cert: "#{certdir}/client-cert.pem") do
     its(:response_code) { is_expected.to eq(200) }
-    its(:body) { is_expected.to contain('artifacts_list') }
+    its(:body) { is_expected.to contain('artifacts') }
     its(:exit_status) { is_expected.to eq 0 }
   end
 
   describe command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings") do
-    its(:stdout) { is_expected.to match(/^USE_NEW_WORKER_TYPE = True/) }
-    its(:exit_status) { is_expected.to eq 0 }
-  end
-
-  describe command("DJANGO_SETTINGS_MODULE=pulpcore.app.settings PULP_SETTINGS=/etc/pulp/settings.py /usr/libexec/pulpcore/rq info -c pulpcore.rqconfig") do
-    its(:stdout) { is_expected.to match(/^0 workers, /) }
-    its(:stdout) { is_expected.not_to match(/^resource-manager /) }
     its(:exit_status) { is_expected.to eq 0 }
   end
 end
