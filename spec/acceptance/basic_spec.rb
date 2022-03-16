@@ -1,8 +1,6 @@
 require 'spec_helper_acceptance'
 
 describe 'basic installation' do
-  certdir = '/etc/pulpcore-certs'
-
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
       <<-PUPPET
@@ -11,70 +9,7 @@ describe 'basic installation' do
     end
   end
 
-  describe user('pulp') do
-    it { is_expected.to exist }
-    its(:uid) { is_expected.to be < 1000 }
-  end
-
-  describe group('pulp') do
-    it { is_expected.to exist }
-    its(:gid) { is_expected.to be < 1000 }
-  end
-
-  describe service('httpd') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-api') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-content') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-resource-manager') do
-    it { is_expected.not_to be_enabled }
-    it { is_expected.not_to be_running }
-  end
-
-  describe service('pulpcore-worker@1') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe port(80) do
-    it { is_expected.to be_listening }
-  end
-
-  describe port(443) do
-    it { is_expected.to be_listening }
-  end
-
-  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: "#{certdir}/ca-cert.pem") do
-    its(:response_code) { is_expected.to eq(200) }
-    its(:exit_status) { is_expected.to eq 0 }
-  end
-
-  describe command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager dumpdata auth.User") do
-    its(:stdout) { is_expected.to match(/auth\.user/) }
-    its(:exit_status) { is_expected.to eq 0 }
-  end
-
-  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/", cacert: "#{certdir}/ca-cert.pem") do
-    its(:response_code) { is_expected.to eq(403) }
-    its(:exit_status) { is_expected.to eq 0 }
-  end
-
-  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/",
-                        cacert: "#{certdir}/ca-cert.pem", key: "#{certdir}/client-key.pem", cert: "#{certdir}/client-cert.pem") do
-    its(:response_code) { is_expected.to eq(200) }
-    its(:body) { is_expected.to contain('artifacts') }
-    its(:exit_status) { is_expected.to eq 0 }
-  end
+  include_examples 'the default pulpcore application'
 
   describe command("PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings") do
     its(:exit_status) { is_expected.to eq 0 }
@@ -82,8 +17,6 @@ describe 'basic installation' do
 end
 
 describe 'with content cache enabled' do
-  certdir = '/etc/pulpcore-certs'
-
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
       <<-PUPPET
@@ -94,23 +27,7 @@ describe 'with content cache enabled' do
     end
   end
 
-  describe service('httpd') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-content') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe port(80) do
-    it { is_expected.to be_listening }
-  end
-
-  describe port(443) do
-    it { is_expected.to be_listening }
-  end
+  include_examples 'the default pulpcore application'
 
   describe port(6379) do
     it { is_expected.to be_listening }
@@ -124,10 +41,5 @@ describe 'with content cache enabled' do
   describe service('redis'), unless: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
     it { is_expected.to be_running }
     it { is_expected.to be_enabled }
-  end
-
-  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: "#{certdir}/ca-cert.pem") do
-    its(:response_code) { is_expected.to eq(200) }
-    its(:exit_status) { is_expected.to eq 0 }
   end
 end

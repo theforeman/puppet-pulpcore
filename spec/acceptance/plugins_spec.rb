@@ -19,38 +19,10 @@ describe 'Installation with all plugins' do
     end
   end
 
+  include_examples 'the default pulpcore application'
+
   describe file('/etc/pulp/settings.py') do
     it { is_expected.to be_file }
     its(:content) { is_expected.to match(/^TOKEN_AUTH_DISABLED=True$/) }
   end
-
-  describe service('httpd') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-api') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-content') do
-    it { is_expected.to be_enabled }
-    it { is_expected.to be_running }
-  end
-
-  describe service('pulpcore-resource-manager') do
-    it { is_expected.not_to be_enabled }
-    it { is_expected.not_to be_running }
-  end
-
-  describe port(80) do
-    it { is_expected.to be_listening }
-  end
-
-  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/status/", cacert: '/etc/pulpcore-certs/ca-cert.pem') do
-    its(:response_code) { is_expected.to eq(200) }
-    its(:exit_status) { is_expected.to eq 0 }
-  end
-
 end
