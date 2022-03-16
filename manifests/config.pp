@@ -30,11 +30,19 @@ class pulpcore::config {
     mode   => '0775',
   }
 
-  file { [$pulpcore::cache_dir, $pulpcore::media_root]:
-    ensure => directory,
-    owner  => $pulpcore::user,
-    group  => $pulpcore::group,
-    mode   => '0750',
+  file { $pulpcore::cache_dir:
+    ensure  => directory,
+    owner   => $pulpcore::user,
+    group   => $pulpcore::group,
+    mode    => '0750',
+  }
+
+  file { $pulpcore::media_root:
+    ensure  => directory,
+    owner   => $pulpcore::user,
+    group   => $pulpcore::group,
+    mode    => '0750',
+    recurse => true,
   }
 
   file { $pulpcore::allowed_import_path:
