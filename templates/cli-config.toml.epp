@@ -1,0 +1,35 @@
+<%- |
+  Optional[Stdlib::HTTPUrl] $base_url = undef,
+  Optional[String]          $username = undef,
+  Optional[String]          $password = undef,
+  Optional[String]          $cert = undef,
+  Optional[String]          $key = undef,
+  Optional[String]          $api_root = undef,
+  Optional[Boolean]         $verify_ssl = undef,
+  Optional[Boolean]         $dry_run = undef,
+| -%>
+[cli]
+<% if $base_url { -%>
+base_url = "<%= $base_url %>"
+<% } -%>
+<% unless $verify_ssl =~ Undef { -%>
+verify_ssl = <%= $verify_ssl %>
+<% } -%>
+<% unless $dry_run =~ Undef { -%>
+dry_run = <%= $dry_run %>
+<% } -%>
+<% if $username { -%>
+username = "<%= $username %>"
+<% } -%>
+<% if $password { -%>
+password = "<%= $password %>"
+<% } -%>
+<% if $cert { -%>
+cert = "<%= $cert %>"
+<% } -%>
+<% if $key { -%>
+key = "<%= $key %>"
+<% } -%>
+<% if $api_root { -%>
+api_root = "<%= $api_root %>"
+<% } -%>
