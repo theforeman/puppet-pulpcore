@@ -45,13 +45,20 @@ $client_csr = "${directory}/client-csr.pem"
 $client_cert = "${directory}/client-cert.pem"
 $client_key = "${directory}/client-key.pem"
 
+# EL7 lacks openssl -addext
+if $facts['os']['release']['major'] == '7' {
+  $ca_cmd = "openssl req -nodes -x509 -newkey rsa:2048 -subj '/CN=${facts['networking']['fqdn']}' -keyout '${ca_key}' -out '${ca_cert}' -days 365"
+} else {
+  $ca_cmd = "openssl req -nodes -x509 -newkey rsa:2048 -subj '/CN=${facts['networking']['fqdn']}' -addext 'subjectAltName = DNS:${facts['networking']['fqdn']}' -keyout '${ca_key}' -out '${ca_cert}' -days 365"
+}
+
 exec { 'Create certificate directory':
   command => "mkdir -p ${directory}",
   path    => ['/bin', '/usr/bin'],
   creates => $directory,
 }
 -> exec { 'Generate certificate':
-  command   => "openssl req -nodes -x509 -newkey rsa:2048 -subj '/CN=${facts['networking']['fqdn']}' -keyout '${ca_key}' -out '${ca_cert}' -days 365",
+  command   => $ca_cmd,
   path      => ['/bin', '/usr/bin'],
   creates   => $ca_cert,
   logoutput => 'on_failure',
