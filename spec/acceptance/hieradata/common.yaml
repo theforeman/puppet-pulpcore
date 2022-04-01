@@ -1,4 +1,5 @@
 ---
+apache::default_mods: false
 pulpcore::apache_https_cert: '/etc/pulpcore-certs/ca-cert.pem'
 pulpcore::apache_https_key: '/etc/pulpcore-certs/ca-key.pem'
 pulpcore::apache_https_ca: '/etc/pulpcore-certs/ca-cert.pem'
