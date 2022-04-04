@@ -27,7 +27,7 @@ describe 'installation of server with cli' do
     its(:stdout) { is_expected.to match(/versions/) }
     its(:stderr) { is_expected.not_to match(/Error/) }
     # currently this contains a warning:
-    # SubjectAltNameWarning: Certificate for centos8-64.example.com has no `subjectAltName`, falling back to check for a `commonName` for now. This feature is being removed by major browsers and deprecated by RFC 2818.
+    # SubjectAltNameWarning: Certificate for centos7-64.example.com has no `subjectAltName`, falling back to check for a `commonName` for now. This feature is being removed by major browsers and deprecated by RFC 2818.
     unless %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7
       its(:stderr) { is_expected.to eq '' }
     end
@@ -38,7 +38,7 @@ describe 'installation of server with cli' do
     its(:stdout) { is_expected.to match(/admin/) }
     its(:stderr) { is_expected.not_to match(/Error/) }
     # currently this contains a warning:
-    # SubjectAltNameWarning: Certificate for centos8-64.example.com has no `subjectAltName`, falling back to check for a `commonName` for now. This feature is being removed by major browsers and deprecated by RFC 2818.
+    # SubjectAltNameWarning: Certificate for centos7-64.example.com has no `subjectAltName`, falling back to check for a `commonName` for now. This feature is being removed by major browsers and deprecated by RFC 2818.
     unless %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7
       its(:stderr) { is_expected.to eq '' }
     end
