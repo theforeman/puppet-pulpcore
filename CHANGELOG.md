@@ -1,10 +1,23 @@
 # Changelog
 
+## [6.0.0](https://github.com/theforeman/puppet-pulpcore/tree/6.0.0) (2022-04-20)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.2.1...6.0.0)
+
+**Breaking changes:**
+
+- Drop Pulpcore 3.14 & 3.15, move to 3.16 and 3.17 [\#249](https://github.com/theforeman/puppet-pulpcore/pull/249) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Fixes [\#34684](https://projects.theforeman.org/issues/34684) - install pulp-cli [\#252](https://github.com/theforeman/puppet-pulpcore/pull/252) ([evgeni](https://github.com/evgeni))
+- Allow extlib 6.x, apache 7.x, stdlib 8.x, postgresql 8.x [\#246](https://github.com/theforeman/puppet-pulpcore/pull/246) ([ekohl](https://github.com/ekohl))
+
 ## [5.2.1](https://github.com/theforeman/puppet-pulpcore/tree/5.2.1) (2022-02-03)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.2.0...5.2.1)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Fixes [\#34379](https://projects.theforeman.org/issues/34379) - Create the Pulp group as a system group [\#244](https://github.com/theforeman/puppet-pulpcore/pull/244) ([ekohl](https://github.com/ekohl))
 
