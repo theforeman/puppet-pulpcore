@@ -33,12 +33,7 @@ describe 'with content cache enabled' do
     it { is_expected.to be_listening }
   end
 
-  describe service('rh-redis5-redis'), if: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
-    it { is_expected.to be_running }
-    it { is_expected.to be_enabled }
-  end
-
-  describe service('redis'), unless: %w[centos redhat].include?(os[:family]) && os[:release].to_i == 7 do
+  describe service('redis') do
     it { is_expected.to be_running }
     it { is_expected.to be_enabled }
   end

@@ -13,18 +13,14 @@ describe 'pulpcore::repo' do
           .that_notifies('Anchor[pulpcore::repo]')
       end
 
-      it 'configures the pulpcore module on EL8' do
-        if os_facts[:os]['release']['major'] == '7'
-          is_expected.not_to contain_package('pulpcore-dnf-module')
-        else
-          is_expected.to contain_package('pulpcore-dnf-module')
-            .with_name('pulpcore')
-            .with_ensure(/^el\d+/)
-            .with_enable_only(true)
-            .with_provider('dnfmodule')
-            .that_requires('File[/etc/yum.repos.d/pulpcore.repo]')
-            .that_notifies('Anchor[pulpcore::repo]')
-        end
+      it 'configures the pulpcore module' do
+        is_expected.to contain_package('pulpcore-dnf-module')
+          .with_name('pulpcore')
+          .with_ensure(/^el\d+/)
+          .with_enable_only(true)
+          .with_provider('dnfmodule')
+          .that_requires('File[/etc/yum.repos.d/pulpcore.repo]')
+          .that_notifies('Anchor[pulpcore::repo]')
       end
     end
   end
