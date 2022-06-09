@@ -1,20 +1,6 @@
 $major = $facts['os']['release']['major']
 
 case $major {
-  '7': {
-    package { 'centos-release-scl-rh':
-      ensure => installed,
-    }
-
-    package { 'epel-release':
-      ensure => installed,
-    }
-
-    package { 'rh-redis5-redis':
-      ensure  => installed,
-      require => Package['centos-release-scl-rh'],
-    }
-  }
   '8': {
     package { 'glibc-langpack-en':
       ensure => installed,
@@ -45,12 +31,7 @@ $client_csr = "${directory}/client-csr.pem"
 $client_cert = "${directory}/client-cert.pem"
 $client_key = "${directory}/client-key.pem"
 
-# EL7 lacks openssl -addext
-if $facts['os']['release']['major'] == '7' {
-  $ca_cmd = "openssl req -nodes -x509 -newkey rsa:2048 -subj '/CN=${facts['networking']['fqdn']}' -keyout '${ca_key}' -out '${ca_cert}' -days 365"
-} else {
-  $ca_cmd = "openssl req -nodes -x509 -newkey rsa:2048 -subj '/CN=${facts['networking']['fqdn']}' -addext 'subjectAltName = DNS:${facts['networking']['fqdn']}' -keyout '${ca_key}' -out '${ca_cert}' -days 365"
-}
+$ca_cmd = "openssl req -nodes -x509 -newkey rsa:2048 -subj '/CN=${facts['networking']['fqdn']}' -addext 'subjectAltName = DNS:${facts['networking']['fqdn']}' -keyout '${ca_key}' -out '${ca_cert}' -days 365"
 
 exec { 'Create certificate directory':
   command => "mkdir -p ${directory}",
