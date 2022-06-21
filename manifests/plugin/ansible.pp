@@ -2,7 +2,7 @@
 # @param ansible_galaxy_path
 #   In the Apache configuration the path to forward to the api app
 #   for ansible galaxy support
-class pulpcore::plugin::ansible(
+class pulpcore::plugin::ansible (
   String $ansible_galaxy_path = '/pulp_ansible/galaxy/',
 ) {
   $context = {

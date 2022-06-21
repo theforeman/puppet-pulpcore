@@ -27,7 +27,7 @@
 #   The directory to run pulpcore-manager from.
 #
 # @see exec
-define pulpcore::admin(
+define pulpcore::admin (
   String $command = $title,
   Boolean $refreshonly = false,
   Optional[String] $unless = undef,

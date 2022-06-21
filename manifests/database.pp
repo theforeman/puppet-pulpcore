@@ -1,6 +1,6 @@
 # Set up the PostgreSQL and Redis databases
 # @api private
-class pulpcore::database(
+class pulpcore::database (
   Integer[0] $timeout = 3600,
 ) {
   if $pulpcore::postgresql_manage_db {
@@ -32,5 +32,4 @@ class pulpcore::database(
   }
 
   contain redis
-
 }
