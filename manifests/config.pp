@@ -63,5 +63,4 @@ class pulpcore::config {
     mode    => '0640',
     require => Exec['Create database symmetric key'],
   }
-
 }

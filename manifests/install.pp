@@ -2,7 +2,6 @@
 #
 # @api private
 class pulpcore::install {
-
   package { 'pulpcore':
     ensure => present,
   }
