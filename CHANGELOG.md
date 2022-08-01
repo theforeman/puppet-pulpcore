@@ -1,5 +1,27 @@
 # Changelog
 
+## [7.0.0](https://github.com/theforeman/puppet-pulpcore/tree/7.0.0) (2022-10-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/6.0.0...7.0.0)
+
+**Breaking changes:**
+
+- Drop EL7 support [\#257](https://github.com/theforeman/puppet-pulpcore/pull/257) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Fixes [\#35607](https://projects.theforeman.org/issues/35607) - Configure Pulpcore's TELEMETRY setting [\#267](https://github.com/theforeman/puppet-pulpcore/pull/267) ([wbclark](https://github.com/wbclark))
+- Add pulpcore 3.21 support [\#266](https://github.com/theforeman/puppet-pulpcore/pull/266) ([sjha4](https://github.com/sjha4))
+- Add a loggers parameter and set default loggers [\#265](https://github.com/theforeman/puppet-pulpcore/pull/265) ([ekohl](https://github.com/ekohl))
+- Fixes [\#35496](https://projects.theforeman.org/issues/35496) - Add default pulp\_deb config [\#263](https://github.com/theforeman/puppet-pulpcore/pull/263) ([quba42](https://github.com/quba42))
+- Allow puppetlabs/apache 8.x [\#261](https://github.com/theforeman/puppet-pulpcore/pull/261) ([ekohl](https://github.com/ekohl))
+- Update to voxpupuli-test 5 [\#258](https://github.com/theforeman/puppet-pulpcore/pull/258) ([ekohl](https://github.com/ekohl))
+- Add Pulpcore 3.18 support [\#256](https://github.com/theforeman/puppet-pulpcore/pull/256) ([ianballou](https://github.com/ianballou))
+
+**Fixed bugs:**
+
+- Fixes [\#35390](https://projects.theforeman.org/issues/35390) - set ANSIBLE\_API\_HOSTNAME \*with\* scheme [\#262](https://github.com/theforeman/puppet-pulpcore/pull/262) ([evgeni](https://github.com/evgeni))
+
 ## [6.0.0](https://github.com/theforeman/puppet-pulpcore/tree/6.0.0) (2022-04-20)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.2.1...6.0.0)
