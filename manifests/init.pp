@@ -191,7 +191,7 @@ class pulpcore (
   Optional[Stdlib::Absolutepath] $apache_https_key = undef,
   Optional[Stdlib::Absolutepath] $apache_https_ca = undef,
   Optional[Stdlib::Absolutepath] $apache_https_chain = undef,
-  String[1] $apache_vhost_priority = '10',
+  Integer $apache_vhost_priority = 10,
   Stdlib::Absolutepath $api_socket_path = '/run/pulpcore-api.sock',
   Stdlib::Absolutepath $content_socket_path = '/run/pulpcore-content.sock',
   String $postgresql_db_name = 'pulpcore',
