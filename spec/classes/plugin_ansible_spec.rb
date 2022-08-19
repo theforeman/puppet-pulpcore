@@ -24,7 +24,7 @@ CONTENT
         is_expected.to contain_apache__vhost__fragment('pulpcore-https-plugin-ansible')
                            .with_content(expected_vhost_content)
         is_expected.to contain_concat__fragment('plugin-ansible')
-          .with_content(/^ANSIBLE_API_HOSTNAME = "foo.example.com"/)
+          .with_content(%r{^ANSIBLE_API_HOSTNAME = "https://foo.example.com"})
           .with_content(%r{^ANSIBLE_CONTENT_HOSTNAME = "https://foo.example.com/pulp/content"})
       end
     end
