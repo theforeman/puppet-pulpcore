@@ -19,6 +19,16 @@ describe 'pulpcore::plugin::deb' do
           is_expected.to contain_pulpcore__plugin('deb')
             .that_subscribes_to('Class[Pulpcore::Install]')
             .that_notifies(['Class[Pulpcore::Database]', 'Class[Pulpcore::Service]'])
+            .with_config('FORCE_IGNORE_MISSING_PACKAGE_INDICES = True')
+        end
+
+        context 'with force ignore missing set' do
+          let(:params) { { force_ignore_missing_package_indices: false } }
+
+          it do
+            is_expected.to contain_pulpcore__plugin('deb')
+              .with_config('FORCE_IGNORE_MISSING_PACKAGE_INDICES = False')
+          end
         end
 
         context 'with pulp2 content route' do
