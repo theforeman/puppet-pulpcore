@@ -69,6 +69,16 @@ LOGGING = {
         '': {
             'handlers': ['console'],
             'level': '<%= scope['pulpcore::log_level'] %>',
-        }
+        },
+        "pulpcore.deprecation": {
+            "handlers": ["console"],
+            "level": "<%= scope['pulpcore::log_level_deprecation'] %>",
+            "propagate": False,
+        },
+        "django_guid": {
+            "handlers": ["console"],
+            "level": "<%= scope['pulpcore::log_level_correlation_id'] %>",
+            "propagate": False,
+        },
     }
 }

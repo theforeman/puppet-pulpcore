@@ -171,6 +171,12 @@
 # @param log_level
 #   Sets the log level.
 #
+# @param log_level_deprecation
+#   Sets the log level for the deprecation logger.
+#
+# @param log_level_correlation_id
+#   Sets the log level for the correlation ID logger.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -224,6 +230,8 @@ class pulpcore (
   Boolean $cache_enabled = false,
   Optional[Variant[Integer[1], Enum['None']]] $cache_expires_ttl = undef,
   Enum['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'] $log_level = 'INFO',
+  Enum['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'] $log_level_deprecation = 'ERROR',
+  Enum['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'] $log_level_correlation_id = 'WARNING',
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"

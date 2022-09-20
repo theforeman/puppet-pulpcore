@@ -506,13 +506,19 @@ CONTENT
       context 'can change the log level to DEBUG' do
         let :params do
           {
-            log_level: 'DEBUG'
+            log_level: 'DEBUG',
+            log_level_deprecation: 'DEBUG',
+            log_level_correlation_id: 'DEBUG',
           }
         end
 
         it do
           is_expected.to contain_concat__fragment('base')
-            .with_content(%r{\s'level': 'DEBUG',})
+            .with_content(%r{\s'': \{\n            'handlers': \['console'\],\n            'level': 'DEBUG'})
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{\s"pulpcore.deprecation": \{\n            "handlers": \["console"\],\n            "level": "DEBUG"})
+          is_expected.to contain_concat__fragment('base')
+            .with_content(%r{\s"django_guid": \{\n            "handlers": \["console"\],\n            "level": "DEBUG",})
         end
       end
 
