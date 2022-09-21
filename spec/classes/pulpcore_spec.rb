@@ -34,7 +34,7 @@ describe 'pulpcore' do
                     '': {
                         'handlers': ['console'],
                         'level': 'INFO',
-                    }
+                    },
                     'pulpcore.deprecation': {
                         'handlers': ['console'],
                         'level': 'ERROR',
@@ -45,7 +45,7 @@ describe 'pulpcore' do
                         'level': 'WARNING',
                         'propagate': False,
                     },
-                }
+                },
             }
           LOGGING
           is_expected.to contain_file('/etc/pulp')
@@ -546,7 +546,7 @@ CONTENT
                     '': {
                         'handlers': ['console'],
                         'level': 'DEBUG',
-                    }
+                    },
                     'pulpcore.deprecation': {
                         'handlers': ['console'],
                         'level': 'INFO',
@@ -562,7 +562,7 @@ CONTENT
                         'level': 'CRITICAL',
                         'propagate': False,
                     },
-                }
+                },
             }
           LOGGING
         end
