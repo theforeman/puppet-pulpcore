@@ -23,6 +23,15 @@ class pulpcore::config {
     order   => '01',
   }
 
+  concat::fragment { 'logging':
+    target  => 'pulpcore settings',
+    content => epp('pulpcore/settings-logging.py.epp', {
+        'level'   => $pulpcore::log_level,
+        'loggers' => $pulpcore::loggers,
+    }),
+    order   => '02',
+  }
+
   file { $pulpcore::user_home:
     ensure => directory,
     owner  => $pulpcore::user,

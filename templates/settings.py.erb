@@ -62,13 +62,3 @@ CACHE_SETTINGS = {
     'EXPIRES_TTL': <%= scope['pulpcore::cache_expires_ttl'] %>,
 }
 <% end -%>
-
-LOGGING = {
-    "dynaconf_merge": True,
-    "loggers": {
-        '': {
-            'handlers': ['console'],
-            'level': '<%= scope['pulpcore::log_level'] %>',
-        }
-    }
-}

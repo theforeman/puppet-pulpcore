@@ -23,11 +23,31 @@ describe 'pulpcore' do
             .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
             .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
             .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
-            .with_content(%r{\s'level': 'INFO',})
             .with_content(%r{REDIS_URL = "redis://localhost:6379/8"})
             .with_content(%r{CACHE_ENABLED = False})
             .without_content(%r{sslmode})
             .without_content(%r{WORKER_TTL})
+          is_expected.to contain_concat__fragment('logging').with_content(<<~LOGGING)
+            LOGGING = {
+                "dynaconf_merge": True,
+                "loggers": {
+                    '': {
+                        'handlers': ['console'],
+                        'level': 'INFO',
+                    }
+                    'pulpcore.deprecation': {
+                        'handlers': ['console'],
+                        'level': 'ERROR',
+                        'propagate': False,
+                    },
+                    'django_guid': {
+                        'handlers': ['console'],
+                        'level': 'WARNING',
+                        'propagate': False,
+                    },
+                }
+            }
+          LOGGING
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/etc/pulp/certs/database_fields.symmetric.key')
           is_expected.to contain_file('/var/lib/pulp')
@@ -503,16 +523,48 @@ CONTENT
         end
       end
 
-      context 'can change the log level to DEBUG' do
-        let :params do
+      context 'with log level and loggers set' do
+        let(:params) do
           {
-            log_level: 'DEBUG'
+            log_level: 'DEBUG',
+            loggers: {
+              'pulpcore.deprecation' => {
+                'level' => 'INFO',
+              },
+              'pulpcore.something' => {
+                'level' => 'CRITICAL',
+              }
+            },
           }
         end
 
         it do
-          is_expected.to contain_concat__fragment('base')
-            .with_content(%r{\s'level': 'DEBUG',})
+          is_expected.to contain_concat__fragment('logging').with_content(<<~LOGGING)
+            LOGGING = {
+                "dynaconf_merge": True,
+                "loggers": {
+                    '': {
+                        'handlers': ['console'],
+                        'level': 'DEBUG',
+                    }
+                    'pulpcore.deprecation': {
+                        'handlers': ['console'],
+                        'level': 'INFO',
+                        'propagate': False,
+                    },
+                    'django_guid': {
+                        'handlers': ['console'],
+                        'level': 'WARNING',
+                        'propagate': False,
+                    },
+                    'pulpcore.something': {
+                        'handlers': ['console'],
+                        'level': 'CRITICAL',
+                        'propagate': False,
+                    },
+                }
+            }
+          LOGGING
         end
       end
 
