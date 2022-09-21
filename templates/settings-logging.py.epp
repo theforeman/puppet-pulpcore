@@ -1,0 +1,19 @@
+<%- | Pulpcore::LogLevel $level,
+      Hash[String[1], Pulpcore::Logger] $loggers
+| -%>
+LOGGING = {
+    "dynaconf_merge": True,
+    "loggers": {
+        '': {
+            'handlers': ['console'],
+            'level': '<%= $level %>',
+        }
+        <%- $loggers.each |$logger, $properties| { -%>
+        '<%= $logger %>': {
+            'handlers': ['console'],
+            'level': '<%= $properties['level'] %>',
+            'propagate': False,
+        },
+        <%- } -%>
+    }
+}

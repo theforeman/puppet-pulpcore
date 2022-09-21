@@ -169,7 +169,10 @@
 #   The number of seconds that content should be cached for. Specify 'None' to never expire the cache.
 #
 # @param log_level
-#   Sets the log level.
+#   Sets the log level for the root logger.
+#
+# @param loggers
+#   Configure additional loggers or override pre-defined logger configuration.
 #
 # @example Default configuration
 #   include pulpcore
@@ -223,7 +226,8 @@ class pulpcore (
   Hash[String[1], String[1]] $api_client_auth_cn_map = {},
   Boolean $cache_enabled = false,
   Optional[Variant[Integer[1], Enum['None']]] $cache_expires_ttl = undef,
-  Enum['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'] $log_level = 'INFO',
+  Pulpcore::LogLevel $log_level = 'INFO',
+  Hash[String[1], Pulpcore::Logger] $loggers = {},
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"
