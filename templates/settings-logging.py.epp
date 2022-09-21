@@ -7,7 +7,7 @@ LOGGING = {
         '': {
             'handlers': ['console'],
             'level': '<%= $level %>',
-        }
+        },
         <%- $loggers.each |$logger, $properties| { -%>
         '<%= $logger %>': {
             'handlers': ['console'],
@@ -15,5 +15,5 @@ LOGGING = {
             'propagate': False,
         },
         <%- } -%>
-    }
+    },
 }

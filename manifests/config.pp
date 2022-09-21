@@ -23,11 +23,20 @@ class pulpcore::config {
     order   => '01',
   }
 
+  $loggers = {
+    'pulpcore.deprecation' => {
+      'level' => 'ERROR',
+    },
+    'django_guid'          => {
+      'level' => 'WARNING',
+    },
+  } + $pulpcore::loggers
+
   concat::fragment { 'logging':
     target  => 'pulpcore settings',
     content => epp('pulpcore/settings-logging.py.epp', {
         'level'   => $pulpcore::log_level,
-        'loggers' => $pulpcore::loggers,
+        'loggers' => $loggers,
     }),
     order   => '02',
   }
