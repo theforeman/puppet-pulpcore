@@ -66,6 +66,7 @@ jobs:
         setfile: ${{fromJson(needs.setup_matrix.outputs.beaker_setfiles)}}
         puppet: ${{fromJson(needs.setup_matrix.outputs.puppet_major_versions)}}
         pulpcore_version:
+          - '3.21'
           - '3.18'
           - '3.17'
           - '3.16'
