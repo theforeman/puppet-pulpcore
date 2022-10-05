@@ -56,7 +56,11 @@ shared_examples 'the default pulpcore application' do
 
   describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/", cacert: "#{certdir}/ca-cert.pem") do
     # Requires authentication: https://github.com/pulp/pulpcore/issues/2340
-    its(:response_code) { is_expected.to eq(403) }
+    if(!['3.16', '3.17', '3.18', '3.19'].include?(ENV['BEAKER_FACTER_PULPCORE_VERSION']))
+      its(:response_code) { is_expected.to eq(200) }
+    else
+      its(:response_code) { is_expected.to eq(403) }
+    end
     its(:exit_status) { is_expected.to eq 0 }
   end
 
