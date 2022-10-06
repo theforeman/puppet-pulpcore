@@ -8,6 +8,15 @@
 # configuration.
 ################################################################################
 
+# Send anonymous usage data to https://analytics.pulpproject.org/ unless this is
+# explicitly defined with value False. This data is used by the Pulp project
+# to make informed, data-driven decisions about future feature development.
+<% if scope['pulpcore::telemetry'].nil? -%>
+# TELEMETRY = False
+<% else -%>
+TELEMETRY = <%= scope['pulpcore::telemetry'] %>
+<% end -%>
+
 CONTENT_HOST = "<%= scope['pulpcore::servername'] %>"
 CONTENT_ORIGIN = "https://<%= scope['pulpcore::servername'] %>"
 SECRET_KEY = "<%= scope['pulpcore::django_secret_key'] %>"
