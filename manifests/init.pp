@@ -174,6 +174,12 @@
 # @param loggers
 #   Configure additional loggers or override pre-defined logger configuration.
 #
+# @param telemetry
+#   Configure TELEMETRY in settings.yml, which controls the reporting of anonymous data to https://analytics.pulpproject.org/,
+#   starting with Pulpcore version 3.21.0, to guide Pulp project developers. Set this to false to opt out of this anonymous reporting;
+#   if undef, it will instead be omitted from settings.yml and Pulp will report these usage statistics per its default behavior.
+#   Adding this configuration will have no effect in Pulp versions prior to the introduction of the telemetry feature.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -228,6 +234,7 @@ class pulpcore (
   Optional[Variant[Integer[1], Enum['None']]] $cache_expires_ttl = undef,
   Pulpcore::LogLevel $log_level = 'INFO',
   Hash[String[1], Pulpcore::Logger] $loggers = {},
+  Optional[Boolean] $telemetry = undef,
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"
