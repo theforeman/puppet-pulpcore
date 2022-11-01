@@ -79,6 +79,7 @@ describe 'pulpcore' do
         it 'configures apache' do
           is_expected.to contain_class('pulpcore::apache')
           is_expected.to contain_apache__vhost('pulpcore')
+            .with_serveraliases([])
             .with_directories([
               {
                 'provider'       => 'Directory',
@@ -101,6 +102,7 @@ describe 'pulpcore' do
             ])
           is_expected.not_to contain_apache__vhost__fragment('pulpcore-http-pulpcore')
           is_expected.to contain_apache__vhost('pulpcore-https')
+            .with_serveraliases([])
             .with_directories([
               {
                 'path'           => '/var/lib/pulp/pulpcore_static',

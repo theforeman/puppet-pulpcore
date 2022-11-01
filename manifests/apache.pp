@@ -82,6 +82,7 @@ class pulpcore::apache (
       include apache::mod::headers
       apache::vhost { $http_vhost_name:
         servername     => $pulpcore::servername,
+        serveraliases  => $pulpcore::serveraliases,
         port           => $http_port,
         priority       => $vhost_priority,
         docroot        => $pulpcore::apache_docroot,
@@ -111,6 +112,7 @@ class pulpcore::apache (
       include apache::mod::headers
       apache::vhost { $https_vhost_name:
         servername        => $pulpcore::servername,
+        serveraliases     => $pulpcore::serveraliases,
         port              => $https_port,
         ssl               => true,
         priority          => $vhost_priority,

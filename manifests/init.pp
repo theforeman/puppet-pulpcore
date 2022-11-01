@@ -115,6 +115,9 @@
 # @param servername
 #   Server name of the VirtualHost in the webserver
 #
+# @param serveraliases
+#   Server aliases of the VirtualHost in the webserver
+#
 # @param remote_user_environ_name
 #   Django remote user environment variable
 #
@@ -217,6 +220,7 @@ class pulpcore (
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(50)),
   Integer[0] $redis_db = 8,
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
+  Array[Stdlib::Fqdn] $serveraliases = [],
   Array[Stdlib::Absolutepath] $allowed_import_path = ['/var/lib/pulp/sync_imports'],
   Array[Stdlib::Absolutepath] $allowed_export_path = [],
   Pulpcore::ChecksumTypes $allowed_content_checksums = ['sha224', 'sha256', 'sha384', 'sha512'],
