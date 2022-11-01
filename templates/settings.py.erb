@@ -14,7 +14,7 @@
 <% if scope['pulpcore::telemetry'].nil? -%>
 # TELEMETRY = False
 <% else -%>
-TELEMETRY = <%= scope['pulpcore::telemetry'] %>
+TELEMETRY = <%= scope.call_function('to_python', [scope['pulpcore::telemetry']]) %>
 <% end -%>
 
 CONTENT_HOST = "<%= scope['pulpcore::servername'] %>"
