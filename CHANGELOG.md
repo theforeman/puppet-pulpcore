@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.0.1](https://github.com/theforeman/puppet-pulpcore/tree/7.0.1) (2022-11-02)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.0.0...7.0.1)
+
+**Fixed bugs:**
+
+- Refs [\#35607](https://projects.theforeman.org/issues/35607) - convert telemetry value to python [\#268](https://github.com/theforeman/puppet-pulpcore/pull/268) ([wbclark](https://github.com/wbclark))
+
 ## [7.0.0](https://github.com/theforeman/puppet-pulpcore/tree/7.0.0) (2022-10-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/6.0.0...7.0.0)
