@@ -17,7 +17,6 @@
 TELEMETRY = <%= scope.call_function('to_python', [scope['pulpcore::telemetry']]) %>
 <% end -%>
 
-CONTENT_HOST = "<%= scope['pulpcore::servername'] %>"
 CONTENT_ORIGIN = "https://<%= scope['pulpcore::servername'] %>"
 SECRET_KEY = "<%= scope['pulpcore::django_secret_key'] %>"
 DATABASES = {
