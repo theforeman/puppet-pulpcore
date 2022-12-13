@@ -1,5 +1,18 @@
 # Changelog
 
+## [7.1.0](https://github.com/theforeman/puppet-pulpcore/tree/7.1.0) (2022-12-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.0.1...7.1.0)
+
+**Implemented enhancements:**
+
+- Remove unused CONTENT\_HOST setting [\#271](https://github.com/theforeman/puppet-pulpcore/pull/271) ([ekohl](https://github.com/ekohl))
+- Expose Apache server aliases as a parameter [\#269](https://github.com/theforeman/puppet-pulpcore/pull/269) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Fix broken links in `README.md` [\#273](https://github.com/theforeman/puppet-pulpcore/pull/273) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [7.0.1](https://github.com/theforeman/puppet-pulpcore/tree/7.0.1) (2022-11-02)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.0.0...7.0.1)
