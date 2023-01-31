@@ -22,13 +22,23 @@ describe 'pulpcore::plugin::rpm' do
           is_expected.not_to contain_concat__fragment('plugin-rpm')
         end
 
+        context 'with allow_unsafe_advisory_conflict_resolution' do
+          let(:params) { { allow_automatic_unsafe_advisory_conflict_resolution: true } }
+
+          it 'configures pulpcore with ALLOW_AUTOMATIC_UNSAFE_ADVISORY_CONFLICT_RESOLUTION' do
+            is_expected.to compile.with_all_deps
+            is_expected.to contain_concat__fragment('plugin-rpm')
+              .with_content("\n# rpm plugin settings\nALLOW_AUTOMATIC_UNSAFE_ADVISORY_CONFLICT_RESOLUTION = True\n")
+          end
+        end
+
         context 'with keep_changelog_limit' do
           let(:params) { { keep_changelog_limit: 20 } }
 
           it 'configures pulpcore with KEEP_CHANGELOG_LIMIT' do
             is_expected.to compile.with_all_deps
             is_expected.to contain_concat__fragment('plugin-rpm')
-              .with_content("\n# rpm plugin settings\nKEEP_CHANGELOG_LIMIT = 20")
+              .with_content("\n# rpm plugin settings\nKEEP_CHANGELOG_LIMIT = 20\n")
           end
         end
 
