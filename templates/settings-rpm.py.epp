@@ -1,0 +1,9 @@
+<%- | Boolean $allow_auacr,
+      Optional[Integer[0]] $keep_changelog_limit
+| -%>
+<%- if $keep_changelog_limit { -%>
+KEEP_CHANGELOG_LIMIT = <%= $keep_changelog_limit %>
+<%- } -%>
+<%- if $allow_auacr { -%>
+ALLOW_AUTOMATIC_UNSAFE_ADVISORY_CONFLICT_RESOLUTION = True
+<%- } -%>

@@ -6,9 +6,14 @@
 #   Pulpcore's KEEP_CHANGELOG_LIMIT setting. Uses Pulpcore's default when
 #   undefined. Increasing this limit will cause pulpcore workers to use more
 #   memory when more changelogs are available in the repo metadata.
+#
+# @param allow_automatic_unsafe_advisory_conflict_resolution
+#   Allow resolving of conflicts due to duplicate advisory ids with different creation dates
+#   https://docs.pulpproject.org/pulp_rpm/settings.html#allow-automatic-unsafe-advisory-conflict-resolution
 class pulpcore::plugin::rpm (
   Boolean $use_pulp2_content_route = false,
   Optional[Integer[0]] $keep_changelog_limit = undef,
+  Boolean $allow_automatic_unsafe_advisory_conflict_resolution = false,
 ) {
   if $use_pulp2_content_route {
     $context = {
@@ -34,8 +39,11 @@ class pulpcore::plugin::rpm (
     $content = undef
   }
 
-  if $keep_changelog_limit {
-    $rpm_plugin_config = "KEEP_CHANGELOG_LIMIT = ${keep_changelog_limit}"
+  if $keep_changelog_limit or $allow_automatic_unsafe_advisory_conflict_resolution {
+    $rpm_plugin_config = epp('pulpcore/settings-rpm.py.epp', {
+        'allow_auacr'          => $allow_automatic_unsafe_advisory_conflict_resolution,
+        'keep_changelog_limit' => $keep_changelog_limit,
+    })
   } else {
     $rpm_plugin_config = undef
   }
