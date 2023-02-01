@@ -6,12 +6,19 @@ class pulpcore::database (
   if $pulpcore::postgresql_manage_db {
     include postgresql::client
     include postgresql::server
+    include postgresql::server::contrib
     postgresql::server::db { $pulpcore::postgresql_db_name:
       user     => $pulpcore::postgresql_db_user,
       password => postgresql::postgresql_password($pulpcore::user, $pulpcore::postgresql_db_password),
       encoding => 'utf8',
       locale   => 'en_US.utf8',
       before   => Pulpcore::Admin['migrate --noinput'],
+    }
+
+    postgresql::server::extension { "hstore for ${pulpcore::postgresql_db_name}":
+      database  => $pulpcore::postgresql_db_name,
+      extension => 'hstore',
+      require   => Class['postgresql::server::contrib'],
     }
 
     # pulpcore-content fails to reconnect to the database, so schedule a restart whenever the db changes
