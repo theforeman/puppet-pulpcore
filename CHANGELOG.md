@@ -1,5 +1,14 @@
 # Changelog
 
+## [7.2.0](https://github.com/theforeman/puppet-pulpcore/tree/7.2.0) (2023-03-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.1.0...7.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#36030](https://projects.theforeman.org/issues/36030) - Ensure HStore is enabled for Pulp 3.22 support [\#275](https://github.com/theforeman/puppet-pulpcore/pull/275) ([ekohl](https://github.com/ekohl))
+- Add param for unsafe advisory conflict resolution [\#274](https://github.com/theforeman/puppet-pulpcore/pull/274) ([m-bucher](https://github.com/m-bucher))
+
 ## [7.1.0](https://github.com/theforeman/puppet-pulpcore/tree/7.1.0) (2022-12-13)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.0.1...7.1.0)
