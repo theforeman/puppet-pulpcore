@@ -20,13 +20,16 @@ class pulpcore::repo (
     notify  => Anchor['pulpcore::repo'],
   }
 
-  package { 'pulpcore-dnf-module':
-    ensure      => $dist_tag,
-    name        => 'pulpcore',
-    enable_only => true,
-    provider    => 'dnfmodule',
-    require     => File['/etc/yum.repos.d/pulpcore.repo'],
-    notify      => Anchor['pulpcore::repo'],
+  # Only EL8 has DNF modules
+  if $dist_tag == 'el8' {
+    package { 'pulpcore-dnf-module':
+      ensure      => $dist_tag,
+      name        => 'pulpcore',
+      enable_only => true,
+      provider    => 'dnfmodule',
+      require     => File['/etc/yum.repos.d/pulpcore.repo'],
+      notify      => Anchor['pulpcore::repo'],
+    }
   }
 
   # An anchor is used because it can be collected
