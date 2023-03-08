@@ -18,17 +18,9 @@ Default recommended version.
 
 Supported version
 
-### Pulpcore 3.18
+### Pulpcore 3.16 - 3.18
 
-Supported version.
-
-### Pulpcore 3.17
-
-Supported version.
-
-### Pulpcore 3.16
-
-Supported version.
+Untested, but should work. Not recommended.
 
 ## Installation layout
 

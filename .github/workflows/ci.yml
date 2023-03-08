@@ -70,9 +70,6 @@ jobs:
         pulpcore_version:
           - '3.22'
           - '3.21'
-          - '3.18'
-          - '3.17'
-          - '3.16'
     name: Acceptance / ${{ matrix.puppet.name }} - ${{ matrix.setfile.name }} - Pulp ${{ matrix.pulpcore_version }}
     steps:
       - uses: actions/checkout@v2
