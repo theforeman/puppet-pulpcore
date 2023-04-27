@@ -61,6 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUNDLE_WITHOUT: development:test:release
+      PUPPET_GEM_VERSION: '~> 7.24'
     strategy:
       fail-fast: false
       matrix:
