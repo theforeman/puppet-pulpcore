@@ -1,5 +1,23 @@
 # Changelog
 
+## [8.0.0](https://github.com/theforeman/puppet-pulpcore/tree/8.0.0) (2023-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.2.0...8.0.0)
+
+**Breaking changes:**
+
+- Refs [\#36345](https://projects.theforeman.org/issues/36345) - Raise minimum Puppet version to 7.0.0 [\#281](https://github.com/theforeman/puppet-pulpcore/pull/281) ([ekohl](https://github.com/ekohl))
+- Drop Pulpcore 3.16 - 3.18, add EL 9 support [\#277](https://github.com/theforeman/puppet-pulpcore/pull/277) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/postgresql 9.x & puppetlabs/apache 10.x & puppetlabs/concat 8.x [\#280](https://github.com/theforeman/puppet-pulpcore/pull/280) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet-systemd 4 [\#278](https://github.com/theforeman/puppet-pulpcore/pull/278) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Pin Puppet in CI [\#279](https://github.com/theforeman/puppet-pulpcore/pull/279) ([ekohl](https://github.com/ekohl))
+
 ## [7.2.0](https://github.com/theforeman/puppet-pulpcore/tree/7.2.0) (2023-03-06)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.1.0...7.2.0)
