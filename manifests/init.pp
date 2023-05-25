@@ -162,6 +162,12 @@
 # @param api_service_worker_timeout
 #   Timeout in seconds of the pulpcore-api gunicorn workers.
 #
+# @param api_service_worker_max_requests
+#   Number of requests a gunicorn worker will process before restarting.
+#
+# @param api_service_worker_max_requests_jitter
+#   Jitter to add to the max_requests setting of the gunicorn worker.
+#
 # @param api_client_auth_cn_map
 #   Mapping of certificate common name and Pulp user to authenticate to Pulp API.
 #
@@ -233,6 +239,8 @@ class pulpcore (
   Integer[0] $api_service_worker_count = min(4, $facts['processors']['count']) + 1,
   Integer[0] $content_service_worker_timeout = 90,
   Integer[0] $api_service_worker_timeout = 90,
+  Integer[0] $api_service_worker_max_requests = 50,
+  Integer[0] $api_service_worker_max_requests_jitter = 30,
   Hash[String[1], String[1]] $api_client_auth_cn_map = {},
   Boolean $cache_enabled = false,
   Optional[Variant[Integer[1], Enum['None']]] $cache_expires_ttl = undef,

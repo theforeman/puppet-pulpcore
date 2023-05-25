@@ -150,6 +150,8 @@ describe 'pulpcore' do
           is_expected.to contain_pulpcore__socket_service('pulpcore-api')
           is_expected.to contain_systemd__unit_file('pulpcore-api.socket')
           is_expected.to contain_systemd__unit_file('pulpcore-api.service').with_content(%r{--workers 2})
+            .with_content(%r{--max-requests 50})
+            .with_content(%r{--max-requests-jitter 30})
           is_expected.to contain_file('/etc/systemd/system/pulpcore-api.socket').that_comes_before('Service[pulpcore-api.service]')
           is_expected.to contain_pulpcore__socket_service('pulpcore-content')
           is_expected.to contain_systemd__unit_file('pulpcore-content.socket')
@@ -159,6 +161,22 @@ describe 'pulpcore' do
           is_expected.to contain_systemd__unit_file('pulpcore-worker@.service')
           is_expected.to contain_service("pulpcore-worker@1.service").with_ensure(true)
           is_expected.not_to contain_service("pulpcore-worker@2.service")
+        end
+      end
+
+      context 'with changed max-requests' do
+        let :params do
+          {
+            api_service_worker_max_requests: 100,
+            api_service_worker_max_requests_jitter: 10
+          }
+        end
+
+        it do
+          is_expected.to compile.with_all_deps
+          is_expected.to contain_systemd__unit_file('pulpcore-api.service')
+            .with_content(%r{--max-requests 100})
+            .with_content(%r{--max-requests-jitter 10})
         end
       end
 
