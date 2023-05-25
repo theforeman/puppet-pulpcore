@@ -14,7 +14,7 @@ RuntimeDirectory=pulpcore-content
 ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.content:server \
           --timeout <%= scope['pulpcore::content_service_worker_timeout'] %> \
           --worker-class 'aiohttp.GunicornWebWorker' \
-          -w <%= scope['pulpcore::content_service_worker_count'] %> \
+          --workers <%= scope['pulpcore::content_service_worker_count'] %> \
           --access-logfile -
 ExecReload=/bin/kill -s HUP $MAINPID
 SyslogIdentifier=pulpcore-content
