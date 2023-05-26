@@ -1,5 +1,15 @@
 # Changelog
 
+## [8.1.0](https://github.com/theforeman/puppet-pulpcore/tree/8.1.0) (2023-05-26)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.0.0...8.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#36438](https://projects.theforeman.org/issues/36438) - configure API request limit to avoid memory leaks [\#289](https://github.com/theforeman/puppet-pulpcore/pull/289) ([evgeni](https://github.com/evgeni))
+- Fixes [\#36437](https://projects.theforeman.org/issues/36437) - preload pulpcore API and content code [\#288](https://github.com/theforeman/puppet-pulpcore/pull/288) ([evgeni](https://github.com/evgeni))
+- use `--workers` instead of `-w` when configuring gunicorn workers [\#287](https://github.com/theforeman/puppet-pulpcore/pull/287) ([evgeni](https://github.com/evgeni))
+
 ## [8.0.0](https://github.com/theforeman/puppet-pulpcore/tree/8.0.0) (2023-05-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.2.0...8.0.0)
