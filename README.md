@@ -16,11 +16,11 @@ Default recommended version.
 
 ### Pulpcore 3.21
 
-Supported version
+Supported version. The parameter `$hide_guarded_distributions` doesn't work since it's a Pulp 3.22 feature.
 
 ### Pulpcore 3.16 - 3.18
 
-Untested, but should work. Not recommended.
+Untested, but should work besides the `$hide_guarded_distributions` parameter. Not recommended.
 
 ## Installation layout
 

@@ -70,3 +70,9 @@ CACHE_SETTINGS = {
     'EXPIRES_TTL': <%= scope['pulpcore::cache_expires_ttl'] %>,
 }
 <% end -%>
+
+<% if scope['pulpcore::hide_guarded_distributions'].nil? -%>
+# HIDE_GUARDED_DISTRIBUTIONS = False
+<% else -%>
+HIDE_GUARDED_DISTRIBUTIONS = <%= scope.call_function('to_python', [scope['pulpcore::hide_guarded_distributions']]) %>
+<% end -%>

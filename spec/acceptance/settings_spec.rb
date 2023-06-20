@@ -50,3 +50,54 @@ describe 'TELEMETRY setting' do
     end
   end
 end
+
+describe 'HIDE_GUARDED_DISTRIBUTIONS setting' do
+  context 'default HIDE_GUARDED_DISTRIBUTIONS' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        include pulpcore
+        PUPPET
+      end
+    end
+
+    describe file('/etc/pulp/settings.py') do
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to match(/^# HIDE_GUARDED_DISTRIBUTIONS = False$/) }
+    end
+  end
+
+  context 'HIDE_GUARDED_DISTRIBUTIONS disabled' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        class { 'pulpcore':
+          hide_guarded_distributions => false,
+        }
+        PUPPET
+      end
+    end
+
+    describe file('/etc/pulp/settings.py') do
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to match(/^HIDE_GUARDED_DISTRIBUTIONS = False$/) }
+    end
+  end
+
+  context 'HIDE_GUARDED_DISTRIBUTIONS enabled' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        class { 'pulpcore':
+          hide_guarded_distributions => true,
+        }
+        PUPPET
+      end
+    end
+
+    describe file('/etc/pulp/settings.py') do
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to match(/^HIDE_GUARDED_DISTRIBUTIONS = True$/) }
+    end
+  end
+end

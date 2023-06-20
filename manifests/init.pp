@@ -189,6 +189,10 @@
 #   if undef, it will instead be omitted from settings.yml and Pulp will report these usage statistics per its default behavior.
 #   Adding this configuration will have no effect in Pulp versions prior to the introduction of the telemetry feature.
 #
+# @param hide_guarded_distributions
+#   If activated, the distributions that are protected by a content guard will not be shown on the
+#   directory listing in the content app.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -247,6 +251,7 @@ class pulpcore (
   Pulpcore::LogLevel $log_level = 'INFO',
   Hash[String[1], Pulpcore::Logger] $loggers = {},
   Optional[Boolean] $telemetry = undef,
+  Optional[Boolean] $hide_guarded_distributions = undef,
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"
