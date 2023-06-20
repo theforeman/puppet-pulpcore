@@ -1,5 +1,14 @@
 # Changelog
 
+## [8.2.0](https://github.com/theforeman/puppet-pulpcore/tree/8.2.0) (2023-06-20)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.1.0...8.2.0)
+
+**Implemented enhancements:**
+
+- allow configuring HIDE\_GUARDED\_DISTRIBUTIONS setting [\#292](https://github.com/theforeman/puppet-pulpcore/pull/292) ([evgeni](https://github.com/evgeni))
+- allow puppet/redis 9.x [\#291](https://github.com/theforeman/puppet-pulpcore/pull/291) ([evgeni](https://github.com/evgeni))
+
 ## [8.1.0](https://github.com/theforeman/puppet-pulpcore/tree/8.1.0) (2023-05-26)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.0.0...8.1.0)
