@@ -6,7 +6,7 @@ describe 'installation of server with cli' do
       <<-PUPPET
       include pulpcore
       class { 'pulpcore::cli':
-        pulpcore_url => "https://${facts['fqdn']}/",
+        pulpcore_url => "https://${facts['networking']['fqdn']}/",
         cert         => "/etc/pulpcore-certs/client-cert.pem",
         key          => "/etc/pulpcore-certs/client-key.pem",
       }
@@ -58,7 +58,7 @@ describe 'installation of cli only with password' do
     let(:manifest) do
       <<-PUPPET
       class { 'pulpcore::cli':
-        pulpcore_url => "https://${facts['fqdn']}/",
+        pulpcore_url => "https://${facts['networking']['fqdn']}/",
         username     => "admin",
         password     => "changeme",
       }
