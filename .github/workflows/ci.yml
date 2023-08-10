@@ -68,6 +68,7 @@ jobs:
         setfile: ${{fromJson(needs.setup_matrix.outputs.beaker_setfiles)}}
         puppet: ${{fromJson(needs.setup_matrix.outputs.puppet_major_versions)}}
         pulpcore_version:
+          - '3.28'
           - '3.22'
           - '3.21'
     name: Acceptance / ${{ matrix.puppet.name }} - ${{ matrix.setfile.name }} - Pulp ${{ matrix.pulpcore_version }}

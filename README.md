@@ -10,9 +10,13 @@ All supported versions are listed below. For every supported version, acceptance
 
 Supported operating systems are listed in `metadata.json` but individual releases can divert from that. For example, if Pulpcore x.y drops EL7, it will still be listed in metadata.json until all versions supported by the module have dropped it. Similarly, if x.z adds support for EL9, it'll be listed in `metadata.json` and all versions that don't support EL9 will have a note.
 
-### Pulpcore 3.22
+### Pulpcore 3.28
 
 Default recommended version.
+
+### Pulpcore 3.22
+
+Supported version.
 
 ### Pulpcore 3.21
 
