@@ -1,5 +1,15 @@
 # Changelog
 
+## [8.3.0](https://github.com/theforeman/puppet-pulpcore/tree/8.3.0) (2023-08-16)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.2.0...8.3.0)
+
+**Implemented enhancements:**
+
+- Support Pulp 3.28 [\#299](https://github.com/theforeman/puppet-pulpcore/pull/299) ([ekohl](https://github.com/ekohl))
+- puppetlabs/stdlib: Allow 9.x & puppet/systemd: Allow 5.x & puppetlabs/concat: Allow 9.x [\#296](https://github.com/theforeman/puppet-pulpcore/pull/296) ([bastelfreak](https://github.com/bastelfreak))
+- Relax max\_requests [\#295](https://github.com/theforeman/puppet-pulpcore/pull/295) ([dralley](https://github.com/dralley))
+
 ## [8.2.0](https://github.com/theforeman/puppet-pulpcore/tree/8.2.0) (2023-06-20)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.1.0...8.2.0)
