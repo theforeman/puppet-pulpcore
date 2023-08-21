@@ -101,3 +101,37 @@ describe 'HIDE_GUARDED_DISTRIBUTIONS setting' do
     end
   end
 end
+
+describe 'IMPORT_WORKERS_PERCENT setting' do
+  context 'default IMPORT_WORKERS_PERCENT' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        include pulpcore
+        PUPPET
+      end
+    end
+
+    describe file('/etc/pulp/settings.py') do
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to match(/^# IMPORT_WORKERS_PERCENT = 100$/) }
+    end
+  end
+
+  context 'IMPORT_WORKERS_PERCENT set' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        class { 'pulpcore':
+          import_workers_percent => 42,
+        }
+        PUPPET
+      end
+    end
+
+    describe file('/etc/pulp/settings.py') do
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to match(/^IMPORT_WORKERS_PERCENT = 42$/) }
+    end
+  end
+end

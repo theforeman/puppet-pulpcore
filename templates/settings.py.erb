@@ -76,3 +76,9 @@ CACHE_SETTINGS = {
 <% else -%>
 HIDE_GUARDED_DISTRIBUTIONS = <%= scope.call_function('to_python', [scope['pulpcore::hide_guarded_distributions']]) %>
 <% end -%>
+
+<% if scope['pulpcore::import_workers_percent'].nil? -%>
+# IMPORT_WORKERS_PERCENT = 100
+<% else -%>
+IMPORT_WORKERS_PERCENT = <%= scope['pulpcore::import_workers_percent'] %>
+<% end -%>

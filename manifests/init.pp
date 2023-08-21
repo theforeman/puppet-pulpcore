@@ -193,6 +193,10 @@
 #   If activated, the distributions that are protected by a content guard will not be shown on the
 #   directory listing in the content app.
 #
+# @param import_workers_percent
+#   What percentage of available-workers will pulpcore use for import tasks at a time.
+#   By default, pulpcore will use all available workers.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -252,6 +256,7 @@ class pulpcore (
   Hash[String[1], Pulpcore::Logger] $loggers = {},
   Optional[Boolean] $telemetry = undef,
   Optional[Boolean] $hide_guarded_distributions = undef,
+  Optional[Integer[1,100]] $import_workers_percent = undef,
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"
