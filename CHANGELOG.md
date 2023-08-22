@@ -1,5 +1,14 @@
 # Changelog
 
+## [8.4.0](https://github.com/theforeman/puppet-pulpcore/tree/8.4.0) (2023-08-22)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.3.0...8.4.0)
+
+**Implemented enhancements:**
+
+- allow configuring IMPORT\_WORKERS\_PERCENT [\#302](https://github.com/theforeman/puppet-pulpcore/pull/302) ([evgeni](https://github.com/evgeni))
+- don't setup ansible-29 repo in acceptance tests [\#301](https://github.com/theforeman/puppet-pulpcore/pull/301) ([evgeni](https://github.com/evgeni))
+
 ## [8.3.0](https://github.com/theforeman/puppet-pulpcore/tree/8.3.0) (2023-08-16)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.2.0...8.3.0)
