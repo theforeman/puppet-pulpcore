@@ -26,6 +26,23 @@ CONTENT
         is_expected.to contain_concat__fragment('plugin-ansible')
           .with_content(%r{^ANSIBLE_API_HOSTNAME = "https://foo.example.com"})
           .with_content(%r{^ANSIBLE_CONTENT_HOSTNAME = "https://foo.example.com/pulp/content"})
+          .without_content(/ANSIBLE_PERMISSION_CLASSES/)
+      end
+
+      context 'with permission classes' do
+        context 'set to an empty array' do
+          let(:params) { { permission_classes: [] } }
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_concat__fragment('plugin-ansible').with_content(/^ANSIBLE_PERMISSION_CLASSES = \[\]$/) }
+        end
+
+        context 'set to a value' do
+          let(:params) { { permission_classes: ['foo', 'bar'] } }
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_concat__fragment('plugin-ansible').with_content(/^ANSIBLE_PERMISSION_CLASSES = \["foo", "bar"\]$/) }
+        end
       end
     end
   end
