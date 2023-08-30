@@ -1,0 +1,9 @@
+<% | Stdlib::Httpurl $external_api_url,
+     Stdlib::Httpurl $external_content_url,
+     Optional[Array[String[1]]] $permission_classes,
+| -%>
+ANSIBLE_API_HOSTNAME = "<%= $external_api_url %>"
+ANSIBLE_CONTENT_HOSTNAME = "<%= $external_content_url %>"
+<% if $permission_classes { -%>
+ANSIBLE_PERMISSION_CLASSES = <%= to_python($permission_classes) %>
+<% } -%>
