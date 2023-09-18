@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.5.0](https://github.com/theforeman/puppet-pulpcore/tree/8.5.0) (2023-09-18)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.4.0...8.5.0)
+
+**Implemented enhancements:**
+
+- Refs [\#36709](https://projects.theforeman.org/issues/36709) - Expose ANSIBLE\_PERMISSION\_CLASSES setting [\#304](https://github.com/theforeman/puppet-pulpcore/pull/304) ([ekohl](https://github.com/ekohl))
+
 ## [8.4.0](https://github.com/theforeman/puppet-pulpcore/tree/8.4.0) (2023-08-22)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.3.0...8.4.0)
