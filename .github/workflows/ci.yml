@@ -2,37 +2,30 @@ name: CI
 
 on:
   pull_request:
-  schedule:
-    - cron: '4 4 * * *'
 
 jobs:
   setup_matrix:
-    if: github.event_name != 'schedule' || github.repository_owner == 'theforeman'
-    name: 'Setup Test Matrix'
+    name: Static validations
     runs-on: ubuntu-latest
     outputs:
       beaker_setfiles: ${{ steps.get_outputs.outputs.beaker_setfiles }}
       puppet_major_versions: ${{ steps.get_outputs.outputs.puppet_major_versions }}
-      puppet_unit_test_matrix: ${{ steps.get_outputs.outputs.puppet_unit_test_matrix }}
+      puppet_unit_test_matrix: ${{ steps.get-outputs.outputs.puppet_unit_test_matrix }}
     env:
       BUNDLE_WITHOUT: development:system_tests:release
-      PUPPET_GEM_VERSION: '~> 7.24'
+      PUPPET_GEM_VERSION: "~> 7.0"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: '3.2'
           bundler-cache: true
-      - name: Run rake check
-        run: bundle exec rake check
-      - name: Run rake validate
-        run: bundle exec rake validate
-      - name: Run rake lint
-        run: bundle exec rake lint
+      - name: Run static validations
+        run: bundle exec rake validate lint check
       - name: Setup Test Matrix
-        id: get_outputs
-        run: bundle exec metadata2gha --use-fqdn --pidfile-workaround false
+        id: get-outputs
+        run: bundle exec metadata2gha --domain example.com --pidfile-workaround false
 
   unit:
     needs: setup_matrix
@@ -43,16 +36,15 @@ jobs:
         include: ${{fromJson(needs.setup_matrix.outputs.puppet_unit_test_matrix)}}
     env:
       BUNDLE_WITHOUT: development:system_tests:release
-      PUPPET_GEM_VERSION: "~> ${{ matrix.puppet }}.24"
-    name: Unit / Puppet ${{ matrix.puppet }} (Ruby ${{ matrix.ruby }})
+      PUPPET_GEM_VERSION: "~> ${{ matrix.puppet }}.0"
+    name: ${{ matrix.puppet }} (Ruby ${{ matrix.ruby }})
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-          cache-version: '1'
       - name: Run tests
         run: bundle exec rake parallel_spec
 
@@ -61,7 +53,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUNDLE_WITHOUT: development:test:release
-      PUPPET_GEM_VERSION: '~> 7.24'
     strategy:
       fail-fast: false
       matrix:
@@ -73,21 +64,17 @@ jobs:
           - '3.21'
     name: Acceptance / ${{ matrix.puppet.name }} - ${{ matrix.setfile.name }} - Pulp ${{ matrix.pulpcore_version }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: '3.2'
           bundler-cache: true
-          cache-version: '1'
       - name: Run tests
         run: bundle exec rake beaker
         env:
           BEAKER_PUPPET_COLLECTION: ${{ matrix.puppet.collection }}
-          BEAKER_setfile: ${{ matrix.setfile.value }}
-          # In Puppet 7 the locale ends up being C.UTF-8 if it isn't passed.
-          # This locale doesn't exist in EL7 and won't be supported either.
-          LANG: en_US.UTF-8
+          BEAKER_SETFILE: ${{ matrix.setfile.value }}
           BEAKER_FACTER_PULPCORE_VERSION: ${{ matrix.pulpcore_version }}
 
   tests:
