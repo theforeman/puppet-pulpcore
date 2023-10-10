@@ -17,3 +17,4 @@ jobs:
       pidfile_workaround: 'false'
       rubocop: false
       cache-version: '1'
+      beaker_facter: 'pulpcore_version:Pulp:3.28,3.22,3.21'
