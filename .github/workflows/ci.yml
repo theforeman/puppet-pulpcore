@@ -1,87 +1,19 @@
+---
 name: CI
 
 on:
   pull_request:
 
+
+concurrency:
+  group: ${{ github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
-  setup_matrix:
-    name: Static validations
-    runs-on: ubuntu-latest
-    outputs:
-      beaker_setfiles: ${{ steps.get_outputs.outputs.beaker_setfiles }}
-      puppet_major_versions: ${{ steps.get_outputs.outputs.puppet_major_versions }}
-      puppet_unit_test_matrix: ${{ steps.get-outputs.outputs.puppet_unit_test_matrix }}
-    env:
-      BUNDLE_WITHOUT: development:system_tests:release
-      PUPPET_GEM_VERSION: "~> 7.0"
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-      - name: Run static validations
-        run: bundle exec rake validate lint check
-      - name: Setup Test Matrix
-        id: get-outputs
-        run: bundle exec metadata2gha --domain example.com --pidfile-workaround false
-
-  unit:
-    needs: setup_matrix
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include: ${{fromJson(needs.setup_matrix.outputs.puppet_unit_test_matrix)}}
-    env:
-      BUNDLE_WITHOUT: development:system_tests:release
-      PUPPET_GEM_VERSION: "~> ${{ matrix.puppet }}.0"
-    name: ${{ matrix.puppet }} (Ruby ${{ matrix.ruby }})
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-      - name: Run tests
-        run: bundle exec rake parallel_spec
-
-  acceptance:
-    needs: setup_matrix
-    runs-on: ubuntu-latest
-    env:
-      BUNDLE_WITHOUT: development:test:release
-    strategy:
-      fail-fast: false
-      matrix:
-        setfile: ${{fromJson(needs.setup_matrix.outputs.beaker_setfiles)}}
-        puppet: ${{fromJson(needs.setup_matrix.outputs.puppet_major_versions)}}
-        pulpcore_version:
-          - '3.28'
-          - '3.22'
-          - '3.21'
-    name: Acceptance / ${{ matrix.puppet.name }} - ${{ matrix.setfile.name }} - Pulp ${{ matrix.pulpcore_version }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-      - name: Run tests
-        run: bundle exec rake beaker
-        env:
-          BEAKER_PUPPET_COLLECTION: ${{ matrix.puppet.collection }}
-          BEAKER_SETFILE: ${{ matrix.setfile.value }}
-          BEAKER_FACTER_PULPCORE_VERSION: ${{ matrix.pulpcore_version }}
-
-  tests:
-    needs:
-      - unit
-      - acceptance
-    runs-on: ubuntu-latest
-    name: Test suite
-    steps:
-      - run: echo Test suite completed
+  puppet:
+    name: Puppet
+    uses: ekohl/gha-puppet/.github/workflows/beaker.yml@set-in-env-var
+    with:
+      pidfile_workaround: 'false'
+      rubocop: false
+      cache-version: '1'
