@@ -22,7 +22,8 @@ begin
         private
 
         def curl_command
-          command = "curl --silent --write-out '%{stderr}Response-Code: %{response_code}\\n' '#{@name}'"
+          # curl on EL8 is too old to support --write-out %stderr
+          command = "/opt/puppetlabs/puppet/bin/curl --silent --write-out '%{stderr}Response-Code: %{response_code}\\n' '#{@name}'"
 
           @options.each do |option, value|
             case option
