@@ -12,7 +12,8 @@ gem 'voxpupuli-test', '~> 7.0', {"groups"=>["test"]}
 gem 'github_changelog_generator', '>= 1.15.0', {"groups"=>["development"]}
 gem 'puppet_metadata', '~> 3.4'
 gem 'puppet-blacksmith', '>= 6.0.0', {"groups"=>["development"]}
-gem 'voxpupuli-acceptance', '~> 2.0', {"groups"=>["system_tests"]}
+# https://github.com/voxpupuli/voxpupuli-acceptance/pull/75
+gem 'voxpupuli-acceptance', github: 'ekohl/voxpupuli-acceptance', branch: 'beaker-hiera-v5', groups: ["system_tests"]
 gem 'puppetlabs_spec_helper', {"groups"=>["system_tests"]}
 
 # vim:ft=ruby
