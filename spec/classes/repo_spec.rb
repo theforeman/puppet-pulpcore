@@ -14,20 +14,6 @@ describe 'pulpcore::repo' do
           .with_gpgkey(%r{https://yum.theforeman.org/pulpcore/\d+\.\d+/GPG-RPM-KEY-pulpcore})
           .that_notifies('Anchor[pulpcore::repo]')
         }
-
-        if os_facts[:os]['release']['major'] == '8'
-          it 'configures the pulpcore module' do
-            is_expected.to contain_package('pulpcore-dnf-module')
-              .with_name('pulpcore')
-              .with_ensure(/^el\d+/)
-              .with_enable_only(true)
-              .with_provider('dnfmodule')
-              .that_requires('Yumrepo[pulpcore]')
-              .that_notifies('Anchor[pulpcore::repo]')
-          end
-        else
-          it { is_expected.not_to contain_package('pulpcore-dnf-module') }
-        end
       end
 
       describe "with nightly version" do

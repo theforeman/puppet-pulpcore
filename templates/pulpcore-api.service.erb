@@ -11,7 +11,7 @@ User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-api
-ExecStart=/usr/libexec/pulpcore/gunicorn pulpcore.app.wsgi:application \
+ExecStart=/usr/bin/pulpcore-api \
           --preload \
           --timeout <%= scope['pulpcore::api_service_worker_timeout'] %> \
           --workers <%= scope['pulpcore::api_service_worker_count'] %> \
