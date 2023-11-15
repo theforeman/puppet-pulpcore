@@ -1,5 +1,17 @@
 # Changelog
 
+## [8.6.0](https://github.com/theforeman/puppet-pulpcore/tree/8.6.0) (2023-11-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.5.0...8.6.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/postgresql 10.x [\#316](https://github.com/theforeman/puppet-pulpcore/pull/316) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet-extlib 7.x [\#314](https://github.com/theforeman/puppet-pulpcore/pull/314) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet/systemd 6.x [\#313](https://github.com/theforeman/puppet-pulpcore/pull/313) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppetlabs/apache 11.x [\#308](https://github.com/theforeman/puppet-pulpcore/pull/308) ([ekohl](https://github.com/ekohl))
+- Add Puppet 8 support [\#297](https://github.com/theforeman/puppet-pulpcore/pull/297) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [8.5.0](https://github.com/theforeman/puppet-pulpcore/tree/8.5.0) (2023-09-18)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.4.0...8.5.0)
