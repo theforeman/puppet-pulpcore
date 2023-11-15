@@ -2,13 +2,25 @@
 #
 # @param version
 #   The Pulpcore version to use
+#
+# @param yum_repo_baseurl
+#   The base URL for Yum repositories
 class pulpcore::repo (
   Pattern['^\d+\.\d+$'] $version = '3.28',
+  Stdlib::HTTPUrl $yum_repo_baseurl = 'https://yum.theforeman.org',
 ) {
   $dist_tag = "el${facts['os']['release']['major']}"
+
+  $gpgcheck_enabled = $version ? {
+    'nightly' => '0',
+    default   => '1',
+  }
+
   $context = {
-    'version'  => $version,
-    'dist_tag' => $dist_tag,
+    'version'          => $version,
+    'dist_tag'         => $dist_tag,
+    'yum_repo_baseurl' => $yum_repo_baseurl,
+    'gpgcheck_enabled' => $gpgcheck_enabled,
   }
 
   file { '/etc/yum.repos.d/pulpcore.repo':
