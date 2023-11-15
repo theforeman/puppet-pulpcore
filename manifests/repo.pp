@@ -3,7 +3,7 @@
 # @param version
 #   The Pulpcore version to use
 class pulpcore::repo (
-  Pattern['^\d+\.\d+$'] $version = '3.28',
+  Variant[Enum['nightly'], Pattern['^\d+\.\d+$']] $version = '3.28',
 ) {
   $dist_tag = "el${facts['os']['release']['major']}"
   $context = {
