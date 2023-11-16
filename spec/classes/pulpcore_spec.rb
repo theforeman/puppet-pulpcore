@@ -386,7 +386,7 @@ CONTENT
         it do
           is_expected.to compile.with_all_deps
           is_expected.to contain_class('pulpcore::repo')
-          is_expected.to contain_file('/etc/yum.repos.d/pulpcore.repo').that_notifies('Class[pulpcore::install]')
+          is_expected.to contain_yumrepo('pulpcore').that_notifies('Class[pulpcore::install]')
         end
       end
 
