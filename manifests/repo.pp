@@ -6,18 +6,14 @@ class pulpcore::repo (
   Variant[Enum['nightly'], Pattern['^\d+\.\d+$']] $version = '3.28',
 ) {
   $dist_tag = "el${facts['os']['release']['major']}"
-  $context = {
-    'version'  => $version,
-    'dist_tag' => $dist_tag,
-  }
 
-  file { '/etc/yum.repos.d/pulpcore.repo':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => epp('pulpcore/repo.epp', $context),
-    notify  => Anchor['pulpcore::repo'],
+  yumrepo { 'pulpcore':
+    name     => "Pulpcore ${version}",
+    baseurl  => "https://yum.theforeman.org/pulpcore/${version}/${dist_tag}/\$basearch",
+    enabled  => '1',
+    gpgcheck => '1',
+    gpgkey   => "https://yum.theforeman.org/pulpcore/${version}/GPG-RPM-KEY-pulpcore",
+    notify   => Anchor['pulpcore::repo'],
   }
 
   # Only EL8 has DNF modules
@@ -27,7 +23,7 @@ class pulpcore::repo (
       name        => 'pulpcore',
       enable_only => true,
       provider    => 'dnfmodule',
-      require     => File['/etc/yum.repos.d/pulpcore.repo'],
+      require     => Yumrepo['pulpcore'],
       notify      => Anchor['pulpcore::repo'],
     }
   }
