@@ -2,17 +2,24 @@
 #
 # @param version
 #   The Pulpcore version to use
+# @param baseurl
+#   An optional base URL to be used for yumrepo, instead of the default
+# @param gpgkey
+#   An optional value for gpgkey to be used for yumrepo, instead of the default.
+#   If an empty string is passed, gpgcheck will be disabled.
 class pulpcore::repo (
   Variant[Enum['nightly'], Pattern['^\d+\.\d+$']] $version = '3.28',
+  Optional[Stdlib::HTTPUrl] $baseurl = undef,
+  Optional[String[0]] $gpgkey = undef,
 ) {
   $dist_tag = "el${facts['os']['release']['major']}"
 
   yumrepo { 'pulpcore':
     name     => "Pulpcore ${version}",
-    baseurl  => "https://yum.theforeman.org/pulpcore/${version}/${dist_tag}/\$basearch",
+    baseurl  => pick($baseurl, "https://yum.theforeman.org/pulpcore/${version}/${dist_tag}/\$basearch"),
     enabled  => '1',
-    gpgcheck => '1',
-    gpgkey   => "https://yum.theforeman.org/pulpcore/${version}/GPG-RPM-KEY-pulpcore",
+    gpgcheck => if $gpgkey == '' { '0' } else { '1' },
+    gpgkey   => pick($gpgkey, "https://yum.theforeman.org/pulpcore/${version}/GPG-RPM-KEY-pulpcore"),
     notify   => Anchor['pulpcore::repo'],
   }
 
