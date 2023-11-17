@@ -15,7 +15,7 @@ class pulpcore::repo (
   $dist_tag = "el${facts['os']['release']['major']}"
 
   yumrepo { 'pulpcore':
-    name     => "Pulpcore ${version}",
+    descr    => "Pulpcore ${version}",
     baseurl  => pick($baseurl, "https://yum.theforeman.org/pulpcore/${version}/${dist_tag}/\$basearch"),
     enabled  => '1',
     gpgcheck => if $gpgkey == '' { '0' } else { '1' },
