@@ -1,5 +1,18 @@
 # Changelog
 
+## [9.0.0](https://github.com/theforeman/puppet-pulpcore/tree/9.0.0) (2023-11-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.6.0...9.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#36902](https://projects.theforeman.org/issues/36902) - Support Pulpcore 3.39, drop older versions [\#315](https://github.com/theforeman/puppet-pulpcore/pull/315) ([ianballou](https://github.com/ianballou))
+
+**Implemented enhancements:**
+
+- Use the yumrepo type to manage the repository & expose more params [\#320](https://github.com/theforeman/puppet-pulpcore/pull/320) ([ekohl](https://github.com/ekohl))
+- Support nightly repository version [\#318](https://github.com/theforeman/puppet-pulpcore/pull/318) ([ehelms](https://github.com/ehelms))
+
 ## [8.6.0](https://github.com/theforeman/puppet-pulpcore/tree/8.6.0) (2023-11-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.5.0...8.6.0)
