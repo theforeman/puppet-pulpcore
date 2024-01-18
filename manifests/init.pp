@@ -183,11 +183,11 @@
 # @param loggers
 #   Configure additional loggers or override pre-defined logger configuration.
 #
-# @param telemetry
-#   Configure TELEMETRY in settings.yml, which controls the reporting of anonymous data to https://analytics.pulpproject.org/,
+# @param analytics
+#   Configure ANALYTICS in settings.yml, which controls the reporting of anonymous data to https://analytics.pulpproject.org/,
 #   starting with Pulpcore version 3.21.0, to guide Pulp project developers. Set this to false to opt out of this anonymous reporting;
 #   if undef, it will instead be omitted from settings.yml and Pulp will report these usage statistics per its default behavior.
-#   Adding this configuration will have no effect in Pulp versions prior to the introduction of the telemetry feature.
+#   Originally, the pulp setting was called TELEMETRY and this param was called telemetry; it was renamed by the pulp developers.
 #
 # @param hide_guarded_distributions
 #   If activated, the distributions that are protected by a content guard will not be shown on the
@@ -254,7 +254,7 @@ class pulpcore (
   Optional[Variant[Integer[1], Enum['None']]] $cache_expires_ttl = undef,
   Pulpcore::LogLevel $log_level = 'INFO',
   Hash[String[1], Pulpcore::Logger] $loggers = {},
-  Optional[Boolean] $telemetry = undef,
+  Optional[Boolean] $analytics = undef,
   Optional[Boolean] $hide_guarded_distributions = undef,
   Optional[Integer[1,100]] $import_workers_percent = undef,
 ) {

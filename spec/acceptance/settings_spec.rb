@@ -1,7 +1,7 @@
 require 'spec_helper_acceptance'
 
-describe 'TELEMETRY setting' do
-  context 'default TELEMETRY' do
+describe 'ANALYTICS setting' do
+  context 'default ANALYTICS' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
         <<-PUPPET
@@ -12,16 +12,16 @@ describe 'TELEMETRY setting' do
 
     describe file('/etc/pulp/settings.py') do
       it { is_expected.to be_file }
-      its(:content) { is_expected.to match(/^# TELEMETRY = False$/) }
+      its(:content) { is_expected.to match(/^# ANALYTICS = False$/) }
     end
   end
 
-  context 'TELEMETRY disabled' do
+  context 'ANALYTICS disabled' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
         <<-PUPPET
         class { 'pulpcore':
-          telemetry => false,
+          analytics => false,
         }
         PUPPET
       end
@@ -29,16 +29,16 @@ describe 'TELEMETRY setting' do
 
     describe file('/etc/pulp/settings.py') do
       it { is_expected.to be_file }
-      its(:content) { is_expected.to match(/^TELEMETRY = False$/) }
+      its(:content) { is_expected.to match(/^ANALYTICS = False$/) }
     end
   end
 
-  context 'TELEMETRY enabled' do
+  context 'ANALYTICS enabled' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
         <<-PUPPET
         class { 'pulpcore':
-          telemetry => true,
+          analytics => true,
         }
         PUPPET
       end
@@ -46,7 +46,7 @@ describe 'TELEMETRY setting' do
 
     describe file('/etc/pulp/settings.py') do
       it { is_expected.to be_file }
-      its(:content) { is_expected.to match(/^TELEMETRY = True$/) }
+      its(:content) { is_expected.to match(/^ANALYTICS = True$/) }
     end
   end
 end

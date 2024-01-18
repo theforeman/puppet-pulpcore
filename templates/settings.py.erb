@@ -11,10 +11,10 @@
 # Send anonymous usage data to https://analytics.pulpproject.org/ unless this is
 # explicitly defined with value False. This data is used by the Pulp project
 # to make informed, data-driven decisions about future feature development.
-<% if scope['pulpcore::telemetry'].nil? -%>
-# TELEMETRY = False
+<% if scope['pulpcore::analytics'].nil? -%>
+# ANALYTICS = False
 <% else -%>
-TELEMETRY = <%= scope.call_function('to_python', [scope['pulpcore::telemetry']]) %>
+ANALYTICS = <%= scope.call_function('to_python', [scope['pulpcore::analytics']]) %>
 <% end -%>
 
 CONTENT_ORIGIN = "https://<%= scope['pulpcore::servername'] %>"
