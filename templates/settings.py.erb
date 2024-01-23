@@ -52,6 +52,9 @@ WORKING_DIRECTORY = "<%= scope['pulpcore::cache_dir'] %>"
 REMOTE_USER_ENVIRON_NAME = '<%= scope['pulpcore::remote_user_environ_name'] %>'
 AUTHENTICATION_BACKENDS = ['pulpcore.app.authentication.PulpNoCreateRemoteUserBackend']
 
+<% unless scope['pulpcore::page_size'].nil? -%>
+REST_FRAMEWORK__PAGE_SIZE = <%= scope['pulpcore::page_size'] %>
+<% end -%>
 REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES = (
     'rest_framework.authentication.SessionAuthentication',
     'pulpcore.app.authentication.PulpRemoteUserAuthentication'

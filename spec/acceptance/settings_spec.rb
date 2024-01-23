@@ -51,6 +51,25 @@ describe 'TELEMETRY setting' do
   end
 end
 
+describe 'PAGE_SIZE setting' do
+  context 'Custom PAGE_SIZE' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        class { 'pulpcore':
+          page_size => 200,
+        }
+        PUPPET
+      end
+    end
+
+    describe file('/etc/pulp/settings.py') do
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to match(/^REST_FRAMEWORK__PAGE_SIZE = 200$/) }
+    end
+  end
+end
+
 describe 'HIDE_GUARDED_DISTRIBUTIONS setting' do
   context 'default HIDE_GUARDED_DISTRIBUTIONS' do
     it_behaves_like 'an idempotent resource' do

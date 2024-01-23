@@ -27,6 +27,7 @@ describe 'pulpcore' do
             .with_content(%r{CACHE_ENABLED = False})
             .without_content(%r{sslmode})
             .without_content(%r{WORKER_TTL})
+            .without_content(%r{REST_FRAMEWORK__PAGE_SIZE})
           is_expected.to contain_concat__fragment('logging').with_content(<<~LOGGING)
             LOGGING = {
                 "dynaconf_merge": True,

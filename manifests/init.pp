@@ -73,6 +73,9 @@
 #   STATIC_URL setting. In reality this can also be just the path and doesn't
 #   have to be a full URL.
 #
+# @param page_size
+#   Configure the PAGE_SIZE setting for Pagination.
+#
 # @param postgresql_db_name
 #   Name of Pulp PostgreSQL database
 #
@@ -220,6 +223,7 @@ class pulpcore (
   String[1] $apache_vhost_priority = '10',
   Stdlib::Absolutepath $api_socket_path = '/run/pulpcore-api.sock',
   Stdlib::Absolutepath $content_socket_path = '/run/pulpcore-content.sock',
+  Optional[Integer[1]] $page_size = undef,
   String $postgresql_db_name = 'pulpcore',
   String $postgresql_db_user = 'pulp',
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),
