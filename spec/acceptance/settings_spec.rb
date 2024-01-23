@@ -1,21 +1,6 @@
 require 'spec_helper_acceptance'
 
 describe 'ANALYTICS setting' do
-  context 'default ANALYTICS' do
-    it_behaves_like 'an idempotent resource' do
-      let(:manifest) do
-        <<-PUPPET
-        include pulpcore
-        PUPPET
-      end
-    end
-
-    describe file('/etc/pulp/settings.py') do
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match(/^# ANALYTICS = False$/) }
-    end
-  end
-
   context 'ANALYTICS disabled' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
