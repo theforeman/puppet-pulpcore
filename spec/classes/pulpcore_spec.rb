@@ -25,6 +25,7 @@ describe 'pulpcore' do
             .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
             .with_content(%r{REDIS_URL = "redis://localhost:6379/8"})
             .with_content(%r{CACHE_ENABLED = False})
+            .with_content(%r{# ANALYTICS = False})
             .without_content(%r{sslmode})
             .without_content(%r{WORKER_TTL})
           is_expected.to contain_concat__fragment('logging').with_content(<<~LOGGING)
