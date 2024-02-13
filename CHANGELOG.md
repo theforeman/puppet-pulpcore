@@ -1,5 +1,22 @@
 # Changelog
 
+## [10.0.0](https://github.com/theforeman/puppet-pulpcore/tree/10.0.0) (2024-02-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/9.0.0...10.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#37062](https://projects.theforeman.org/issues/37062) - Rename pulpcore::telemetry to pulpcore::analytics [\#326](https://github.com/theforeman/puppet-pulpcore/pull/326) ([wbclark](https://github.com/wbclark))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppet/redis 10.x [\#330](https://github.com/theforeman/puppet-pulpcore/pull/330) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Ensure glibc-langpack-en is always installed [\#329](https://github.com/theforeman/puppet-pulpcore/pull/329) ([evgeni](https://github.com/evgeni))
+- Drop pulpcore::plugin::migration [\#325](https://github.com/theforeman/puppet-pulpcore/pull/325) ([ekohl](https://github.com/ekohl))
+
 ## [9.0.0](https://github.com/theforeman/puppet-pulpcore/tree/9.0.0) (2023-11-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.6.0...9.0.0)
