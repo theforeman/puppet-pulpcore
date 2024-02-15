@@ -1,14 +1,3 @@
-$major = $facts['os']['release']['major']
-
-case $major {
-  '8': {
-    package { 'glibc-langpack-en':
-      ensure => installed,
-    }
-  }
-  default: {}
-}
-
 class { 'pulpcore::repo':
   version => fact('pulpcore_version'),
 }
