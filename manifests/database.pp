@@ -7,12 +7,14 @@ class pulpcore::database (
     include postgresql::client
     include postgresql::server
     include postgresql::server::contrib
+    ensure_packages(['glibc-langpack-en'])
     postgresql::server::db { $pulpcore::postgresql_db_name:
       user     => $pulpcore::postgresql_db_user,
       password => postgresql::postgresql_password($pulpcore::user, $pulpcore::postgresql_db_password),
       encoding => 'utf8',
       locale   => 'en_US.utf8',
       before   => Pulpcore::Admin['migrate --noinput'],
+      require  => Package['glibc-langpack-en'],
     }
 
     postgresql::server::extension { "hstore for ${pulpcore::postgresql_db_name}":
