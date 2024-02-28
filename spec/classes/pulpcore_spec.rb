@@ -678,6 +678,18 @@ CONTENT
           end
         end
       end
+
+      context 'with external redis' do
+        let(:params) do
+          {
+            redis_url: 'redis://redis.example.com:12345/7',
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_concat__fragment('base').with_content(%r{^REDIS_URL = "redis://redis\.example\.com:12345/7"$}) }
+        it { is_expected.not_to contain_class('redis') }
+      end
     end
   end
 end
