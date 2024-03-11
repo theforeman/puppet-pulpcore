@@ -8,6 +8,7 @@
   Optional[Boolean]         $verify_ssl = undef,
   Optional[Boolean]         $dry_run = undef,
 | -%>
+# This file is managed by puppet-pulpcore. Manual edits will be overwritten with the next run.
 [cli]
 <% if $base_url { -%>
 base_url = "<%= $base_url %>"
