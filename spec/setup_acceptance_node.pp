@@ -1,5 +1,6 @@
 class { 'pulpcore::repo':
   version => fact('pulpcore_version'),
+  baseurl => fact('pulpcore_baseurl'),
 }
 
 # Needed as a workaround for idempotency
