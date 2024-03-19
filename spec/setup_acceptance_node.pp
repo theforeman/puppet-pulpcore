@@ -1,6 +1,7 @@
 class { 'pulpcore::repo':
   version => fact('pulpcore_version'),
   baseurl => fact('pulpcore_baseurl'),
+  gpgkey  => fact('pulpcore_gpgkey'),
 }
 
 # Needed as a workaround for idempotency
