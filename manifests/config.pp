@@ -81,4 +81,28 @@ class pulpcore::config {
     mode    => '0640',
     require => Exec['Create database symmetric key'],
   }
+
+  if $pulpcore::use_pulp2_file_content_route {
+    $context = {
+      'directories' => [
+        {
+          'provider'        => 'location',
+          'path'            => '/pulp/isos',
+          'proxy_pass'      => [
+            {
+              'url'    => $pulpcore::apache::content_url,
+              'params' => $pulpcore::apache::content_proxy_params,
+            },
+          ],
+          'request_headers' => [
+            'unset X-CLIENT-CERT',
+            'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
+          ],
+        },
+      ],
+    }
+    $content = epp('pulpcore/apache-fragment.epp', $context)
+  } else {
+    $content = undef
+  }
 }

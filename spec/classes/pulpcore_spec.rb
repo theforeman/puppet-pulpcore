@@ -656,6 +656,39 @@ CONTENT
             is_expected.to contain_service("pulpcore-worker@#{i}.service")
               .with_ensure(true)
               .with_enable(true)
+        end
+
+          context 'with pulp2 content route' do
+            let(:params) { { use_pulp2_file_content_route: true } }
+  
+            it 'contains the Apache fragment' do
+              is_expected.to compile.with_all_deps
+              is_expected.to contain_pulpcore__apache__fragment('plugin-file')
+              is_expected.to contain_apache__vhost__fragment('pulpcore-http-plugin-file')
+                .with_content(
+<<CONTENT
+
+  <Location "/pulp/isos">
+    RequestHeader unset X-CLIENT-CERT
+    RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content disablereuse=on timeout=600
+    ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
+  </Location>
+CONTENT
+                )
+              is_expected.to contain_apache__vhost__fragment('pulpcore-https-plugin-file')
+                .with_content(
+<<CONTENT
+
+  <Location "/pulp/isos">
+    RequestHeader unset X-CLIENT-CERT
+    RequestHeader set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT
+    ProxyPass unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content disablereuse=on timeout=600
+    ProxyPassReverse unix:///run/pulpcore-content.sock|http://pulpcore-content/pulp/content
+  </Location>
+CONTENT
+                )
+            end
           end
         end
       end

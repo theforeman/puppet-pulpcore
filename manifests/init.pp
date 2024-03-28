@@ -197,6 +197,9 @@
 #   What percentage of available-workers will pulpcore use for import tasks at a time.
 #   By default, pulpcore will use all available workers.
 #
+# @param use_pulp2_file_content_route
+#   Whether to redirect the legacy (Pulp 2) URLs to the content server
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -257,6 +260,7 @@ class pulpcore (
   Optional[Boolean] $analytics = undef,
   Optional[Boolean] $hide_guarded_distributions = undef,
   Optional[Integer[1,100]] $import_workers_percent = undef,
+  Boolean $use_pulp2_file_content_route = false,
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"

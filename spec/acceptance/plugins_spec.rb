@@ -6,10 +6,8 @@ describe 'Installation with all plugins' do
       <<-PUPPET
       include pulpcore
       include pulpcore::plugin::ansible
-      include pulpcore::plugin::certguard
       include pulpcore::plugin::container
       include pulpcore::plugin::deb
-      include pulpcore::plugin::file
       include pulpcore::plugin::ostree
       include pulpcore::plugin::python
       include pulpcore::plugin::rpm
