@@ -32,7 +32,7 @@ describe 'pulpcore::plugin::deb' do
         end
 
         context 'with pulp2 content route' do
-          let(:params) { { use_pulp2_content_route: true } }
+          let(:params) { { use_pulp2_file_content_route: true } }
 
           it 'contains the Apache fragment' do
             is_expected.to compile.with_all_deps

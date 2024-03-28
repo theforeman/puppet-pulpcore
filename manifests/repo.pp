@@ -16,10 +16,10 @@ class pulpcore::repo (
 
   yumrepo { 'pulpcore':
     descr    => "Pulpcore ${version}",
-    baseurl  => pick($baseurl, "https://yum.theforeman.org/pulpcore/${version}/${dist_tag}/\$basearch"),
+    baseurl  => pick($baseurl, "https://stagingyum.theforeman.org/pulpcore/${version}/${dist_tag}/\$basearch"),
     enabled  => '1',
     gpgcheck => if $gpgkey == '' or $version == 'nightly' { '0' } else { '1' },
-    gpgkey   => pick($gpgkey, "https://yum.theforeman.org/pulpcore/${version}/GPG-RPM-KEY-pulpcore"),
+    gpgkey   => pick($gpgkey, "https://stagingyum.theforeman.org/pulpcore/${version}/GPG-RPM-KEY-pulpcore"),
     notify   => Anchor['pulpcore::repo'],
   }
 

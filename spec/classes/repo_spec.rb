@@ -9,9 +9,9 @@ describe 'pulpcore::repo' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_anchor('pulpcore::repo') }
         it { is_expected.to contain_yumrepo('pulpcore')
-          .with_baseurl(%r{https://yum.theforeman.org/pulpcore/\d+\.\d+/el\d+/\$basearch$})
+          .with_baseurl(%r{https://stagingyum.theforeman.org/pulpcore/\d+\.\d+/el\d+/\$basearch$})
           .with_gpgcheck(1)
-          .with_gpgkey(%r{https://yum.theforeman.org/pulpcore/\d+\.\d+/GPG-RPM-KEY-pulpcore})
+          .with_gpgkey(%r{https://stagingyum.theforeman.org/pulpcore/\d+\.\d+/GPG-RPM-KEY-pulpcore})
           .that_notifies('Anchor[pulpcore::repo]')
         }
       end
@@ -26,7 +26,7 @@ describe 'pulpcore::repo' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_yumrepo('pulpcore')
-          .with_baseurl(%r{https://yum.theforeman.org/pulpcore/nightly/el\d+/\$basearch$})
+          .with_baseurl(%r{https://stagingyum.theforeman.org/pulpcore/nightly/el\d+/\$basearch$})
           .with_gpgcheck(0)
           .that_notifies('Anchor[pulpcore::repo]')
         }

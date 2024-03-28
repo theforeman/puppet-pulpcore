@@ -4,13 +4,12 @@ describe 'Pulp 2 content routes' do
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
       <<-PUPPET
-      include pulpcore
+      class { 'pulpcore':
+      use_pulp2_file_content_route => true,
+      } 
       include pulpcore::plugin::certguard
       include pulpcore::plugin::container
       include pulpcore::plugin::deb
-      class { 'pulpcore::plugin::file':
-        use_pulp2_content_route => true,
-      }
       class { 'pulpcore::plugin::rpm':
         use_pulp2_content_route => true,
       }
