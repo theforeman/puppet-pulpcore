@@ -1,5 +1,20 @@
 # Changelog
 
+## [10.1.0](https://github.com/theforeman/puppet-pulpcore/tree/10.1.0) (2024-05-16)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.0.0...10.1.0)
+
+**Implemented enhancements:**
+
+- Allow puppet/redis 11.x and puppet/systemd 7.x [\#339](https://github.com/theforeman/puppet-pulpcore/pull/339) ([evgeni](https://github.com/evgeni))
+- use `migrate --check` not `migrate --plan |grep` check for migrations [\#338](https://github.com/theforeman/puppet-pulpcore/pull/338) ([evgeni](https://github.com/evgeni))
+- Allow puppetlabs/apache 12.x [\#334](https://github.com/theforeman/puppet-pulpcore/pull/334) ([evgeni](https://github.com/evgeni))
+- Allow setting baseurl fact during acceptance tests [\#333](https://github.com/theforeman/puppet-pulpcore/pull/333) ([Odilhao](https://github.com/Odilhao))
+
+**Fixed bugs:**
+
+- Fixes [\#37308](https://projects.theforeman.org/issues/37308) - set REMOTE\_USER properly for pulpcore registry [\#337](https://github.com/theforeman/puppet-pulpcore/pull/337) ([ianballou](https://github.com/ianballou))
+
 ## [10.0.0](https://github.com/theforeman/puppet-pulpcore/tree/10.0.0) (2024-02-19)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/9.0.0...10.0.0)
