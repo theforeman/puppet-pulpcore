@@ -43,10 +43,13 @@ class pulpcore::apache (
 
   # Pulp has a default for remote header. Here it's ensured that the end user
   # can't send that header to spoof users.
-  $remote_user_environ_header = $pulpcore::remote_user_environ_name.regsubst(/^HTTP_/, '')
+  # The logic is only sufficient for headers with at most one underscore!
+  $remote_user_environ_header_underscore = $pulpcore::remote_user_environ_name.regsubst(/^HTTP_/, '')
+  $remote_user_environ_header = $remote_user_environ_header_underscore.regsubst('_', '-')
 
   $api_default_request_headers = [
     "unset ${remote_user_environ_header}",
+    "unset ${remote_user_environ_header_underscore}",
     "set ${remote_user_environ_header} \"%{SSL_CLIENT_S_DN_CN}s\" env=SSL_CLIENT_S_DN_CN",
   ]
 

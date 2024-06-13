@@ -72,6 +72,18 @@ shared_examples 'the default pulpcore application' do
     its(:exit_status) { is_expected.to eq 0 }
   end
 
+  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/users/", cacert: "#{certdir}/ca-cert.pem", headers: {'remote-user': 'admin'}) do
+    its(:response_code) { is_expected.to eq(403) }
+    its(:body) { is_expected.to contain('Authentication credentials were not provided.') }
+    its(:exit_status) { is_expected.to eq 0 }
+  end
+
+  describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/users/", cacert: "#{certdir}/ca-cert.pem", headers: {'remote_user': 'admin'}) do
+    its(:response_code) { is_expected.to eq(403) }
+    its(:body) { is_expected.to contain('Authentication credentials were not provided.') }
+    its(:exit_status) { is_expected.to eq 0 }
+  end
+
   describe curl_command("https://#{host_inventory['fqdn']}/pulp/api/v3/users/",
                         cacert: "#{certdir}/ca-cert.pem", key: "#{certdir}/client-key.pem", cert: "#{certdir}/client-cert.pem") do
     its(:response_code) { is_expected.to eq(200) }

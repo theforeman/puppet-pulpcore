@@ -12,6 +12,7 @@ class pulpcore::plugin::container (
   # This is like pulpcore::apache's value, but slightly different
   $api_default_request_headers = [
     "unset ${pulpcore::apache::remote_user_environ_header}",
+    "unset ${pulpcore::apache::remote_user_environ_header_underscore}",
   ]
 
   $context = {
