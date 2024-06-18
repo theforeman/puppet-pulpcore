@@ -121,6 +121,12 @@
 # @param remote_user_environ_name
 #   Django remote user environment variable
 #
+# @param authentication_backends
+#   List of used authentication backends
+#
+# @param rest_framework_default_authentication_classes
+#   List of used REST framework default authentication classes
+#
 # @param allowed_import_path
 #   Allowed paths that pulp can use for content imports, or sync from using file:// protocol
 #
@@ -239,6 +245,11 @@ class pulpcore (
   Array[Stdlib::Absolutepath] $allowed_export_path = [],
   Pulpcore::ChecksumTypes $allowed_content_checksums = ['sha224', 'sha256', 'sha384', 'sha512'],
   String[1] $remote_user_environ_name = 'HTTP_REMOTE_USER',
+  Array[String[1]] $authentication_backends = ['pulpcore.app.authentication.PulpNoCreateRemoteUserBackend'],
+  Array[String[1]] $rest_framework_default_authentication_classes = [
+    'rest_framework.authentication.SessionAuthentication',
+    'pulpcore.app.authentication.PulpRemoteUserAuthentication',
+  ],
   Integer[0] $worker_count = min(8, $facts['processors']['count']),
   Optional[Integer[0]] $worker_ttl = undef,
   Boolean $service_enable = true,
