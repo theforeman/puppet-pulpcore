@@ -50,11 +50,12 @@ FILE_UPLOAD_TEMP_DIR = "<%= scope['pulpcore::cache_dir'] %>"
 WORKING_DIRECTORY = "<%= scope['pulpcore::cache_dir'] %>"
 
 REMOTE_USER_ENVIRON_NAME = '<%= scope['pulpcore::remote_user_environ_name'] %>'
-AUTHENTICATION_BACKENDS = ['pulpcore.app.authentication.PulpNoCreateRemoteUserBackend']
+AUTHENTICATION_BACKENDS = <%= scope['pulpcore::authentication_backends'] %>
 
 REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES = (
-    'rest_framework.authentication.SessionAuthentication',
-    'pulpcore.app.authentication.PulpRemoteUserAuthentication'
+<% scope['pulpcore::rest_framework_default_authentication_classes'].each do |authclass| -%>
+    '<%= authclass %>',
+<% end -%>
 )
 
 ALLOWED_IMPORT_PATHS = <%= scope['pulpcore::allowed_import_path'] %>
