@@ -164,6 +164,7 @@ describe 'REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES setting' do
 
     describe file('/etc/pulp/settings.py') do
       it { is_expected.to be_file }
+      its(:content) do
         is_expected.to include <<~EXPECTED
           REST_FRAMEWORK__DEFAULT_AUTHENTICATION_CLASSES = (
               'rest_framework.authentication.BasicAuthentication',
