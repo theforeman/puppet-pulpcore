@@ -1,5 +1,15 @@
 # Changelog
 
+## [10.2.0](https://github.com/theforeman/puppet-pulpcore/tree/10.2.0) (2024-08-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.1.0...10.2.0)
+
+**Implemented enhancements:**
+
+- Update puppet\_metadata to ~\> 4.0 and voxpupuli-acceptance to ~\> 3.0 [\#347](https://github.com/theforeman/puppet-pulpcore/pull/347) ([archanaserver](https://github.com/archanaserver))
+- Add ability to configure auth backends and classes [\#346](https://github.com/theforeman/puppet-pulpcore/pull/346) ([Scnaeg](https://github.com/Scnaeg))
+- Add AlmaLinux 8 & 9 support [\#345](https://github.com/theforeman/puppet-pulpcore/pull/345) ([archanaserver](https://github.com/archanaserver))
+
 ## [10.1.0](https://github.com/theforeman/puppet-pulpcore/tree/10.1.0) (2024-05-16)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.0.0...10.1.0)
