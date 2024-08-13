@@ -30,7 +30,6 @@ class pulpcore::database (
 
   pulpcore::admin { 'migrate --noinput':
     timeout     => $timeout,
-    unless      => 'pulpcore-manager migrate --check',
     refreshonly => false,
   }
 
