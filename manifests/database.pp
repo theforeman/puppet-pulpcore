@@ -2,6 +2,7 @@
 # @api private
 class pulpcore::database (
   Integer[0] $timeout = 3600,
+  Boolean $always_run_migrations = true,
 ) {
   if $pulpcore::postgresql_manage_db {
     include postgresql::client
@@ -28,8 +29,17 @@ class pulpcore::database (
     Class['postgresql::server::service'] ~> Service['pulpcore-content.service']
   }
 
+  # By default we want to always run `migrate`, even if `--check` returns no pending migrations
+  # This is due to the fact that Pulp uses post_migration hooks that need to be executed even
+  # when no real migration has happened.
+  $migrate_unless = $always_run_migrations ? {
+    false   => 'pulpcore-manager migrate --check',
+    default => undef,
+  }
+
   pulpcore::admin { 'migrate --noinput':
     timeout     => $timeout,
+    unless      => $migrate_unless,
     refreshonly => false,
   }
 
