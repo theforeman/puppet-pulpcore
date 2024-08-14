@@ -1,5 +1,17 @@
 # Changelog
 
+## [10.3.0](https://github.com/theforeman/puppet-pulpcore/tree/10.3.0) (2024-08-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.2.0...10.3.0)
+
+**Implemented enhancements:**
+
+- explicitly support Pulpcore 3.49 [\#352](https://github.com/theforeman/puppet-pulpcore/pull/352) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- Always run pulpcore-manager migrate [\#351](https://github.com/theforeman/puppet-pulpcore/pull/351) ([evgeni](https://github.com/evgeni))
+
 ## [10.2.0](https://github.com/theforeman/puppet-pulpcore/tree/10.2.0) (2024-08-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.1.0...10.2.0)
