@@ -9,14 +9,6 @@ class pulpcore::plugin::container (
   String $location_prefix = '/pulpcore_registry',
   String $registry_version_path = '/v2/',
 ) {
-  $api_default_request_headers = [
-    "unset ${pulpcore::apache::remote_user_environ_header}",
-  ]
-
-  $api_additional_request_headers = $pulpcore::api_client_auth_cn_map.map |String $cn, String $pulp_user| {
-    "set ${pulpcore::apache::remote_user_environ_header} \"${pulp_user}\" \"expr=%{SSL_CLIENT_S_DN_CN} == '${cn}'\""
-  }
-
   $context = {
     'directories' => [
       {
@@ -27,7 +19,7 @@ class pulpcore::plugin::container (
             'url' => "${pulpcore::apache::api_base_url}${registry_version_path}",
           },
         ],
-        'request_headers' => $api_default_request_headers + $api_additional_request_headers,
+        'request_headers' => $pulpcore::apache::api_default_request_headers + $pulpcore::apache::api_additional_request_headers,
       },
     ],
     'proxy_pass'  => [
