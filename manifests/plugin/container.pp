@@ -9,6 +9,11 @@ class pulpcore::plugin::container (
   String $location_prefix = '/pulpcore_registry',
   String $registry_version_path = '/v2/',
 ) {
+  # This is like pulpcore::apache's value, but slightly different
+  $api_default_request_headers = [
+    "unset ${pulpcore::apache::remote_user_environ_header}",
+  ]
+
   $context = {
     'directories' => [
       {
@@ -19,7 +24,7 @@ class pulpcore::plugin::container (
             'url' => "${pulpcore::apache::api_base_url}${registry_version_path}",
           },
         ],
-        'request_headers' => $pulpcore::apache::api_default_request_headers + $pulpcore::apache::api_additional_request_headers,
+        'request_headers' => $api_default_request_headers + $pulpcore::apache::api_additional_request_headers,
       },
     ],
     'proxy_pass'  => [
