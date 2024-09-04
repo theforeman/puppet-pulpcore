@@ -1,5 +1,17 @@
 # Changelog
 
+## [10.4.0](https://github.com/theforeman/puppet-pulpcore/tree/10.4.0) (2024-09-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.3.0...10.4.0)
+
+**Implemented enhancements:**
+
+- Reuse headers from pulpcore::apache class [\#354](https://github.com/theforeman/puppet-pulpcore/pull/354) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Don't use underscores in HTTP headers [\#357](https://github.com/theforeman/puppet-pulpcore/pull/357) ([evgeni](https://github.com/evgeni))
+
 ## [10.3.0](https://github.com/theforeman/puppet-pulpcore/tree/10.3.0) (2024-08-14)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.2.0...10.3.0)
