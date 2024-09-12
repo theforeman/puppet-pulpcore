@@ -1,7 +1,7 @@
 [Unit]
 Description=Pulp Worker
 After=network-online.target
-Wants=network-online.target
+Wants=network-online.target postgresql.service
 
 [Service]
 Type=simple

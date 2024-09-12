@@ -2,6 +2,7 @@
 Description=Pulp Content App
 Requires=pulpcore-content.socket
 After=network.target
+Wants=postgresql.service
 
 [Service]
 Type=notify
