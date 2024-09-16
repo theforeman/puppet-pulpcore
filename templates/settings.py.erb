@@ -37,7 +37,7 @@ DATABASES = {
 <% end -%>
     },
 }
-REDIS_URL = "redis://localhost:<%= scope['redis::port'] %>/<%= scope['pulpcore::redis_db'] %>"
+REDIS_URL = "<%= @redis_url %>"
 
 <% if scope['pulpcore::worker_ttl'] -%>
 WORKER_TTL = <%= scope['pulpcore::worker_ttl'] %>
