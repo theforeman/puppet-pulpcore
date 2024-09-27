@@ -48,6 +48,4 @@ class pulpcore::database (
     refreshonly => false,
     require     => Pulpcore::Admin['migrate --noinput'],
   }
-
-  contain redis
 }
