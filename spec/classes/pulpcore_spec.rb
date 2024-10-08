@@ -133,7 +133,6 @@ describe 'pulpcore' do
                 'request_headers' => [
                   'unset REMOTE-USER',
                   'unset REMOTE_USER',
-                  'set REMOTE-USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN',
                 ],
               }
             ])
@@ -359,7 +358,6 @@ CONTENT
   <Location "/pulp/api/v3">
     RequestHeader unset REMOTE-USER
     RequestHeader unset REMOTE_USER
-    RequestHeader set REMOTE-USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN
     ProxyPass unix:///run/pulpcore-api.sock|http://pulpcore-api/pulp/api/v3 timeout=600
     ProxyPassReverse unix:///run/pulpcore-api.sock|http://pulpcore-api/pulp/api/v3
   </Location>
@@ -524,7 +522,6 @@ CONTENT
                 'request_headers' => [
                   'unset REMOTE-USER',
                   'unset REMOTE_USER',
-                  'set REMOTE-USER "%{SSL_CLIENT_S_DN_CN}s" env=SSL_CLIENT_S_DN_CN',
                   'set REMOTE-USER "admin" "expr=%{SSL_CLIENT_S_DN_CN} == \'foreman.example.com\'"',
                 ],
               }
