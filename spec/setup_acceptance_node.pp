@@ -34,7 +34,7 @@ exec { 'Create certificate directory':
   umask     => '0022',
 }
 -> exec { 'Generate CSR':
-  command   => "openssl req -nodes -new -newkey rsa:2048 -subj '/CN=admin' -out '${client_csr}' -keyout '${client_key}'",
+  command   => "openssl req -nodes -new -newkey rsa:2048 -subj '/CN=${facts['networking']['fqdn']}' -addext 'subjectAltName = DNS:${facts['networking']['fqdn']}' -out '${client_csr}' -keyout '${client_key}'",
   path      => ['/bin', '/usr/bin'],
   creates   => $client_csr,
   logoutput => 'on_failure',
