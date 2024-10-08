@@ -1,6 +1,8 @@
 ---
 apache::default_mods: false
-pulpcore::apache_https_cert: '/etc/pulpcore-certs/ca-cert.pem'
-pulpcore::apache_https_key: '/etc/pulpcore-certs/ca-key.pem'
+pulpcore::apache_https_cert: '/etc/pulpcore-certs/client-cert.pem'
+pulpcore::apache_https_key: '/etc/pulpcore-certs/client-key.pem'
 pulpcore::apache_https_ca: '/etc/pulpcore-certs/ca-cert.pem'
 pulpcore::database::always_run_migrations: false
+pulpcore::api_client_auth_cn_map:
+  "%{facts.networking.fqdn}": "admin"
