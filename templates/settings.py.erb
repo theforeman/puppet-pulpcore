@@ -24,7 +24,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': '<%= scope['pulpcore::postgresql_db_name'] %>',
         'USER': '<%= scope['pulpcore::postgresql_db_user'] %>',
-        'PASSWORD': '<%= scope['pulpcore::postgresql_db_password'] %>',
+        'PASSWORD': <%= scope.call_function('to_python', [scope['pulpcore::postgresql_db_password']]) %>,
         'HOST': '<%= scope['pulpcore::postgresql_db_host'] %>',
         'PORT': '<%= scope['pulpcore::postgresql_db_port'] %>',
 <% if scope['pulpcore::postgresql_db_ssl'] && !scope['pulpcore::postgresql_manage_db'] -%>
