@@ -109,8 +109,11 @@
 # @param django_secret_key
 #   SECRET_KEY for Django
 #
+# @param redis_url
+#   Redis URL use. If not specified, a local server will be installed
+#
 # @param redis_db
-#   Redis DB number to use. By default, Redis supports a DB number of 0 through 15.
+#   The default DB to use when redis_url is not specified. By default, Redis supports a DB number of 0 through 15.
 #
 # @param servername
 #   Server name of the VirtualHost in the webserver
@@ -238,6 +241,7 @@ class pulpcore (
   Optional[Stdlib::Absolutepath] $postgresql_db_ssl_key = undef,
   Optional[Stdlib::Absolutepath] $postgresql_db_ssl_root_ca = undef,
   String $django_secret_key = extlib::cache_data('pulpcore_cache_data', 'secret_key', extlib::random_password(50)),
+  Optional[Redis::RedisUrl] $redis_url = undef,
   Integer[0] $redis_db = 8,
   Stdlib::Fqdn $servername = $facts['networking']['fqdn'],
   Array[Stdlib::Fqdn] $serveraliases = [],
