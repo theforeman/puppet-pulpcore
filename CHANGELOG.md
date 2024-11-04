@@ -1,5 +1,18 @@
 # Changelog
 
+## [11.0.0](https://github.com/theforeman/puppet-pulpcore/tree/11.0.0) (2024-11-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.4.0...11.0.0)
+
+**Breaking changes:**
+
+- never set REMOTE\_USER to the value of SSL\_CLIENT\_S\_DN\_CN [\#360](https://github.com/theforeman/puppet-pulpcore/pull/360) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- properly escape quotes in passwords by calling to\_python [\#361](https://github.com/theforeman/puppet-pulpcore/pull/361) ([evgeni](https://github.com/evgeni))
+- Add Wants=postgresql.service to Pulpcore service files [\#359](https://github.com/theforeman/puppet-pulpcore/pull/359) ([ekohl](https://github.com/ekohl))
+
 ## [10.4.0](https://github.com/theforeman/puppet-pulpcore/tree/10.4.0) (2024-09-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.3.0...10.4.0)
