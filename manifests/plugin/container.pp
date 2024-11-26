@@ -2,21 +2,17 @@
 # @param location_prefix
 #   In the Apache configuration a location with this prefix is exposed. The
 #   version (currently v2) will be appended.
-# @param registry_version_path
-#   The path beneath the location prefix to forward. This is also appended to
-#   the content base url.
 class pulpcore::plugin::container (
   String $location_prefix = '/pulpcore_registry',
-  String $registry_version_path = '/v2/',
 ) {
   $context = {
     'directories' => [
       {
         'provider'        => 'location',
-        'path'            => "${location_prefix}${registry_version_path}",
+        'path'            => $location_prefix,
         'proxy_pass'      => [
           {
-            'url' => "${pulpcore::apache::api_base_url}${registry_version_path}",
+            'url' => $pulpcore::apache::api_base_url,
           },
         ],
         'request_headers' => $pulpcore::apache::api_default_request_headers + $pulpcore::apache::api_additional_request_headers,
@@ -31,7 +27,7 @@ class pulpcore::plugin::container (
   }
 
   pulpcore::plugin { 'container':
-    config        => 'TOKEN_AUTH_DISABLED=True',
+    config        => "TOKEN_AUTH_DISABLED=True\nFLATPAK_INDEX=True",
     https_content => epp('pulpcore/apache-fragment.epp', $context),
   }
 }
