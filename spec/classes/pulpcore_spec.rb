@@ -522,7 +522,7 @@ CONTENT
                 'request_headers' => [
                   'unset REMOTE-USER',
                   'unset REMOTE_USER',
-                  'set REMOTE-USER "admin" "expr=%{SSL_CLIENT_S_DN_CN} == \'foreman.example.com\'"',
+                  'set REMOTE-USER "admin" "expr=%{tolower:%{SSL_CLIENT_S_DN_CN}} == \'foreman.example.com\'"',
                 ],
               }
             ])

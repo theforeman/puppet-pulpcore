@@ -53,7 +53,7 @@ APACHE_CONFIG
   <Location "/pulpcore_registry">
     RequestHeader unset REMOTE-USER
     RequestHeader unset REMOTE_USER
-    RequestHeader set REMOTE-USER "admin" "expr=%{SSL_CLIENT_S_DN_CN} == 'foreman.example.com'"
+    RequestHeader set REMOTE-USER "admin" "expr=%{tolower:%{SSL_CLIENT_S_DN_CN}} == 'foreman.example.com'"
     ProxyPass unix:///run/pulpcore-api.sock|http://pulpcore-api
     ProxyPassReverse unix:///run/pulpcore-api.sock|http://pulpcore-api
   </Location>

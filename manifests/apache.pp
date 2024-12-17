@@ -53,7 +53,7 @@ class pulpcore::apache (
   ]
 
   $api_additional_request_headers = $pulpcore::api_client_auth_cn_map.map |String $cn, String $pulp_user| {
-    "set ${remote_user_environ_header} \"${pulp_user}\" \"expr=%{SSL_CLIENT_S_DN_CN} == '${cn}'\""
+    "set ${remote_user_environ_header} \"${pulp_user}\" \"expr=%{tolower:%{SSL_CLIENT_S_DN_CN}} == '${cn.downcase}'\""
   }
 
   $api_directory = {
