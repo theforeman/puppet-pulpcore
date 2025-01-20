@@ -1,4 +1,5 @@
 require 'voxpupuli/acceptance/spec_helper_acceptance'
+require 'voxpupuli/acceptance/serverspec_extensions'
 
 ENV['BEAKER_setfile'] ||= 'centos8-64{hostname=centos8-64.example.com}'
 
