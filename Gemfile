@@ -12,7 +12,7 @@ gem 'voxpupuli-test', '~> 7.0', {"groups"=>["test"]}
 gem 'github_changelog_generator', '>= 1.15.0', {"groups"=>["development"]}
 gem 'puppet_metadata', '~> 4.0'
 gem 'puppet-blacksmith', '>= 6.0.0', {"groups"=>["development"]}
-gem 'voxpupuli-acceptance', '~> 3.0', {"groups"=>["system_tests"]}
+gem 'voxpupuli-acceptance', '~> 3.4', {"groups"=>["system_tests"]}
 gem 'puppetlabs_spec_helper', {"groups"=>["system_tests"]}
 
 # vim:ft=ruby
