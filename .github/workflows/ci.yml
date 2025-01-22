@@ -15,6 +15,6 @@ jobs:
     uses: voxpupuli/gha-puppet/.github/workflows/beaker.yml@v2
     with:
       pidfile_workaround: 'false'
-      beaker_facter: 'pulpcore_version:Pulp:nightly,3.39,3.49'
+      beaker_facter: 'pulpcore_version:Pulp:nightly,3.39,3.49,3.63'
       rubocop: false
       cache-version: '1'
