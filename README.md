@@ -18,10 +18,6 @@ Recommended version.
 
 Supported version.
 
-### Pulpcore 3.39
-
-Supported version.
-
 ## Installation layout
 
 Pulpcore doesn't mandate a specific layout so this module creates and manages this. There are some constraints, mostly due to SELinux support.
