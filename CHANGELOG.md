@@ -1,5 +1,24 @@
 # Changelog
 
+## [12.0.0](https://github.com/theforeman/puppet-pulpcore/tree/12.0.0) (2025-02-11)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/11.0.0...12.0.0)
+
+**Breaking changes:**
+
+- Drop support for Pulpcore 3.39 [\#371](https://github.com/theforeman/puppet-pulpcore/pull/371) ([evgeni](https://github.com/evgeni))
+- Drop EL8 support -- Foreman doesn't support it anymore [\#369](https://github.com/theforeman/puppet-pulpcore/pull/369) ([evgeni](https://github.com/evgeni))
+- Enable FLATPAK\_INDEX for pulp registry [\#363](https://github.com/theforeman/puppet-pulpcore/pull/363) ([lfu](https://github.com/lfu))
+
+**Implemented enhancements:**
+
+- Add support for Pulpcore 3.63 [\#370](https://github.com/theforeman/puppet-pulpcore/pull/370) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- use the right username when computing the db password hash [\#373](https://github.com/theforeman/puppet-pulpcore/pull/373) ([evgeni](https://github.com/evgeni))
+- always compare CNs as downcase [\#364](https://github.com/theforeman/puppet-pulpcore/pull/364) ([evgeni](https://github.com/evgeni))
+
 ## [11.0.0](https://github.com/theforeman/puppet-pulpcore/tree/11.0.0) (2024-11-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.4.0...11.0.0)
