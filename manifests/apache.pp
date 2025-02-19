@@ -20,6 +20,8 @@ class pulpcore::apache (
   $content_base_url = "unix://${pulpcore::content_socket_path}|http://pulpcore-content"
   $content_url = "${content_base_url}${content_path}"
 
+  $forwarded_proto_header = ['set X-FORWARDED-PROTO expr=%{REQUEST_SCHEME}']
+
   $docroot_directory = {
     'provider'       => 'Directory',
     'path'           => $pulpcore::apache_docroot,
@@ -38,7 +40,7 @@ class pulpcore::apache (
     'request_headers' => [
       'unset X-CLIENT-CERT',
       'set X-CLIENT-CERT "%{SSL_CLIENT_CERT}s" env=SSL_CLIENT_CERT',
-    ],
+    ] + $forwarded_proto_header,
   }
 
   # Pulp has a default for remote header. Here it's ensured that the end user
@@ -65,7 +67,7 @@ class pulpcore::apache (
         'params' => $api_proxy_params,
       },
     ],
-    'request_headers' => $api_default_request_headers + $api_additional_request_headers,
+    'request_headers' => $api_default_request_headers + $api_additional_request_headers + $forwarded_proto_header,
   }
 
   # Static content is served by the whitenoise application. SELinux prevents
