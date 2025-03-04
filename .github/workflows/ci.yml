@@ -3,6 +3,11 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+      - '*-stable'
 
 
 concurrency:
@@ -12,9 +17,8 @@ concurrency:
 jobs:
   puppet:
     name: Puppet
-    uses: voxpupuli/gha-puppet/.github/workflows/beaker.yml@v2
+    uses: voxpupuli/gha-puppet/.github/workflows/beaker.yml@v3
     with:
       pidfile_workaround: 'false'
       beaker_facter: 'pulpcore_version:Pulp:nightly,3.49,3.63'
       rubocop: false
-      cache-version: '1'
