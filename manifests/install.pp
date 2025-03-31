@@ -12,6 +12,13 @@ class pulpcore::install {
     }
   }
 
+  if $pulpcore::storage_backend != 'file' {
+    # TODO: better virtual for this
+    package { 'python3.11-django-storages':
+      ensure => present,
+    }
+  }
+
   user { $pulpcore::user:
     ensure     => present,
     system     => true,

@@ -41,6 +41,20 @@ class pulpcore::config {
     order   => '02',
   }
 
+  if $pulpcore::storage_backend == 's3' {
+    $storages = {
+      'default' => {
+        'BACKEND' => 'storages.backends.s3.S3Storage',
+        'OPTIONS' => $pulpcore::storage_options,
+      },
+    }
+    concat::fragment { 'storage':
+      target  => 'pulpcore settings',
+      content => "STORAGES = ${stdlib::to_python($storages)}\n",
+      order   => '03',
+    }
+  }
+
   file { $pulpcore::user_home:
     ensure => directory,
     owner  => $pulpcore::user,
