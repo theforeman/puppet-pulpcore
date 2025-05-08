@@ -1,6 +1,18 @@
 # Changelog
 
-## [12.0.0](https://github.com/theforeman/puppet-pulpcore/tree/12.0.0) (2025-02-11)
+## [12.1.0](https://github.com/theforeman/puppet-pulpcore/tree/12.1.0) (2025-05-08)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/12.0.0...12.1.0)
+
+**Implemented enhancements:**
+
+- Allow puppet/systemd 8.x [\#380](https://github.com/theforeman/puppet-pulpcore/pull/380) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- correctly set X-FORWARDED-PROTO header [\#376](https://github.com/theforeman/puppet-pulpcore/pull/376) ([evgeni](https://github.com/evgeni))
+
+## [12.0.0](https://github.com/theforeman/puppet-pulpcore/tree/12.0.0) (2025-02-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/11.0.0...12.0.0)
 
