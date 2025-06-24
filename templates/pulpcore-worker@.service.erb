@@ -13,7 +13,7 @@ User=<%= scope['pulpcore::user'] %>
 Group=<%= scope['pulpcore::group'] %>
 WorkingDirectory=<%= scope['pulpcore::user_home'] %>
 RuntimeDirectory=pulpcore-worker-%i
-ExecStart=/usr/libexec/pulpcore/pulpcore-worker
+ExecStart=/usr/bin/pulpcore-worker
 SyslogIdentifier=pulpcore-worker-%i
 
 # This provides reconnect support for PostgreSQL and Redis. Without reconnect support, if either
