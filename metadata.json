@@ -1,6 +1,6 @@
 {
   "name": "theforeman-pulpcore",
-  "version": "12.1.0",
+  "version": "13.0.0",
   "author": "theforeman",
   "summary": "Installs next generation Pulp server",
   "license": "GPL-3.0-or-later",

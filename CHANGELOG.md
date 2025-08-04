@@ -1,5 +1,21 @@
 # Changelog
 
+## [13.0.0](https://github.com/theforeman/puppet-pulpcore/tree/13.0.0) (2025-08-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/12.1.0...13.0.0)
+
+**Breaking changes:**
+
+- Drop EnvironmentFile from pulpcore-worker@.service [\#384](https://github.com/theforeman/puppet-pulpcore/pull/384) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- Add support for Pulpcore 3.73 [\#382](https://github.com/theforeman/puppet-pulpcore/pull/382) ([Odilhao](https://github.com/Odilhao))
+
+**Fixed bugs:**
+
+- Use pulpcore-worker entrypoint directly, without a wrapper [\#383](https://github.com/theforeman/puppet-pulpcore/pull/383) ([evgeni](https://github.com/evgeni))
+
 ## [12.1.0](https://github.com/theforeman/puppet-pulpcore/tree/12.1.0) (2025-05-08)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/12.0.0...12.1.0)
