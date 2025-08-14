@@ -203,6 +203,12 @@
 #   What percentage of available-workers will pulpcore use for import tasks at a time.
 #   By default, pulpcore will use all available workers.
 #
+# @param storage_backend
+#   Which storage backend to use
+#
+# @param storage_options
+#   Options to pass to the storage backend
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -268,6 +274,8 @@ class pulpcore (
   Optional[Boolean] $analytics = undef,
   Optional[Boolean] $hide_guarded_distributions = undef,
   Optional[Integer[1,100]] $import_workers_percent = undef,
+  Enum['file', 's3'] $storage_backend = 'file',
+  Hash[String[1], Any] $storage_options = {},
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"
