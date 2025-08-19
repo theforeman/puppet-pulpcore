@@ -202,6 +202,17 @@ describe 'pulpcore' do
             :group => 'pulp'
           )
         end
+
+        context 'with overlapping allowed export paths' do
+          let(:params) { super().merge(allowed_export_path: ['/tmp/imports', '/tmp/exports']) }
+
+          it do
+            is_expected.to compile.with_all_deps
+            is_expected.to contain_file('/tmp/imports')
+            is_expected.to contain_file('/tmp/imports1')
+            is_expected.to contain_file('/tmp/exports')
+          end
+        end
       end
 
       context 'with allowed export paths' do
