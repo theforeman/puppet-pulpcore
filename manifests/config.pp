@@ -55,14 +55,7 @@ class pulpcore::config {
     mode   => '0750',
   }
 
-  file { $pulpcore::allowed_import_path:
-    ensure => directory,
-    owner  => $pulpcore::user,
-    group  => $pulpcore::group,
-    mode   => '0770',
-  }
-
-  file { $pulpcore::allowed_export_path:
+  file { unique($pulpcore::allowed_import_path + $pulpcore::allowed_export_path):
     ensure => directory,
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
