@@ -24,6 +24,12 @@ class pulpcore::database (
       require   => Class['postgresql::server::contrib'],
     }
 
+    postgresql::server::extension { "amcheck for ${pulpcore::postgresql_db_name}":
+      database  => $pulpcore::postgresql_db_name,
+      extension => 'amcheck',
+      require   => Class['postgresql::server::contrib'],
+    }
+
     # pulpcore-content fails to reconnect to the database, so schedule a restart whenever the db changes
     # see https://pulp.plan.io/issues/9276 for details
     Class['postgresql::server::service'] ~> Service['pulpcore-content.service']
