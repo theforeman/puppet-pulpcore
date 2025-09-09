@@ -1,6 +1,18 @@
 # Changelog
 
-## [13.0.0](https://github.com/theforeman/puppet-pulpcore/tree/13.0.0) (2025-08-04)
+## [13.1.0](https://github.com/theforeman/puppet-pulpcore/tree/13.1.0) (2025-09-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.0.0...13.1.0)
+
+**Implemented enhancements:**
+
+- install amcheck extension for PostgreSQL [\#387](https://github.com/theforeman/puppet-pulpcore/pull/387) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- Fixes [\#38679](https://projects.theforeman.org/issues/38679) - Handle overlapping import & export paths [\#386](https://github.com/theforeman/puppet-pulpcore/pull/386) ([ekohl](https://github.com/ekohl))
+
+## [13.0.0](https://github.com/theforeman/puppet-pulpcore/tree/13.0.0) (2025-08-08)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/12.1.0...13.0.0)
 
