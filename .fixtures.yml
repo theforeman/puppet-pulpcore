@@ -1,16 +1,12 @@
 fixtures:
   repositories:
     apache:           'https://github.com/puppetlabs/puppetlabs-apache'
-    augeas_core:
-      repo:           'https://github.com/puppetlabs/puppetlabs-augeas_core'
-      puppet_version: '>= 6.0.0'
+    augeas_core:      'https://github.com/puppetlabs/puppetlabs-augeas_core'
     concat:           'https://github.com/puppetlabs/puppetlabs-concat'
     extlib:           'https://github.com/voxpupuli/puppet-extlib'
     postgresql:       'https://github.com/puppetlabs/puppetlabs-postgresql'
     redis:            'https://github.com/voxpupuli/puppet-redis'
-    selinux_core:
-      repo:           'https://github.com/puppetlabs/puppetlabs-selinux_core'
-      puppet_version: '>= 6.0.0'
+    selinux_core:     'https://github.com/puppetlabs/puppetlabs-selinux_core'
     stdlib:           'https://github.com/puppetlabs/puppetlabs-stdlib'
     systemd:          'https://github.com/voxpupuli/puppet-systemd'
     yumrepo_core:     'https://github.com/puppetlabs/puppetlabs-yumrepo_core'
