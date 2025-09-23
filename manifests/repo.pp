@@ -8,7 +8,7 @@
 #   An optional value for gpgkey to be used for yumrepo, instead of the default.
 #   If an empty string is passed, gpgcheck will be disabled.
 class pulpcore::repo (
-  Variant[Enum['nightly'], Pattern['^\d+\.\d+$']] $version = '3.73',
+  Variant[Enum['nightly'], Pattern['^\d+\.\d+$']] $version = '3.85',
   Optional[Stdlib::HTTPUrl] $baseurl = undef,
   Optional[String[0]] $gpgkey = undef,
 ) {
