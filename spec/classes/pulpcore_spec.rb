@@ -23,7 +23,7 @@ describe 'pulpcore' do
             .with_content(%r{ALLOWED_EXPORT_PATHS = \[\]})
             .with_content(%r{ALLOWED_IMPORT_PATHS = \["/var/lib/pulp/sync_imports"\]})
             .with_content(%r{ALLOWED_CONTENT_CHECKSUMS = \["sha224", "sha256", "sha384", "sha512"\]})
-            .with_content(%r{REDIS_URL = "redis://localhost:6379/8"})
+            .with_content(%r{REDIS_URL = "redis\+unix:///var/run/redis/redis\.sock\?db=8"})
             .with_content(%r{CACHE_ENABLED = False})
             .with_content(%r{# ANALYTICS = False})
             .without_content(%r{sslmode})
@@ -677,6 +677,18 @@ CONTENT
               .with_enable(true)
           end
         end
+      end
+
+      context 'with external redis' do
+        let(:params) do
+          {
+            redis_url: 'redis://redis.example.com:12345/7',
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_concat__fragment('base').with_content(include('REDIS_URL = "redis://redis.example.com:12345/7"')) }
+        it { is_expected.not_to contain_class('redis') }
       end
     end
   end
