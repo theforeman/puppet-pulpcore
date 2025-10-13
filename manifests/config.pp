@@ -1,6 +1,13 @@
 # Configures pulp3
 # @api private
 class pulpcore::config {
+  if $pulpcore::redis_url {
+    $redis_url = $pulpcore::redis_url
+  } else {
+    contain redis
+    $redis_url = "redis://localhost:${redis::port}/${pulpcore::redis_db}"
+  }
+
   file { [$pulpcore::config_dir, $pulpcore::certs_dir]:
     ensure => directory,
     owner  => 'root',
