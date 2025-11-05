@@ -1,5 +1,15 @@
 # Changelog
 
+## [13.2.0](https://github.com/theforeman/puppet-pulpcore/tree/13.2.0) (2025-11-05)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.1.0...13.2.0)
+
+**Implemented enhancements:**
+
+- Allow puppetlabs/apache 13.x [\#393](https://github.com/theforeman/puppet-pulpcore/pull/393) ([shubhamsg199](https://github.com/shubhamsg199))
+- Allow puppet/redis 12.x [\#390](https://github.com/theforeman/puppet-pulpcore/pull/390) ([evgeni](https://github.com/evgeni))
+- Allow puppet/systemd 9.x [\#389](https://github.com/theforeman/puppet-pulpcore/pull/389) ([evgeni](https://github.com/evgeni))
+
 ## [13.1.0](https://github.com/theforeman/puppet-pulpcore/tree/13.1.0) (2025-09-09)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.0.0...13.1.0)
