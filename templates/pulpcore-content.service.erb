@@ -1,7 +1,7 @@
 [Unit]
 Description=Pulp Content App
 Requires=pulpcore-content.socket
-After=network.target
+After=network.target postgresql.service
 Wants=postgresql.service
 
 [Service]
