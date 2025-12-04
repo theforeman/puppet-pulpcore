@@ -1,6 +1,6 @@
 [Unit]
 Description=Pulp API Server
-After=network.target
+After=network.target postgresql.service
 Requires=pulpcore-api.socket
 Wants=postgresql.service
 
