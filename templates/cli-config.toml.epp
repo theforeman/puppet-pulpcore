@@ -1,12 +1,12 @@
 <%- |
-  Optional[Stdlib::HTTPUrl] $base_url = undef,
-  Optional[String]          $username = undef,
-  Optional[String]          $password = undef,
-  Optional[String]          $cert = undef,
-  Optional[String]          $key = undef,
-  Optional[String]          $api_root = undef,
-  Optional[Boolean]         $verify_ssl = undef,
-  Optional[Boolean]         $dry_run = undef,
+  Optional[Stdlib::HTTPUrl]                    $base_url = undef,
+  Optional[String]                             $username = undef,
+  Optional[Variant[Sensitive[String], String]] $password = undef,
+  Optional[String]                             $cert = undef,
+  Optional[String]                             $key = undef,
+  Optional[String]                             $api_root = undef,
+  Optional[Boolean]                            $verify_ssl = undef,
+  Optional[Boolean]                            $dry_run = undef,
 | -%>
 [cli]
 <% if $base_url { -%>

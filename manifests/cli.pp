@@ -31,7 +31,7 @@ class pulpcore::cli (
   Optional[Stdlib::HTTPUrl] $pulpcore_url = undef,
   String $version = 'installed',
   Optional[String] $username = undef,
-  Optional[String] $password = undef,
+  Optional[Variant[Sensitive[String], String]] $password = undef,
   Optional[String] $cert = undef,
   Optional[String] $key = undef,
   Optional[String] $api_root = undef,
