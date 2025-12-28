@@ -8,6 +8,9 @@
   Optional[Boolean]         $verify_ssl = undef,
   Optional[Boolean]         $dry_run = undef,
 | -%>
+# This file was written by puppet-pulpcore.
+# Check the value of pulpcore::manage_root_config in /etc/foreman-installer/custom-hiera.yaml
+# to check if future foreman-installer runs will overwrite any manual edits.
 [cli]
 <% if $base_url { -%>
 base_url = "<%= $base_url %>"
