@@ -1,3 +1,434 @@
+## [14.0.0](https://github.com/theforeman/puppet-pulpcore/tree/14.0.0) (2026-01-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.3.0...14.0.0)
+
+**Breaking changes:**
+
+- Drop support for Puppet 7 [\#396](https://github.com/theforeman/puppet-pulpcore/pull/396) ([evgeni](https://github.com/evgeni))
+- Drop support for Pulpcore 3.49 [\#372](https://github.com/theforeman/puppet-pulpcore/pull/372) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- Add support for OpenVox [\#399](https://github.com/theforeman/puppet-pulpcore/pull/399) ([evgeni](https://github.com/evgeni))
+
+## [13.3.0](https://github.com/theforeman/puppet-pulpcore/tree/13.3.0) (2025-12-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.2.0...13.3.0)
+
+**Implemented enhancements:**
+
+- Add support for Pulpcore 3.85 [\#392](https://github.com/theforeman/puppet-pulpcore/pull/392) ([Odilhao](https://github.com/Odilhao))
+
+**Fixed bugs:**
+
+- Add `After=postgresql.service` to all pulpcore services [\#395](https://github.com/theforeman/puppet-pulpcore/pull/395) ([evgeni](https://github.com/evgeni))
+
+## [13.2.0](https://github.com/theforeman/puppet-pulpcore/tree/13.2.0) (2025-11-05)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.1.0...13.2.0)
+
+**Implemented enhancements:**
+
+- Allow puppetlabs/apache 13.x [\#393](https://github.com/theforeman/puppet-pulpcore/pull/393) ([shubhamsg199](https://github.com/shubhamsg199))
+- Allow puppet/redis 12.x [\#390](https://github.com/theforeman/puppet-pulpcore/pull/390) ([evgeni](https://github.com/evgeni))
+- Allow puppet/systemd 9.x [\#389](https://github.com/theforeman/puppet-pulpcore/pull/389) ([evgeni](https://github.com/evgeni))
+
+## [13.1.0](https://github.com/theforeman/puppet-pulpcore/tree/13.1.0) (2025-09-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.0.0...13.1.0)
+
+**Implemented enhancements:**
+
+- install amcheck extension for PostgreSQL [\#387](https://github.com/theforeman/puppet-pulpcore/pull/387) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- Fixes [\#38679](https://projects.theforeman.org/issues/38679) - Handle overlapping import & export paths [\#386](https://github.com/theforeman/puppet-pulpcore/pull/386) ([ekohl](https://github.com/ekohl))
+
+## [13.0.0](https://github.com/theforeman/puppet-pulpcore/tree/13.0.0) (2025-08-08)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/12.1.0...13.0.0)
+
+**Breaking changes:**
+
+- Drop EnvironmentFile from pulpcore-worker@.service [\#384](https://github.com/theforeman/puppet-pulpcore/pull/384) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- Add support for Pulpcore 3.73 [\#382](https://github.com/theforeman/puppet-pulpcore/pull/382) ([Odilhao](https://github.com/Odilhao))
+
+**Fixed bugs:**
+
+- Use pulpcore-worker entrypoint directly, without a wrapper [\#383](https://github.com/theforeman/puppet-pulpcore/pull/383) ([evgeni](https://github.com/evgeni))
+
+## [12.1.0](https://github.com/theforeman/puppet-pulpcore/tree/12.1.0) (2025-05-08)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/12.0.0...12.1.0)
+
+**Implemented enhancements:**
+
+- Allow puppet/systemd 8.x [\#380](https://github.com/theforeman/puppet-pulpcore/pull/380) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- correctly set X-FORWARDED-PROTO header [\#376](https://github.com/theforeman/puppet-pulpcore/pull/376) ([evgeni](https://github.com/evgeni))
+
+## [12.0.0](https://github.com/theforeman/puppet-pulpcore/tree/12.0.0) (2025-02-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/11.0.0...12.0.0)
+
+**Breaking changes:**
+
+- Drop support for Pulpcore 3.39 [\#371](https://github.com/theforeman/puppet-pulpcore/pull/371) ([evgeni](https://github.com/evgeni))
+- Drop EL8 support -- Foreman doesn't support it anymore [\#369](https://github.com/theforeman/puppet-pulpcore/pull/369) ([evgeni](https://github.com/evgeni))
+- Enable FLATPAK\_INDEX for pulp registry [\#363](https://github.com/theforeman/puppet-pulpcore/pull/363) ([lfu](https://github.com/lfu))
+
+**Implemented enhancements:**
+
+- Add support for Pulpcore 3.63 [\#370](https://github.com/theforeman/puppet-pulpcore/pull/370) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- use the right username when computing the db password hash [\#373](https://github.com/theforeman/puppet-pulpcore/pull/373) ([evgeni](https://github.com/evgeni))
+- always compare CNs as downcase [\#364](https://github.com/theforeman/puppet-pulpcore/pull/364) ([evgeni](https://github.com/evgeni))
+
+## [11.0.0](https://github.com/theforeman/puppet-pulpcore/tree/11.0.0) (2024-11-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.4.0...11.0.0)
+
+**Breaking changes:**
+
+- never set REMOTE\_USER to the value of SSL\_CLIENT\_S\_DN\_CN [\#360](https://github.com/theforeman/puppet-pulpcore/pull/360) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- properly escape quotes in passwords by calling to\_python [\#361](https://github.com/theforeman/puppet-pulpcore/pull/361) ([evgeni](https://github.com/evgeni))
+- Add Wants=postgresql.service to Pulpcore service files [\#359](https://github.com/theforeman/puppet-pulpcore/pull/359) ([ekohl](https://github.com/ekohl))
+
+## [10.4.0](https://github.com/theforeman/puppet-pulpcore/tree/10.4.0) (2024-09-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.3.0...10.4.0)
+
+**Implemented enhancements:**
+
+- Reuse headers from pulpcore::apache class [\#354](https://github.com/theforeman/puppet-pulpcore/pull/354) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Don't use underscores in HTTP headers [\#357](https://github.com/theforeman/puppet-pulpcore/pull/357) ([evgeni](https://github.com/evgeni))
+
+## [10.3.0](https://github.com/theforeman/puppet-pulpcore/tree/10.3.0) (2024-08-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.2.0...10.3.0)
+
+**Implemented enhancements:**
+
+- explicitly support Pulpcore 3.49 [\#352](https://github.com/theforeman/puppet-pulpcore/pull/352) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- Always run pulpcore-manager migrate [\#351](https://github.com/theforeman/puppet-pulpcore/pull/351) ([evgeni](https://github.com/evgeni))
+
+## [10.2.0](https://github.com/theforeman/puppet-pulpcore/tree/10.2.0) (2024-08-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.1.0...10.2.0)
+
+**Implemented enhancements:**
+
+- Update puppet\_metadata to ~\> 4.0 and voxpupuli-acceptance to ~\> 3.0 [\#347](https://github.com/theforeman/puppet-pulpcore/pull/347) ([archanaserver](https://github.com/archanaserver))
+- Add ability to configure auth backends and classes [\#346](https://github.com/theforeman/puppet-pulpcore/pull/346) ([Scnaeg](https://github.com/Scnaeg))
+- Add AlmaLinux 8 & 9 support [\#345](https://github.com/theforeman/puppet-pulpcore/pull/345) ([archanaserver](https://github.com/archanaserver))
+
+## [10.1.0](https://github.com/theforeman/puppet-pulpcore/tree/10.1.0) (2024-05-16)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/10.0.0...10.1.0)
+
+**Implemented enhancements:**
+
+- Allow puppet/redis 11.x and puppet/systemd 7.x [\#339](https://github.com/theforeman/puppet-pulpcore/pull/339) ([evgeni](https://github.com/evgeni))
+- use `migrate --check` not `migrate --plan |grep` check for migrations [\#338](https://github.com/theforeman/puppet-pulpcore/pull/338) ([evgeni](https://github.com/evgeni))
+- Allow puppetlabs/apache 12.x [\#334](https://github.com/theforeman/puppet-pulpcore/pull/334) ([evgeni](https://github.com/evgeni))
+- Allow setting baseurl fact during acceptance tests [\#333](https://github.com/theforeman/puppet-pulpcore/pull/333) ([Odilhao](https://github.com/Odilhao))
+
+**Fixed bugs:**
+
+- Fixes [\#37308](https://projects.theforeman.org/issues/37308) - set REMOTE\_USER properly for pulpcore registry [\#337](https://github.com/theforeman/puppet-pulpcore/pull/337) ([ianballou](https://github.com/ianballou))
+
+## [10.0.0](https://github.com/theforeman/puppet-pulpcore/tree/10.0.0) (2024-02-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/9.0.0...10.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#37062](https://projects.theforeman.org/issues/37062) - Rename pulpcore::telemetry to pulpcore::analytics [\#326](https://github.com/theforeman/puppet-pulpcore/pull/326) ([wbclark](https://github.com/wbclark))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppet/redis 10.x [\#330](https://github.com/theforeman/puppet-pulpcore/pull/330) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Ensure glibc-langpack-en is always installed [\#329](https://github.com/theforeman/puppet-pulpcore/pull/329) ([evgeni](https://github.com/evgeni))
+- Drop pulpcore::plugin::migration [\#325](https://github.com/theforeman/puppet-pulpcore/pull/325) ([ekohl](https://github.com/ekohl))
+
+## [9.0.0](https://github.com/theforeman/puppet-pulpcore/tree/9.0.0) (2023-11-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.6.0...9.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#36902](https://projects.theforeman.org/issues/36902) - Support Pulpcore 3.39, drop older versions [\#315](https://github.com/theforeman/puppet-pulpcore/pull/315) ([ianballou](https://github.com/ianballou))
+
+**Implemented enhancements:**
+
+- Use the yumrepo type to manage the repository & expose more params [\#320](https://github.com/theforeman/puppet-pulpcore/pull/320) ([ekohl](https://github.com/ekohl))
+- Support nightly repository version [\#318](https://github.com/theforeman/puppet-pulpcore/pull/318) ([ehelms](https://github.com/ehelms))
+
+## [8.6.0](https://github.com/theforeman/puppet-pulpcore/tree/8.6.0) (2023-11-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.5.0...8.6.0)
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/postgresql 10.x [\#316](https://github.com/theforeman/puppet-pulpcore/pull/316) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet-extlib 7.x [\#314](https://github.com/theforeman/puppet-pulpcore/pull/314) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet/systemd 6.x [\#313](https://github.com/theforeman/puppet-pulpcore/pull/313) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppetlabs/apache 11.x [\#308](https://github.com/theforeman/puppet-pulpcore/pull/308) ([ekohl](https://github.com/ekohl))
+- Add Puppet 8 support [\#297](https://github.com/theforeman/puppet-pulpcore/pull/297) ([bastelfreak](https://github.com/bastelfreak))
+
+## [8.5.0](https://github.com/theforeman/puppet-pulpcore/tree/8.5.0) (2023-09-18)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.4.0...8.5.0)
+
+**Implemented enhancements:**
+
+- Refs [\#36709](https://projects.theforeman.org/issues/36709) - Expose ANSIBLE\_PERMISSION\_CLASSES setting [\#304](https://github.com/theforeman/puppet-pulpcore/pull/304) ([ekohl](https://github.com/ekohl))
+
+## [8.4.0](https://github.com/theforeman/puppet-pulpcore/tree/8.4.0) (2023-08-22)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.3.0...8.4.0)
+
+**Implemented enhancements:**
+
+- allow configuring IMPORT\_WORKERS\_PERCENT [\#302](https://github.com/theforeman/puppet-pulpcore/pull/302) ([evgeni](https://github.com/evgeni))
+- don't setup ansible-29 repo in acceptance tests [\#301](https://github.com/theforeman/puppet-pulpcore/pull/301) ([evgeni](https://github.com/evgeni))
+
+## [8.3.0](https://github.com/theforeman/puppet-pulpcore/tree/8.3.0) (2023-08-16)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.2.0...8.3.0)
+
+**Implemented enhancements:**
+
+- Support Pulp 3.28 [\#299](https://github.com/theforeman/puppet-pulpcore/pull/299) ([ekohl](https://github.com/ekohl))
+- puppetlabs/stdlib: Allow 9.x & puppet/systemd: Allow 5.x & puppetlabs/concat: Allow 9.x [\#296](https://github.com/theforeman/puppet-pulpcore/pull/296) ([bastelfreak](https://github.com/bastelfreak))
+- Relax max\_requests [\#295](https://github.com/theforeman/puppet-pulpcore/pull/295) ([dralley](https://github.com/dralley))
+
+## [8.2.0](https://github.com/theforeman/puppet-pulpcore/tree/8.2.0) (2023-06-20)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.1.0...8.2.0)
+
+**Implemented enhancements:**
+
+- allow configuring HIDE\_GUARDED\_DISTRIBUTIONS setting [\#292](https://github.com/theforeman/puppet-pulpcore/pull/292) ([evgeni](https://github.com/evgeni))
+- allow puppet/redis 9.x [\#291](https://github.com/theforeman/puppet-pulpcore/pull/291) ([evgeni](https://github.com/evgeni))
+
+## [8.1.0](https://github.com/theforeman/puppet-pulpcore/tree/8.1.0) (2023-05-26)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/8.0.0...8.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#36438](https://projects.theforeman.org/issues/36438) - configure API request limit to avoid memory leaks [\#289](https://github.com/theforeman/puppet-pulpcore/pull/289) ([evgeni](https://github.com/evgeni))
+- Fixes [\#36437](https://projects.theforeman.org/issues/36437) - preload pulpcore API and content code [\#288](https://github.com/theforeman/puppet-pulpcore/pull/288) ([evgeni](https://github.com/evgeni))
+- use `--workers` instead of `-w` when configuring gunicorn workers [\#287](https://github.com/theforeman/puppet-pulpcore/pull/287) ([evgeni](https://github.com/evgeni))
+
+## [8.0.0](https://github.com/theforeman/puppet-pulpcore/tree/8.0.0) (2023-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.2.0...8.0.0)
+
+**Breaking changes:**
+
+- Refs [\#36345](https://projects.theforeman.org/issues/36345) - Raise minimum Puppet version to 7.0.0 [\#281](https://github.com/theforeman/puppet-pulpcore/pull/281) ([ekohl](https://github.com/ekohl))
+- Drop Pulpcore 3.16 - 3.18, add EL 9 support [\#277](https://github.com/theforeman/puppet-pulpcore/pull/277) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/postgresql 9.x & puppetlabs/apache 10.x & puppetlabs/concat 8.x [\#280](https://github.com/theforeman/puppet-pulpcore/pull/280) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet-systemd 4 [\#278](https://github.com/theforeman/puppet-pulpcore/pull/278) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Pin Puppet in CI [\#279](https://github.com/theforeman/puppet-pulpcore/pull/279) ([ekohl](https://github.com/ekohl))
+
+## [7.2.0](https://github.com/theforeman/puppet-pulpcore/tree/7.2.0) (2023-03-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.1.0...7.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#36030](https://projects.theforeman.org/issues/36030) - Ensure HStore is enabled for Pulp 3.22 support [\#275](https://github.com/theforeman/puppet-pulpcore/pull/275) ([ekohl](https://github.com/ekohl))
+- Add param for unsafe advisory conflict resolution [\#274](https://github.com/theforeman/puppet-pulpcore/pull/274) ([m-bucher](https://github.com/m-bucher))
+
+## [7.1.0](https://github.com/theforeman/puppet-pulpcore/tree/7.1.0) (2022-12-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.0.1...7.1.0)
+
+**Implemented enhancements:**
+
+- Remove unused CONTENT\_HOST setting [\#271](https://github.com/theforeman/puppet-pulpcore/pull/271) ([ekohl](https://github.com/ekohl))
+- Expose Apache server aliases as a parameter [\#269](https://github.com/theforeman/puppet-pulpcore/pull/269) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Fix broken links in `README.md` [\#273](https://github.com/theforeman/puppet-pulpcore/pull/273) ([alexjfisher](https://github.com/alexjfisher))
+
+## [7.0.1](https://github.com/theforeman/puppet-pulpcore/tree/7.0.1) (2022-11-02)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/7.0.0...7.0.1)
+
+**Fixed bugs:**
+
+- Refs [\#35607](https://projects.theforeman.org/issues/35607) - convert telemetry value to python [\#268](https://github.com/theforeman/puppet-pulpcore/pull/268) ([wbclark](https://github.com/wbclark))
+
+## [7.0.0](https://github.com/theforeman/puppet-pulpcore/tree/7.0.0) (2022-10-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/6.0.0...7.0.0)
+
+**Breaking changes:**
+
+- Drop EL7 support [\#257](https://github.com/theforeman/puppet-pulpcore/pull/257) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Fixes [\#35607](https://projects.theforeman.org/issues/35607) - Configure Pulpcore's TELEMETRY setting [\#267](https://github.com/theforeman/puppet-pulpcore/pull/267) ([wbclark](https://github.com/wbclark))
+- Add pulpcore 3.21 support [\#266](https://github.com/theforeman/puppet-pulpcore/pull/266) ([sjha4](https://github.com/sjha4))
+- Add a loggers parameter and set default loggers [\#265](https://github.com/theforeman/puppet-pulpcore/pull/265) ([ekohl](https://github.com/ekohl))
+- Fixes [\#35496](https://projects.theforeman.org/issues/35496) - Add default pulp\_deb config [\#263](https://github.com/theforeman/puppet-pulpcore/pull/263) ([quba42](https://github.com/quba42))
+- Allow puppetlabs/apache 8.x [\#261](https://github.com/theforeman/puppet-pulpcore/pull/261) ([ekohl](https://github.com/ekohl))
+- Update to voxpupuli-test 5 [\#258](https://github.com/theforeman/puppet-pulpcore/pull/258) ([ekohl](https://github.com/ekohl))
+- Add Pulpcore 3.18 support [\#256](https://github.com/theforeman/puppet-pulpcore/pull/256) ([ianballou](https://github.com/ianballou))
+
+**Fixed bugs:**
+
+- Fixes [\#35390](https://projects.theforeman.org/issues/35390) - set ANSIBLE\_API\_HOSTNAME \*with\* scheme [\#262](https://github.com/theforeman/puppet-pulpcore/pull/262) ([evgeni](https://github.com/evgeni))
+
+## [6.0.0](https://github.com/theforeman/puppet-pulpcore/tree/6.0.0) (2022-04-20)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.2.1...6.0.0)
+
+**Breaking changes:**
+
+- Drop Pulpcore 3.14 & 3.15, move to 3.16 and 3.17 [\#249](https://github.com/theforeman/puppet-pulpcore/pull/249) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Fixes [\#34684](https://projects.theforeman.org/issues/34684) - install pulp-cli [\#252](https://github.com/theforeman/puppet-pulpcore/pull/252) ([evgeni](https://github.com/evgeni))
+- Allow extlib 6.x, apache 7.x, stdlib 8.x, postgresql 8.x [\#246](https://github.com/theforeman/puppet-pulpcore/pull/246) ([ekohl](https://github.com/ekohl))
+
+## [5.2.1](https://github.com/theforeman/puppet-pulpcore/tree/5.2.1) (2022-02-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.2.0...5.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#34379](https://projects.theforeman.org/issues/34379) - Create the Pulp group as a system group [\#244](https://github.com/theforeman/puppet-pulpcore/pull/244) ([ekohl](https://github.com/ekohl))
+
+## [5.2.0](https://github.com/theforeman/puppet-pulpcore/tree/5.2.0) (2022-01-25)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.1.0...5.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#34298](https://projects.theforeman.org/issues/34298) - support KEEP\_CHANGELOG\_LIMIT option [\#242](https://github.com/theforeman/puppet-pulpcore/pull/242) ([wbclark](https://github.com/wbclark))
+
+## [5.1.0](https://github.com/theforeman/puppet-pulpcore/tree/5.1.0) (2021-10-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/5.0.0...5.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#33766](https://projects.theforeman.org/issues/33766) - Support Pulpcore 3.15 [\#238](https://github.com/theforeman/puppet-pulpcore/pull/238) ([ekohl](https://github.com/ekohl))
+- Fixes [\#33765](https://projects.theforeman.org/issues/33765) - Use a system user without a login shell [\#237](https://github.com/theforeman/puppet-pulpcore/pull/237) ([ekohl](https://github.com/ekohl))
+- Refs [\#33751](https://projects.theforeman.org/issues/33751) - support ostree and python [\#236](https://github.com/theforeman/puppet-pulpcore/pull/236) ([jlsherrill](https://github.com/jlsherrill))
+- Fixes [\#33733](https://projects.theforeman.org/issues/33733) - generate key for db encryption [\#235](https://github.com/theforeman/puppet-pulpcore/pull/235) ([jlsherrill](https://github.com/jlsherrill))
+- use provides, not the python package name for plugins [\#233](https://github.com/theforeman/puppet-pulpcore/pull/233) ([evgeni](https://github.com/evgeni))
+- Fixes [\#33445](https://projects.theforeman.org/issues/33445): Increase default API gunicorn worker count [\#231](https://github.com/theforeman/puppet-pulpcore/pull/231) ([jlsherrill](https://github.com/jlsherrill))
+- Fixes [\#33446](https://projects.theforeman.org/issues/33446) - Allow configuring Pulpcore worker timeout [\#230](https://github.com/theforeman/puppet-pulpcore/pull/230) ([wbclark](https://github.com/wbclark))
+- Switch to puppet/systemd & allow puppet/redis 8 [\#228](https://github.com/theforeman/puppet-pulpcore/pull/228) ([ekohl](https://github.com/ekohl))
+- Fixes [\#33687](https://projects.theforeman.org/issues/33687) - Add warning not to directly edit settings.py [\#223](https://github.com/theforeman/puppet-pulpcore/pull/223) ([wbclark](https://github.com/wbclark))
+
+**Fixed bugs:**
+
+- Fixes [\#33744](https://projects.theforeman.org/issues/33744) - notify the socket service when the DB changes [\#234](https://github.com/theforeman/puppet-pulpcore/pull/234) ([evgeni](https://github.com/evgeni))
+
+**Closed issues:**
+
+- Ordering issue when adding repository [\#225](https://github.com/theforeman/puppet-pulpcore/issues/225)
+
+## [5.0.0](https://github.com/theforeman/puppet-pulpcore/tree/5.0.0) (2021-07-27)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/4.0.1...5.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 5 support [\#197](https://github.com/theforeman/puppet-pulpcore/pull/197) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Use REDIS\_URL as a configuration option [\#218](https://github.com/theforeman/puppet-pulpcore/pull/218) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Contain Redis within database [\#216](https://github.com/theforeman/puppet-pulpcore/pull/216) ([ekohl](https://github.com/ekohl))
+
+## [4.0.1](https://github.com/theforeman/puppet-pulpcore/tree/4.0.1) (2021-07-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/4.0.0...4.0.1)
+
+**Fixed bugs:**
+
+- Revert "Refs [\#32917](https://projects.theforeman.org/issues/32917) - Don't deploy or configure Redis with new taskin… [\#217](https://github.com/theforeman/puppet-pulpcore/pull/217) ([ehelms](https://github.com/ehelms))
+
+## [4.0.0](https://github.com/theforeman/puppet-pulpcore/tree/4.0.0) (2021-07-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.4.0...4.0.0)
+
+**Breaking changes:**
+
+- Support 3.14, drop 3.13 [\#208](https://github.com/theforeman/puppet-pulpcore/pull/208) ([ehelms](https://github.com/ehelms))
+- Support Pulp 3.13, drop earlier versions [\#202](https://github.com/theforeman/puppet-pulpcore/pull/202) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Fixes [\#32968](https://projects.theforeman.org/issues/32968): Add ability to modify log level [\#212](https://github.com/theforeman/puppet-pulpcore/pull/212) ([ehelms](https://github.com/ehelms))
+- Refs [\#32917](https://projects.theforeman.org/issues/32917) - Don't deploy or configure Redis with new tasking system [\#207](https://github.com/theforeman/puppet-pulpcore/pull/207) ([wbclark](https://github.com/wbclark))
+- Refs [\#32910](https://projects.theforeman.org/issues/32910): Add ability to enable content caching [\#204](https://github.com/theforeman/puppet-pulpcore/pull/204) ([ehelms](https://github.com/ehelms))
+- Fixes [\#32891](https://projects.theforeman.org/issues/32891) - Add feature to enable new tasking system and enable it by default [\#203](https://github.com/theforeman/puppet-pulpcore/pull/203) ([wbclark](https://github.com/wbclark))
+- Support version 3.11 [\#201](https://github.com/theforeman/puppet-pulpcore/pull/201) ([ekohl](https://github.com/ekohl))
+- Introduce a private socket\_service helper [\#199](https://github.com/theforeman/puppet-pulpcore/pull/199) ([ekohl](https://github.com/ekohl))
+- Support Puppet 7 [\#174](https://github.com/theforeman/puppet-pulpcore/pull/174) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Fixes [\#32766](https://projects.theforeman.org/issues/32766) - adds scheme and pulp content path to setting value [\#200](https://github.com/theforeman/puppet-pulpcore/pull/200) ([jjeffers](https://github.com/jjeffers))
+
+## [3.4.0](https://github.com/theforeman/puppet-pulpcore/tree/3.4.0) (2021-05-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/2.2.3...3.4.0)
+
+**Implemented enhancements:**
+
+- Allow Puppet 7 compatible versions of mods [\#187](https://github.com/theforeman/puppet-pulpcore/pull/187) ([ekohl](https://github.com/ekohl))
+- Refs [\#32383](https://projects.theforeman.org/issues/32383): Configurable client certificate authentication to Pulp [\#186](https://github.com/theforeman/puppet-pulpcore/pull/186) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Fixes [\#32622](https://projects.theforeman.org/issues/32622): Include StdEnvVars, ExportCertData SSL options in Apache [\#193](https://github.com/theforeman/puppet-pulpcore/pull/193) ([ehelms](https://github.com/ehelms))
+
+## [2.2.3](https://github.com/theforeman/puppet-pulpcore/tree/2.2.3) (2021-05-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.3.0...2.2.3)
+
 ## [3.3.0](https://github.com/theforeman/puppet-pulpcore/tree/3.3.0) (2021-04-21)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/3.2.1...3.3.0)
