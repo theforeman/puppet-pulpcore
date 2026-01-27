@@ -1,5 +1,30 @@
 # Changelog
 
+## [14.0.0](https://github.com/theforeman/puppet-pulpcore/tree/14.0.0) (2026-01-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.3.0...14.0.0)
+
+**Breaking changes:**
+
+- Drop support for Puppet 7 [\#396](https://github.com/theforeman/puppet-pulpcore/pull/396) ([evgeni](https://github.com/evgeni))
+- Drop support for Pulpcore 3.49 [\#372](https://github.com/theforeman/puppet-pulpcore/pull/372) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- Add support for OpenVox [\#399](https://github.com/theforeman/puppet-pulpcore/pull/399) ([evgeni](https://github.com/evgeni))
+
+## [13.3.0](https://github.com/theforeman/puppet-pulpcore/tree/13.3.0) (2025-12-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.2.0...13.3.0)
+
+**Implemented enhancements:**
+
+- Add support for Pulpcore 3.85 [\#392](https://github.com/theforeman/puppet-pulpcore/pull/392) ([Odilhao](https://github.com/Odilhao))
+
+**Fixed bugs:**
+
+- Add `After=postgresql.service` to all pulpcore services [\#395](https://github.com/theforeman/puppet-pulpcore/pull/395) ([evgeni](https://github.com/evgeni))
+
 ## [13.2.0](https://github.com/theforeman/puppet-pulpcore/tree/13.2.0) (2025-11-05)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.1.0...13.2.0)
