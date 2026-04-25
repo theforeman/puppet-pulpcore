@@ -17,7 +17,7 @@ concurrency:
 jobs:
   puppet:
     name: Puppet
-    uses: voxpupuli/gha-puppet/.github/workflows/beaker.yml@v4
+    uses: ekohl/gha-puppet/.github/workflows/beaker.yml@only-pass-collection-if-set
     with:
       beaker_facter: 'pulpcore_version:Pulp:nightly,3.63,3.73,3.85'
       rubocop: false
