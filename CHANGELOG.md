@@ -1,5 +1,18 @@
 # Changelog
 
+## [14.1.0](https://github.com/theforeman/puppet-pulpcore/tree/14.1.0) (2026-04-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.0.0...14.1.0)
+
+**Implemented enhancements:**
+
+- Add apache config support for /pypi [\#400](https://github.com/theforeman/puppet-pulpcore/pull/400) ([pavanshekar](https://github.com/pavanshekar))
+- Configurable Redis URL [\#331](https://github.com/theforeman/puppet-pulpcore/pull/331) ([ekohl](https://github.com/ekohl))
+
+**Fixed bugs:**
+
+- Allow Sensitive type for password in cli.toml [\#366](https://github.com/theforeman/puppet-pulpcore/pull/366) ([rjd1](https://github.com/rjd1))
+
 ## [14.0.0](https://github.com/theforeman/puppet-pulpcore/tree/14.0.0) (2026-01-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/13.3.0...14.0.0)
