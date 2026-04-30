@@ -48,6 +48,12 @@
 # @param content_socket_path
 #   Path where the Pulpcore Content service is listening. This is a unix socket.
 #
+# @param api_control_socket_path
+#   Path for the gunicorn control socket of the API service.
+#
+# @param content_control_socket_path
+#   Path for the gunicorn control socket of the Content service.
+#
 # @param config_dir
 #   Pulp configuration directory. The settings.py file is created under this
 #   directory.
@@ -229,6 +235,8 @@ class pulpcore (
   String[1] $apache_vhost_priority = '10',
   Stdlib::Absolutepath $api_socket_path = '/run/pulpcore-api.sock',
   Stdlib::Absolutepath $content_socket_path = '/run/pulpcore-content.sock',
+  Stdlib::Absolutepath $api_control_socket_path = '/run/pulpcore-api/gunicorn.ctl',
+  Stdlib::Absolutepath $content_control_socket_path = '/run/pulpcore-content/gunicorn.ctl',
   String $postgresql_db_name = 'pulpcore',
   String $postgresql_db_user = 'pulp',
   String $postgresql_db_password = extlib::cache_data('pulpcore_cache_data', 'db_password', extlib::random_password(32)),

@@ -16,7 +16,8 @@ ExecStart=/usr/bin/pulpcore-content \
           --preload \
           --timeout <%= scope['pulpcore::content_service_worker_timeout'] %> \
           --workers <%= scope['pulpcore::content_service_worker_count'] %> \
-          --access-logfile -
+          --access-logfile - \
+          --control-socket <%= scope['pulpcore::content_control_socket_path'] %>
 ExecReload=/bin/kill -s HUP $MAINPID
 SyslogIdentifier=pulpcore-content
 

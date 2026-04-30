@@ -19,7 +19,8 @@ ExecStart=/usr/bin/pulpcore-api \
           --max-requests <%= scope['pulpcore::api_service_worker_max_requests'] %> \
           --max-requests-jitter <%= scope['pulpcore::api_service_worker_max_requests_jitter'] %> \
           --access-logfile - \
-          --access-logformat 'pulp [%({correlation-id}o)s]: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
+          --access-logformat 'pulp [%({correlation-id}o)s]: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"' \
+          --control-socket <%= scope['pulpcore::api_control_socket_path'] %>
 ExecReload=/bin/kill -s HUP $MAINPID
 ProtectSystem=full
 PrivateTmp=yes
