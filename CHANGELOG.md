@@ -1,5 +1,14 @@
 # Changelog
 
+## [14.2.0](https://github.com/theforeman/puppet-pulpcore/tree/14.2.0) (2026-05-11)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.1.0...14.2.0)
+
+**Implemented enhancements:**
+
+- puppet/extlib: Allow 8.x [\#404](https://github.com/theforeman/puppet-pulpcore/pull/404) ([bastelfreak](https://github.com/bastelfreak))
+- Set explicit gunicorn control socket path for API and content services [\#403](https://github.com/theforeman/puppet-pulpcore/pull/403) ([Odilhao](https://github.com/Odilhao))
+
 ## [14.1.0](https://github.com/theforeman/puppet-pulpcore/tree/14.1.0) (2026-04-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.0.0...14.1.0)
