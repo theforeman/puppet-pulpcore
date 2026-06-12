@@ -85,3 +85,15 @@ The module deploys a few systemd services:
 The [systemd socket activated](https://www.freedesktop.org/software/systemd/man/systemd.socket.html) services bind to a unix socket. They are always owned by the Apache user. To find this out this username, it always pulls in the [apache](https://github.com/puppetlabs/puppetlabs-apache) module, even if the vhosts are unmanaged (`$apache_http_vhost` and `$apache_https_vhost` both set to `false`).
 
 Binding to a unix socket with minimal permissions is the most secure since only Apache can connect to Pulp's services. This forces the authentication to happen and prevents [MITM attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack). Binding on TCP ports is not supported for this reason.
+
+## Experimental Pulp resource types
+
+This module provides some experimental Puppet types for managing Pulp RPM resources:
+
+* `pulpcore_rpm_remote`
+* `pulpcore_rpm_repo`
+* `pulpcore_rpm_distribution`
+
+These types are entirely optional and the rest of the module does not depend on them.
+
+Support is currently limited to a subset of the functionality provided by Pulp. Contributions and pull requests to add missing functionality are welcome.
