@@ -14,6 +14,7 @@ class pulpcore::database (
       password => postgresql::postgresql_password($pulpcore::postgresql_db_user, $pulpcore::postgresql_db_password),
       encoding => 'utf8',
       locale   => 'en_US.utf8',
+      owner    => $pulpcore::postgresql_db_user,
       before   => Pulpcore::Admin['migrate --noinput'],
       require  => Package['glibc-langpack-en'],
     }
