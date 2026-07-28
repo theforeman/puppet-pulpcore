@@ -1,5 +1,18 @@
 # Changelog
 
+## [14.3.0](https://github.com/theforeman/puppet-pulpcore/tree/14.3.0) (2026-07-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.2.0...14.3.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/concat: Allow 10.x & puppet/redis: Allow 13.x [\#407](https://github.com/theforeman/puppet-pulpcore/pull/407) ([bastelfreak](https://github.com/bastelfreak))
+- Add support for Pulpcore 3.105 [\#406](https://github.com/theforeman/puppet-pulpcore/pull/406) ([Odilhao](https://github.com/Odilhao))
+
+**Fixed bugs:**
+
+- Set database owner to fix PG 15+ schema permissions [\#409](https://github.com/theforeman/puppet-pulpcore/pull/409) ([zjhuntin](https://github.com/zjhuntin))
+
 ## [14.2.0](https://github.com/theforeman/puppet-pulpcore/tree/14.2.0) (2026-05-11)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.1.0...14.2.0)
@@ -9,7 +22,7 @@
 - puppet/extlib: Allow 8.x [\#404](https://github.com/theforeman/puppet-pulpcore/pull/404) ([bastelfreak](https://github.com/bastelfreak))
 - Set explicit gunicorn control socket path for API and content services [\#403](https://github.com/theforeman/puppet-pulpcore/pull/403) ([Odilhao](https://github.com/Odilhao))
 
-## [14.1.0](https://github.com/theforeman/puppet-pulpcore/tree/14.1.0) (2026-04-29)
+## [14.1.0](https://github.com/theforeman/puppet-pulpcore/tree/14.1.0) (2026-04-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.0.0...14.1.0)
 
