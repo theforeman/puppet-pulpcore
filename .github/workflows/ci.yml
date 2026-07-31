@@ -21,3 +21,44 @@ jobs:
     with:
       beaker_facter: 'pulpcore_version:Pulp:nightly,3.63,3.73,3.85,3.105'
       rubocop: false
+
+  # TODO: fold this back into the `puppet` job's beaker_facter matrix once
+  # Pulpcore nightly (and later 3.105) is published for EL10 on
+  # yum.theforeman.org and CentOS/RedHat/AlmaLinux 10 are added to
+  # metadata.json. metadata2gha has no way to run a subset of
+  # beaker_facter values against a subset of operatingsystem_support, so
+  # until then EL10 is tested here against the Copr staging repo instead.
+  #
+  # Uses the openvox8 collection because Puppet doesn't publish an EL10
+  # release repo yet (yum.puppet.com/puppet8-release-el-10.noarch.rpm is a
+  # 404), while OpenVox already does (yum.voxpupuli.org).
+  acceptance-el10:
+    name: "Pulp nightly - CentOS Stream 10"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      BEAKER_HYPERVISOR: container_podman
+      BUNDLE_WITHOUT: development:test:release
+      BEAKER_PUPPET_COLLECTION: openvox8
+      BEAKER_SETFILE: 'centos10-64{hostname=centos10-64.example.com}'
+      BEAKER_FACTER_pulpcore_version: nightly
+      BEAKER_FACTER_pulpcore_baseurl: https://download.copr.fedorainfracloud.org/results/@theforeman/pulpcore-nightly-staging/rhel-10-x86_64/
+      BEAKER_FACTER_pulpcore_gpgkey: https://download.copr.fedorainfracloud.org/results/@theforeman/pulpcore-nightly-staging/pubkey.gpg
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: disable apparmor
+        run: |
+          # https://bugs.launchpad.net/ubuntu/+source/apparmor/+bug/2093797
+          sudo aa-teardown || true
+          sudo systemctl disable --now apparmor.service
+      - name: Setup podman
+        run: |
+          systemctl start --user podman.socket
+          echo "DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock" >> "$GITHUB_ENV"
+      - name: Setup ruby
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rake beaker
