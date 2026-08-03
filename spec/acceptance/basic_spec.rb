@@ -33,7 +33,12 @@ describe 'with content cache enabled' do
     it { is_expected.to be_listening }
   end
 
-  describe service('redis') do
+  # RHEL/CentOS Stream 10 dropped Redis in favor of Valkey (a
+  # Redis-protocol-compatible fork); puppet-redis installs Package[valkey]/
+  # Service[valkey] there instead of Package[redis]/Service[redis].
+  redis_service_name = (fact('os.family') == 'RedHat' && fact('os.release.major').to_i >= 10) ? 'valkey' : 'redis'
+
+  describe service(redis_service_name) do
     it { is_expected.to be_running }
     it { is_expected.to be_enabled }
   end
