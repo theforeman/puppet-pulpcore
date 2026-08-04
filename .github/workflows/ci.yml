@@ -23,11 +23,15 @@ jobs:
       rubocop: false
 
   # TODO: fold this back into the `puppet` job's beaker_facter matrix once
-  # Pulpcore nightly (and later 3.105) is published for EL10 on
-  # yum.theforeman.org and CentOS/RedHat/AlmaLinux 10 are added to
-  # metadata.json. metadata2gha has no way to run a subset of
-  # beaker_facter values against a subset of operatingsystem_support, so
-  # until then EL10 is tested here against the Copr staging repo instead.
+  # CentOS/RedHat/AlmaLinux 10 are added to metadata.json. metadata2gha has
+  # no way to run a subset of beaker_facter values against a subset of
+  # operatingsystem_support (EL10 will only ever get nightly/3.105+, never
+  # 3.63/3.73/3.85), so until that's resolved EL10 is tested here as a
+  # standalone job instead. See theforeman/el10_rebuild#25.
+  #
+  # Pulpcore nightly is now published for EL10 on yum.theforeman.org, so
+  # pulpcore::repo's defaults (baseurl/gpgcheck) are used as-is - no
+  # Copr staging overrides needed.
   #
   # Uses the openvox8 collection because Puppet doesn't publish an EL10
   # release repo yet (yum.puppet.com/puppet8-release-el-10.noarch.rpm is a
@@ -42,8 +46,6 @@ jobs:
       BEAKER_PUPPET_COLLECTION: openvox8
       BEAKER_SETFILE: 'centos10-64{hostname=centos10-64.example.com}'
       BEAKER_FACTER_pulpcore_version: nightly
-      BEAKER_FACTER_pulpcore_baseurl: https://download.copr.fedorainfracloud.org/results/@theforeman/pulpcore-nightly-staging/rhel-10-x86_64/
-      BEAKER_FACTER_pulpcore_gpgkey: https://download.copr.fedorainfracloud.org/results/@theforeman/pulpcore-nightly-staging/pubkey.gpg
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: disable apparmor
