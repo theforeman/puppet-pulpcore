@@ -12,6 +12,7 @@ describe 'pulpcore' do
           is_expected.to contain_class('pulpcore::install')
           is_expected.to contain_package('pulpcore')
           is_expected.to contain_package('pulpcore-selinux')
+          is_expected.not_to contain_package('python3.11-django-storages')
           is_expected.to contain_user('pulp').with_gid('pulp').with_home('/var/lib/pulp')
           is_expected.to contain_group('pulp')
         end
@@ -49,6 +50,7 @@ describe 'pulpcore' do
                 },
             }
           LOGGING
+          is_expected.not_to contain_concat__fragment('storage')
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/etc/pulp/certs/database_fields.symmetric.key')
           is_expected.to contain_file('/var/lib/pulp')
@@ -605,6 +607,21 @@ CONTENT
                 },
             }
           LOGGING
+        end
+      end
+
+      context 'with s3 storage' do
+        let :params do
+          { storage_backend: 's3' }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_package('python3.11-django-storages') }
+
+        it 'configures pulpcore with setting STORAGES' do
+          is_expected.to contain_concat__fragment('storage').with_content(<<~STORAGE)
+            STORAGES = {"default": {"BACKEND": "storages.backends.s3.S3Storage", "OPTIONS": {}}}
+          STORAGE
         end
       end
 
