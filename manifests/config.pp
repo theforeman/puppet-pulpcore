@@ -42,8 +42,8 @@ class pulpcore::config {
   concat::fragment { 'logging':
     target  => 'pulpcore settings',
     content => epp('pulpcore/settings-logging.py.epp', {
-        'level'   => $pulpcore::log_level,
-        'loggers' => $loggers,
+      'level'   => $pulpcore::log_level,
+      'loggers' => $loggers,
     }),
     order   => '02',
   }

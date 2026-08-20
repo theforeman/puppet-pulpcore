@@ -102,7 +102,7 @@ class pulpcore::apache (
     default: {
       $http_vhost_name = $pulpcore::apache_http_vhost
       $http_fragment = epp('pulpcore/apache-fragment.epp', {
-          'directories' => [$content_directory],
+        'directories' => [$content_directory],
       })
     }
   }
@@ -140,8 +140,8 @@ class pulpcore::apache (
     default: {
       $https_vhost_name = $pulpcore::apache_https_vhost
       $https_fragment = epp('pulpcore/apache-fragment.epp', {
-          'directories' => [$content_directory, $api_directory],
-          'proxy_pass'  => [$proxy_pass_static],
+        'directories' => [$content_directory, $api_directory],
+        'proxy_pass'  => [$proxy_pass_static],
       })
     }
   }
@@ -167,8 +167,8 @@ class pulpcore::apache (
     # then conflict with the foreman module which doesn't use the selinux module.
     if $facts['os']['selinux']['enabled'] {
       ensure_resource('selboolean', 'httpd_can_network_connect', {
-          value      => 'on',
-          persistent => true,
+        value      => 'on',
+        persistent => true,
       })
     }
   }

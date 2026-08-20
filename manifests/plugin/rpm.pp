@@ -41,8 +41,8 @@ class pulpcore::plugin::rpm (
 
   if $keep_changelog_limit or $allow_automatic_unsafe_advisory_conflict_resolution {
     $rpm_plugin_config = epp('pulpcore/settings-rpm.py.epp', {
-        'allow_auacr'          => $allow_automatic_unsafe_advisory_conflict_resolution,
-        'keep_changelog_limit' => $keep_changelog_limit,
+      'allow_auacr'          => $allow_automatic_unsafe_advisory_conflict_resolution,
+      'keep_changelog_limit' => $keep_changelog_limit,
     })
   } else {
     $rpm_plugin_config = undef
