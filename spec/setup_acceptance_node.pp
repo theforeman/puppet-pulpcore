@@ -1,3 +1,12 @@
+if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9' {
+  if $facts['pulpcore_version'] == 'nightly' {
+    class { 'postgresql::globals':
+      manage_dnf_module => true,
+      version           => '16',
+    }
+  }
+}
+
 class { 'pulpcore::repo':
   version => fact('pulpcore_version'),
   baseurl => fact('pulpcore_baseurl'),
