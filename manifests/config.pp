@@ -48,6 +48,24 @@ class pulpcore::config {
     order   => '02',
   }
 
+  if $pulpcore::storage_backend == 's3' {
+    $storages = {
+      'default'     => {
+        'BACKEND' => 'storages.backends.s3.S3Storage',
+        'OPTIONS' => $pulpcore::storage_options,
+      },
+      'staticfiles' => {
+        'BACKEND' => 'django.contrib.staticfiles.storage.StaticFilesStorage',
+      },
+    }
+
+    concat::fragment { 'storage':
+      target  => 'pulpcore settings',
+      content => "STORAGES = ${stdlib::to_python($storages)}\n",
+      order   => '03',
+    }
+  }
+
   file { $pulpcore::user_home:
     ensure => directory,
     owner  => $pulpcore::user,
@@ -55,11 +73,20 @@ class pulpcore::config {
     mode   => '0775',
   }
 
-  file { [$pulpcore::cache_dir, $pulpcore::media_root]:
+  file { $pulpcore::cache_dir:
     ensure => directory,
     owner  => $pulpcore::user,
     group  => $pulpcore::group,
     mode   => '0750',
+  }
+
+  if $pulpcore::storage_backend == 'file' {
+    file { $pulpcore::media_root:
+      ensure => directory,
+      owner  => $pulpcore::user,
+      group  => $pulpcore::group,
+      mode   => '0750',
+    }
   }
 
   file { unique($pulpcore::allowed_import_path + $pulpcore::allowed_export_path):
