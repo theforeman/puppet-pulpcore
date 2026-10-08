@@ -7,6 +7,7 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
   let(:resource_name) { 'test_repo' }
   let(:remote_name) { 'test_remote' }
   let(:description) { 'Test repository' }
+  let(:signing_service_name) { 'test_signing_service' }
 
   def new_resource(attributes = {})
     Puppet::Type.type(:pulpcore_rpm_repo).new(
@@ -85,7 +86,8 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
         description: description,
         remote: remote_name,
         retain_package_versions: '10',
-        retain_repo_versions: '3'
+        retain_repo_versions: '3',
+        metadata_signing_service: signing_service_name
       )
 
       stub_pulp(provider)
@@ -105,7 +107,9 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
         '--retain-package-versions',
         10,
         '--retain-repo-versions',
-        3
+        3,
+        '--metadata-signing-service',
+        signing_service_name
       )
     end
 
@@ -113,7 +117,8 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
       provider = new_provider(
         description: :absent,
         remote: :absent,
-        retain_repo_versions: :absent
+        retain_repo_versions: :absent,
+        metadata_signing_service: :absent
       )
 
       stub_pulp(provider)
@@ -172,6 +177,7 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
       provider.remote = remote_name
       provider.retain_package_versions = 10
       provider.retain_repo_versions = 3
+      provider.metadata_signing_service = signing_service_name
 
       stub_pulp(provider)
 
@@ -190,7 +196,9 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
         '--retain-package-versions',
         10,
         '--retain-repo-versions',
-        3
+        3,
+        '--metadata-signing-service',
+        signing_service_name
       )
     end
 
@@ -200,6 +208,7 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
       provider.description = :absent
       provider.remote = :absent
       provider.retain_repo_versions = :absent
+      provider.metadata_signing_service = :absent
 
       stub_pulp(provider)
 
@@ -216,6 +225,8 @@ describe Puppet::Type.type(:pulpcore_rpm_repo).provider(:cli) do
         '--remote',
         '',
         '--retain-repo-versions',
+        '',
+        '--metadata-signing-service',
         ''
       )
     end

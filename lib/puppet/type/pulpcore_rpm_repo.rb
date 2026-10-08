@@ -55,6 +55,13 @@ Puppet::Type.newtype(:pulpcore_rpm_repo) do
     munge { |value| @resource.munge_boolean_to_symbol(value) }
   end
 
+  newproperty(:metadata_signing_service) do
+    desc 'The name of the metadata signing service to configure on this repository.  Set to `absent` to remove.'
+
+    newvalue(:absent)
+    newvalue(%r{\A.+\z})
+  end
+
   autorequire(:pulpcore_rpm_remote) do
     if self[:remote] && self[:remote] != :absent
       [self[:remote]]

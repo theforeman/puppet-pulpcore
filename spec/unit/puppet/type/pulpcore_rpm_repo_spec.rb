@@ -129,6 +129,22 @@ describe Puppet::Type.type(:pulpcore_rpm_repo) do
     end
   end
 
+  describe 'metadata_signing_service' do
+    it 'accepts a signing service name' do
+      expect(new_resource(metadata_signing_service: 'test_signing_service')[:metadata_signing_service]).to eq('test_signing_service')
+    end
+
+    it 'accepts absent' do
+      expect(new_resource(metadata_signing_service: 'absent')[:metadata_signing_service]).to eq(:absent)
+    end
+
+    it 'rejects an empty string' do
+      expect do
+        new_resource(metadata_signing_service: '')
+      end.to raise_error(Puppet::Error)
+    end
+  end
+
   describe 'autorequire' do
     it 'autorequires the configured remote' do
       catalog = Puppet::Resource::Catalog.new
