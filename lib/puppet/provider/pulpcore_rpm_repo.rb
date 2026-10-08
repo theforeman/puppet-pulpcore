@@ -12,10 +12,11 @@ class Puppet::Provider::PulpcoreRpmRepo < Puppet::Provider::Pulpcore
     :description,
     :remote,
     :retain_package_versions,
-    :retain_repo_versions
+    :retain_repo_versions,
+    :metadata_signing_service
   )
   mk_property_flush_setters(:autopublish, :retain_package_versions)
-  mk_absent_clearing_setters(:description, :remote, :retain_repo_versions)
+  mk_absent_clearing_setters(:description, :remote, :retain_repo_versions, :metadata_signing_service)
 
   def self.resource_properties_from_api_hash(repo_properties)
     resource_properties = {
@@ -27,7 +28,8 @@ class Puppet::Provider::PulpcoreRpmRepo < Puppet::Provider::Pulpcore
       remote: name_by_href(repo_properties['remote']),
       retain_package_versions: repo_properties['retain_package_versions'],
       retain_repo_versions: repo_properties['retain_repo_versions'] || :absent,
-      autopublish: repo_properties['autopublish'] ? :true : :false
+      autopublish: repo_properties['autopublish'] ? :true : :false,
+      metadata_signing_service: name_by_href(repo_properties['metadata_signing_service'])
     }
 
     debug "Repository resource properties: #{resource_properties.inspect}"

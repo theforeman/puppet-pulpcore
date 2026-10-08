@@ -25,6 +25,8 @@ Puppet::Type.type(:pulpcore_rpm_repo).provide(:cli, parent: Puppet::Provider::Pu
 
     command_arguments << '--retain-repo-versions' << resource[:retain_repo_versions] if resource[:retain_repo_versions] && resource[:retain_repo_versions] != :absent
 
+    command_arguments << '--metadata-signing-service' << resource[:metadata_signing_service] if resource[:metadata_signing_service] && resource[:metadata_signing_service] != :absent
+
     case resource[:autopublish]
     when :true
       command_arguments << '--autopublish'
@@ -44,6 +46,8 @@ Puppet::Type.type(:pulpcore_rpm_repo).provide(:cli, parent: Puppet::Provider::Pu
     command_arguments << '--retain-package-versions' << @property_flush[:retain_package_versions] if @property_flush.key?(:retain_package_versions)
 
     command_arguments << '--retain-repo-versions' << @property_flush[:retain_repo_versions] if @property_flush.key?(:retain_repo_versions)
+
+    command_arguments << '--metadata-signing-service' << @property_flush[:metadata_signing_service] if @property_flush.key?(:metadata_signing_service)
 
     case @property_flush[:autopublish]
     when :true

@@ -9,6 +9,8 @@ describe Puppet::Provider::PulpcoreRpmRepo do
   let(:remote_href) { '/pulp/api/v3/remotes/rpm/rpm/test_remote/' }
   let(:provider) { described_class.new(name: resource_name, ensure: :present) }
   let(:description) { 'Test repository' }
+  let(:signing_service_name) { 'test_signing_service' }
+  let(:signing_service_href) { '/pulp/api/v3/signing-services/test_signing_service/' }
 
   def property_flush(provider)
     provider.instance_variable_get(:@property_flush)
@@ -27,12 +29,17 @@ describe Puppet::Provider::PulpcoreRpmRepo do
         'remote' => remote_href,
         'retain_package_versions' => 10,
         'retain_repo_versions' => 3,
-        'autopublish' => true
+        'autopublish' => true,
+        'metadata_signing_service' => signing_service_href
       }
     end
 
+    before do
+      allow(described_class).to receive(:api_hash_by_href).with(remote_href).and_return('name' => remote_name)
+      allow(described_class).to receive(:api_hash_by_href).with(signing_service_href).and_return('name' => signing_service_name)
+    end
+
     it 'maps Pulp API fields to Puppet provider properties' do
-      allow(described_class).to receive(:api_hash_by_href).and_return('name' => remote_name)
 
       expect(described_class.resource_properties_from_api_hash(repo_api_hash)).to eq(
         name: resource_name,
@@ -42,10 +49,12 @@ describe Puppet::Provider::PulpcoreRpmRepo do
         remote: remote_name,
         retain_package_versions: 10,
         retain_repo_versions: 3,
-        autopublish: :true
+        autopublish: :true,
+        metadata_signing_service: signing_service_name
       )
 
       expect(described_class).to have_received(:api_hash_by_href).with(remote_href)
+      expect(described_class).to have_received(:api_hash_by_href).with(signing_service_href)
     end
 
     it 'maps nil removable fields to :absent' do
@@ -53,11 +62,13 @@ describe Puppet::Provider::PulpcoreRpmRepo do
       api_hash['description'] = nil
       api_hash['remote'] = nil
       api_hash['retain_repo_versions'] = nil
+      api_hash['metadata_signing_service'] = nil
 
       expect(described_class.resource_properties_from_api_hash(api_hash)).to include(
         description: :absent,
         remote: :absent,
-        retain_repo_versions: :absent
+        retain_repo_versions: :absent,
+        metadata_signing_service: :absent
       )
     end
 
@@ -117,6 +128,18 @@ describe Puppet::Provider::PulpcoreRpmRepo do
       provider.autopublish = :true
 
       expect(property_flush(provider)).to eq(autopublish: :true)
+    end
+
+    it 'stores metadata_signing_service changes in property_flush' do
+      provider.metadata_signing_service = signing_service_name
+
+      expect(property_flush(provider)).to eq(metadata_signing_service: signing_service_name)
+    end
+
+    it 'stores an empty string when metadata_signing_service is set to absent' do
+      provider.metadata_signing_service = :absent
+
+      expect(property_flush(provider)).to eq(metadata_signing_service: '')
     end
   end
 end
