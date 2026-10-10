@@ -12,6 +12,7 @@ describe 'pulpcore' do
           is_expected.to contain_class('pulpcore::install')
           is_expected.to contain_package('pulpcore')
           is_expected.to contain_package('pulpcore-selinux')
+          is_expected.not_to contain_package('pulpcore-storage-s3')
           is_expected.to contain_user('pulp').with_gid('pulp').with_home('/var/lib/pulp')
           is_expected.to contain_group('pulp')
         end
@@ -49,6 +50,7 @@ describe 'pulpcore' do
                 },
             }
           LOGGING
+          is_expected.not_to contain_concat__fragment('storage')
           is_expected.to contain_file('/etc/pulp')
           is_expected.to contain_file('/etc/pulp/certs/database_fields.symmetric.key')
           is_expected.to contain_file('/var/lib/pulp')
@@ -466,6 +468,38 @@ CONTENT
           is_expected.to contain_concat__fragment('base')
             .with_content(%r{MEDIA_ROOT = "/my/media/root"})
             .with_content(%r{STATIC_ROOT = "/my/other/custom/directory"})
+        end
+      end
+
+      context 'with S3-compatible storage' do
+        let :params do
+          {
+            storage_backend: 's3',
+            storage_options: {
+              'bucket_name' => 'pulp',
+              'endpoint_url' => 'https://object.example.test',
+              'addressing_style' => 'path',
+            },
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it 'installs the storage dependencies' do
+          is_expected.to contain_package('pulpcore-storage-s3')
+        end
+
+        it 'configures S3 without changing static file storage' do
+          is_expected.to contain_concat__fragment('base')
+            .without_content(%r{^MEDIA_ROOT =})
+          is_expected.to contain_concat__fragment('storage').with_content(<<~STORAGE)
+            STORAGES = {"default": {"BACKEND": "storages.backends.s3.S3Storage", "OPTIONS": {"bucket_name": "pulp", "endpoint_url": "https://object.example.test", "addressing_style": "path"}}, "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"}}
+          STORAGE
+        end
+
+        it 'does not manage a local media directory' do
+          is_expected.not_to contain_file('/var/lib/pulp/media')
+          is_expected.to contain_file('/var/lib/pulp/tmp')
         end
       end
 
