@@ -29,6 +29,11 @@ describe 'with content cache enabled' do
 
   include_examples 'the default pulpcore application'
 
+  describe command('sudo -u pulp PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager check --deploy') do
+    its(:exit_status) { is_expected.to eq 0 }
+    its(:stderr) { is_expected.not_to match(/System check identified some issues:/) }
+  end
+
   describe port(6379) do
     it { is_expected.to be_listening }
   end
