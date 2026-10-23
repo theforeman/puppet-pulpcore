@@ -6,6 +6,12 @@ class pulpcore::install {
     ensure => present,
   }
 
+  if $pulpcore::storage_backend == 's3' {
+    package { 'pulpcore-storage-s3':
+      ensure => present,
+    }
+  }
+
   if $facts['os']['selinux']['enabled'] {
     package { 'pulpcore-selinux':
       ensure => present,
