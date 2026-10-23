@@ -1,5 +1,23 @@
 # Changelog
 
+## [15.0.0](https://github.com/theforeman/puppet-pulpcore/tree/15.0.0) (2026-10-23)
+
+[Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.3.0...15.0.0)
+
+**Breaking changes:**
+
+- Drop testing on puppet [\#415](https://github.com/theforeman/puppet-pulpcore/pull/415) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- puppetlabs/stdlib: Allow 10.x & puppet/systemd: Allow 10.x [\#420](https://github.com/theforeman/puppet-pulpcore/pull/420) ([bastelfreak](https://github.com/bastelfreak))
+- Add `metadata_signing_service` property to `pulpcore_rpm_repo` [\#419](https://github.com/theforeman/puppet-pulpcore/pull/419) ([alexjfisher](https://github.com/alexjfisher))
+- Add types and providers for Pulpcore RPM resources [\#408](https://github.com/theforeman/puppet-pulpcore/pull/408) ([alexjfisher](https://github.com/alexjfisher))
+
+**Merged pull requests:**
+
+- Assert valkey service on EL10 in redis acceptance test [\#412](https://github.com/theforeman/puppet-pulpcore/pull/412) ([Odilhao](https://github.com/Odilhao))
+
 ## [14.3.0](https://github.com/theforeman/puppet-pulpcore/tree/14.3.0) (2026-07-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-pulpcore/compare/14.2.0...14.3.0)
