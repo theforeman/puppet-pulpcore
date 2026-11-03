@@ -12,7 +12,8 @@ class pulpcore::plugin::container (
         'path'            => $location_prefix,
         'proxy_pass'      => [
           {
-            'url' => $pulpcore::apache::api_base_url,
+            'url'    => $pulpcore::apache::api_base_url,
+            'params' => $pulpcore::apache::content_proxy_params,
           },
         ],
         'request_headers' => $pulpcore::apache::api_default_request_headers + $pulpcore::apache::api_additional_request_headers,

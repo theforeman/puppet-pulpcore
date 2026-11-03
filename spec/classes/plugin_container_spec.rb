@@ -25,7 +25,7 @@ describe 'pulpcore::plugin::container' do
   <Location "/pulpcore_registry">
     RequestHeader unset REMOTE-USER
     RequestHeader unset REMOTE_USER
-    ProxyPass unix:///run/pulpcore-api.sock|http://pulpcore-api
+    ProxyPass unix:///run/pulpcore-api.sock|http://pulpcore-api disablereuse=on timeout=600
     ProxyPassReverse unix:///run/pulpcore-api.sock|http://pulpcore-api
   </Location>
 
@@ -54,7 +54,7 @@ APACHE_CONFIG
     RequestHeader unset REMOTE-USER
     RequestHeader unset REMOTE_USER
     RequestHeader set REMOTE-USER "admin" "expr=%{tolower:%{SSL_CLIENT_S_DN_CN}} == 'foreman.example.com'"
-    ProxyPass unix:///run/pulpcore-api.sock|http://pulpcore-api
+    ProxyPass unix:///run/pulpcore-api.sock|http://pulpcore-api disablereuse=on timeout=600
     ProxyPassReverse unix:///run/pulpcore-api.sock|http://pulpcore-api
   </Location>
 
