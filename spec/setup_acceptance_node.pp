@@ -1,5 +1,5 @@
 if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9' {
-  if $facts['pulpcore_version'] == 'nightly' {
+  if $facts['pulpcore_version'] in ['nightly', '3.118'] {
     class { 'postgresql::globals':
       manage_dnf_module => true,
       version           => '16',
