@@ -73,6 +73,26 @@ PULP_SETTINGS=/etc/pulp/settings.py pulpcore-manager diffsettings | grep WORKER_
 
 This is useful for module parameter which configure Pulpcore settings but have an `undef` default, such as `$worker_ttl`.  When the param value is `undef`, the setting is omitted from `settings.py` and therefore Pulpcore's default is used.
 
+### S3-compatible object storage
+
+Set `storage_backend` to `s3` and pass the options supported by
+[`django-storages`](https://django-storages.readthedocs.io/en/stable/backends/amazon-S3.html):
+
+```puppet
+class { 'pulpcore':
+  storage_backend => 's3',
+  storage_options => {
+    'bucket_name' => 'pulp',
+    'endpoint_url' => 'https://object.example.test',
+    'addressing_style' => 'path',
+  },
+}
+```
+
+The module installs the `pulpcore-storage-s3` package capability, omits
+`MEDIA_ROOT` so Django's default empty value applies, and preserves local Django
+static-file storage. Filesystem content storage remains the default.
+
 ## Service setup
 
 The module deploys a few systemd services:

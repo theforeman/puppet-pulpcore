@@ -43,7 +43,9 @@ REDIS_URL = "<%= @redis_url %>"
 WORKER_TTL = <%= scope['pulpcore::worker_ttl'] %>
 <% end -%>
 
+<% if scope['pulpcore::storage_backend'] == 'file' -%>
 MEDIA_ROOT = "<%= scope['pulpcore::media_root'] %>"
+<% end -%>
 STATIC_ROOT = "<%= scope['pulpcore::static_root'] %>"
 STATIC_URL = "<%= scope['pulpcore::static_url'] %>"
 FILE_UPLOAD_TEMP_DIR = "<%= scope['pulpcore::cache_dir'] %>"
