@@ -214,6 +214,13 @@
 #   What percentage of available-workers will pulpcore use for import tasks at a time.
 #   By default, pulpcore will use all available workers.
 #
+# @param storage_backend
+#   Storage backend used for Pulp content. The default keeps local filesystem
+#   storage. Set to s3 to use S3 or an S3-compatible object store.
+#
+# @param storage_options
+#   Options passed to django-storages when storage_backend is s3.
+#
 # @example Default configuration
 #   include pulpcore
 #
@@ -282,6 +289,8 @@ class pulpcore (
   Optional[Boolean] $analytics = undef,
   Optional[Boolean] $hide_guarded_distributions = undef,
   Optional[Integer[1,100]] $import_workers_percent = undef,
+  Enum['file', 's3'] $storage_backend = 'file',
+  Hash[String[1], Any] $storage_options = {},
 ) {
   $settings_file = "${config_dir}/settings.py"
   $certs_dir = "${config_dir}/certs"
